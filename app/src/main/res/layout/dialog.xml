@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:text="Select Image Source..."
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    <Button
+        android:id="@+id/album"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/camera"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="-83dp"
+        android:background="@drawable/common_google_signin_btn_text_light"
+        android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
+        android:text="Select From Album"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="83dp"
+        android:background="@drawable/common_google_signin_btn_text_light"
+        android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
+        android:text="Take A Picture"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+</RelativeLayout>

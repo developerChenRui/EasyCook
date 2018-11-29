@@ -1,6 +1,7 @@
 package com.example.chenrui.easycook;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 public class MyRecipes extends Fragment implements RecyclerViewClickListener {
     private RecyclerView lstRecipes;
     private MyRecipesAdapter rvAdapter;
+    private Button addRecipe;
 
     public MyRecipes() {
         // Required empty public constructor
@@ -45,6 +48,15 @@ public class MyRecipes extends Fragment implements RecyclerViewClickListener {
         lstRecipes.setItemAnimator(new DefaultItemAnimator());
         lstRecipes.setAdapter(rvAdapter);
 
+        addRecipe = view.findViewById(R.id.addRecipe);
+        addRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(view.getContext(),CreateRecipeActivity.class);
+                startActivity(i);
+            }
+        });
+
         return view;
     }
 
@@ -58,6 +70,7 @@ class MyRecipesAdapter extends RecyclerView.Adapter<MyRecipesAdapter.MyViewHolde
     private RecyclerViewClickListener clickListener;
     private String[] recipeNames;
     private ArrayList<Integer> recipeImages;
+
 
     public MyRecipesAdapter(String[] recipeNames, ArrayList<Integer> recipeImages){
         this.recipeNames= recipeNames;
@@ -82,6 +95,7 @@ class MyRecipesAdapter extends RecyclerView.Adapter<MyRecipesAdapter.MyViewHolde
 
         myViewHolder.txtRecipe.setText(this.recipeNames[position]);
         myViewHolder.imgRecipe.setImageResource(recipeImages.get(position).intValue());
+
     }
 
     @Override
@@ -97,7 +111,9 @@ class MyRecipesAdapter extends RecyclerView.Adapter<MyRecipesAdapter.MyViewHolde
             super(itemView);
             imgRecipe = itemView.findViewById(R.id.imgRecipe);
             txtRecipe = itemView.findViewById(R.id.txtRecipe);
+
             itemView.setOnClickListener(this);
+
         }
 
         @Override

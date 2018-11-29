@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/CustomActionBarTheme"
         >
+        <activity android:name=".CreateRecipeActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
         <activity android:name=".WelcomeScreenActivity"
             android:theme="@style/WelcomeScreenTheme"/>
         <activity android:name=".SplashScreenActivity" android:theme="@style/SplashTheme">

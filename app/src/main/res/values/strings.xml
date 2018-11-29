@@ -7,4 +7,15 @@
     <string name="my_private_recipes">Private</string>
     <string name="favorites">Favorites</string>
     <string name="my_recipes">My Recipes</string>
+
+
+    <string name="recipe_name">Recipe Name:</string>
+
+    <string-array name="units">
+
+        　　　　　　<item>g</item>
+
+        　　　　　　<item>ml</item>
+
+    </string-array>
 </resources>

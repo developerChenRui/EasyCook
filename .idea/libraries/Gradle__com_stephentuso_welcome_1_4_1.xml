@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.stephentuso:welcome-1.4.1">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/welcome-1.4.1.aar/7c98d56c49180f5145b72de079d59365/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/welcome-1.4.1.aar/7c98d56c49180f5145b72de079d59365/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.stephentuso/welcome/1.4.1/976875ed63fde7e88d2a7b5418a8d2792aeacc25/welcome-1.4.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
