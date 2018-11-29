@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">EasyCook</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="my_public_recipes">Public</string>
+    <string name="my_private_recipes">Private</string>
+    <string name="favorites">Favorites</string>
+    <string name="my_recipes">My Recipes</string>
+</resources>

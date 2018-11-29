@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "334026851844",
+    "firebase_url": "https://easycook-f71e9.firebaseio.com",
+    "project_id": "easycook-f71e9",
+    "storage_bucket": "easycook-f71e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334026851844:android:fcce95959d3d6bcf",
+        "android_client_info": {
+          "package_name": "com.example.chenrui.easycook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334026851844-vjff8mna54mhh22ffjk3gkrfj4m49lqn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chenrui.easycook",
+            "certificate_hash": "26cf000883d29a078b57e18e23a9cef717f953ef"
+          }
+        },
+        {
+          "client_id": "334026851844-pifm4purtqpi8rbdula3o97ih7uikdku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCtx8t0moO0YxVFRHPPKfQcdRYKJp3SvI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334026851844-pifm4purtqpi8rbdula3o97ih7uikdku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

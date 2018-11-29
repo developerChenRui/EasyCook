@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="restext">
+        <item>"1 Onion"</item>
+        <item>"2 Potatos"</item>
+        <item>"3 Tomatos"</item>
+        <item>"1L Oil"</item>
+        <item>"Rice"</item>
+        <item>"Banana"</item>
+        <item>"1.5 Pound Beef"</item>
+        <item>"Sauce"</item>
+        <item>"Salt"</item>
+        <item>"1 bottle of Water"</item>
+        <item>"2.5 Pound Pork"</item>
+        <item>"Garlic for 2"</item>
+    </array>
+
+</resources>

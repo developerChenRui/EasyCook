@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StepByStepActivity"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/stepToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageButton
+                android:layout_marginRight="10dp"
+                android:id="@+id/btnClose"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:src="@drawable/close"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitXY"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/stepCount"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:orientation="vertical"
+        android:id="@+id/stepImage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:scaleType="fitXY">
+
+    </ImageView>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:id="@+id/controlFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6">
+        <ImageView
+            android:id="@+id/left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="15dp"
+            android:src="@drawable/left"/>
+
+        <TextView
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="30dp"
+            android:textSize="20dp"
+            android:textStyle="italic"
+            android:id="@+id/step_description"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/left"
+            android:layout_toLeftOf="@id/right"/>
+
+        <ImageView
+            android:id="@+id/right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="15dp"
+            android:src="@drawable/right"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <com.robertlevonyan.views.customfloatingactionbutton.FloatingLayout
+            android:id="@+id/modeSelection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:fabMenuStyle="popRight"
+            >
+
+            <com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton
+
+                android:id="@+id/step_by_step_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                app:fabColor="@color/yellow"
+                app:fabIconPosition="start"
+                app:fabRippleColor="@color/black"
+                app:fabSizes="normal"
+                app:fabIcon="@drawable/tools"
+                app:fabTextColor="@color/white"
+                app:fabType="circle" />
+            <com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton
+
+                android:id="@+id/voiceControl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                app:fabColor="@color/red"
+                app:fabIconPosition="start"
+                app:fabRippleColor="@color/black"
+                app:fabSizes="normal"
+                app:fabIcon="@drawable/voice_control"
+                app:fabTextColor="@color/white"
+                app:fabType="circle" />
+            <com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton
+                android:id="@+id/gestureControl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                app:fabColor="@color/blue"
+                app:fabIconPosition="start"
+                app:fabRippleColor="@color/black"
+                app:fabSizes="normal"
+                app:fabIcon="@drawable/gesture_control"
+                app:fabTextColor="@color/white"
+                app:fabType="circle" />
+
+            <com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton
+                android:id="@+id/setClock"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                app:fabColor="@color/yellow_light"
+                app:fabIconPosition="start"
+                app:fabRippleColor="@color/black"
+                app:fabSizes="normal"
+                app:fabIcon="@drawable/set_clock"
+                app:fabTextColor="@color/white"
+                app:fabType="circle" />
+        </com.robertlevonyan.views.customfloatingactionbutton.FloatingLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

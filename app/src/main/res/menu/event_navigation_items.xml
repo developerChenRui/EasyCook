@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    >
+
+    <item
+        android:id="@+id/search"
+        android:enabled="true"
+        android:icon="@drawable/search"
+        android:title="Recipe"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/shoppingList"
+        android:enabled="true"
+        android:icon="@drawable/menulist"
+        android:title="Shopping List"
+        app:showAsAction="ifRoom"
+        />
+
+
+    <item
+        android:id="@+id/favorite"
+        android:enabled="true"
+        android:icon="@drawable/heart"
+        android:title="Favorite"
+        app:showAsAction="ifRoom"
+        />
+</menu>
+

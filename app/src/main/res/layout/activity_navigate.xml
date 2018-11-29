@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/relativelayout_event"
+        android:layout_above="@+id/navigation"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/FragLayout"
+        android:layout_above="@id/navigation">
+    </LinearLayout>
+
+    <!-- add botton navigation view to the app-->
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/cardview_light_background"
+        app:itemBackground="@color/cardview_light_background"
+        app:menu="@menu/event_navigation_items"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector" />
+
+</RelativeLayout>

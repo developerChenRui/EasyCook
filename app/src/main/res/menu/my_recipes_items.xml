@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/favorites"
+        android:enabled="true"
+        android:title="Favorites"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/myrecipes"
+        android:enabled="true"
+        android:title="My Recipes"
+        app:showAsAction="always" />
+
+</menu>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".DishItemActivity"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/back"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_alignParentStart="true"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_below="@id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:background="@color/moduler"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:src="@drawable/hamburger"
+                android:scaleType="fitXY"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/separateLine"/>
+
+            <TextView
+                android:id="@+id/dishTitle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textSize="27dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="Hamburger"/>
+
+            <TextView
+                android:id="@+id/dishDescription"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textStyle="italic"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="14dp"
+                android:autoSizeStepGranularity="2sp"
+                android:text="    The most popular fast food in the world..."/>
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.willy.ratingbar.RotationRatingBar
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/RatingStar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srb_numStars="5"
+                    app:srb_minimumStars="1"
+                    app:srb_rating="2"
+                    app:srb_starWidth="30dp"
+                    app:srb_starHeight="30dp"
+                    app:srb_starPadding="15dp"
+                    app:srb_stepSize="0.5"
+                    app:srb_isIndicator="false"
+                    app:srb_clickable="true"
+                    app:srb_scrollable="true"
+                    app:srb_clearRatingEnabled="true"
+                    app:srb_drawableEmpty="@drawable/empty"
+                    app:srb_drawableFilled="@drawable/filled">
+                </com.willy.ratingbar.RotationRatingBar>
+
+                <TextView
+                    android:layout_alignTop="@+id/RatingStar"
+                    android:layout_alignBottom="@id/RatingStar"
+                    android:layout_toRightOf="@id/RatingStar"
+                    android:id="@+id/numOfReviewer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="124"/>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/profile"
+                    android:id="@+id/profile"
+                    android:scaleType="fitXY"
+
+                    />
+
+                <TextView
+                    android:paddingLeft="10dp"
+                    android:gravity="center"
+                    android:layout_alignTop="@+id/profile"
+                    android:layout_alignBottom="@+id/profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/profile"
+                    android:textStyle="bold"
+                    android:text="By Mary"
+                    android:textColor="@color/black"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/white"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/moduler"
+                android:text="Ingredients"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textColor="@color/black"/>
+
+           <!-- ingredient check box : this part should be able to create the checkbox according to the num of ingredients-->
+
+            <LinearLayout
+                android:id="@+id/IngredientCheckbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <CheckBox
+                    android:text="    1/2 onion"
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textSize="20dp"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/separateLine"/>
+
+                <CheckBox
+                    android:text="    1 beef"
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textSize="20dp"
+/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/separateLine"/>
+
+                <CheckBox
+                    android:text="    1 cup oil"
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textSize="20dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/separateLine"/>
+
+                <CheckBox
+                    android:text="    1 cup salt"
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <!-- this part should be able to create the checkbox according to the num of ingredients-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/moduler"
+                android:text="Instructions"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textColor="@color/black"/>
+
+            <!-- instruction text : this part should be able to create the checkbox according to the num of ingredients-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/clock"
+                        android:scaleType="fitXY"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="20dp"
+                        android:text="20m"
+                        android:gravity="center"
+                        android:textSize="15dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/instructions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="30dp">
+                    <TextView
+                        android:paddingTop="16dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:text="1. Preheat the oven to 350 degrees"/>
+                    <TextView
+                        android:paddingTop="16dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:text="2. put onion in the pot"/>
+                    <TextView
+                        android:paddingTop="16dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:text="3. cut the beef"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/moduler"
+                    android:text="Reviews (124)"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <ImageView
+                        android:id="@+id/add"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginLeft="20dp"
+                        android:src="@drawable/addhere"/>
+                    <TextView
+                        android:paddingLeft="20dp"
+                        android:gravity="center"
+                        android:textSize="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Tap here to add your review!"/>
+                </LinearLayout>
+
+            </LinearLayout>
+w
+            <!-- this part should be able to create the checkbox according to the num of ingredients-->
+
+            <android.support.v7.widget.RecyclerView
+                android:paddingBottom="50dp"
+                android:id="@+id/recyclerReview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+
+
+        </LinearLayout>
+
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        >
+
+        <com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton
+            android:id="@+id/step_by_step_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:layout_marginLeft="47dp"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold"
+            app:fabColor="@color/floating"
+            app:fabElevation="20dp"
+            app:fabIconPosition="start"
+            app:fabRippleColor="@color/black"
+            app:fabSizes="mini"
+            app:fabText="  Step  By  Step  Guide"
+            app:fabTextColor="@color/white"
+            app:fabType="roundedSquare" />
+   </LinearLayout>
+<!--    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="50dp"/>
+    </LinearLayout>-->
+
+
+
+</RelativeLayout>

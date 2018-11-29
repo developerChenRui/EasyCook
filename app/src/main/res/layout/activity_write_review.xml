@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WriteReviewActivity"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/reviewToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageButton
+                android:layout_marginRight="10dp"
+                android:id="@+id/btnCloseReview"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:src="@drawable/close"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitXY"
+                />
+            <TextView
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="My Review"/>
+            <ImageButton
+                android:layout_marginRight="10dp"
+                android:id="@+id/btnSaveReview"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:src="@drawable/save"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitXY" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+
+    <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:layout_gravity="center"
+        android:id="@+id/RatingStarInReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srb_clearRatingEnabled="false"
+        app:srb_clickable="true"
+        app:srb_drawableEmpty="@drawable/empty_normal_star"
+        app:srb_drawableFilled="@drawable/filled_blue_star"
+        app:srb_isIndicator="false"
+        app:srb_rating="4"
+        app:srb_numStars="5"
+        app:srb_scrollable="true"
+        app:srb_starHeight="20dp"
+        app:srb_starPadding="7dp"
+        app:srb_starWidth="20dp"
+        app:srb_stepSize="0.5"></com.willy.ratingbar.ScaleRatingBar>
+    
+    <EditText
+        android:id="@+id/editReview"
+        android:gravity="start"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/review_edit_area"
+        android:scrollbars="vertical"
+        android:textSize="20dp"
+        android:hint="input your review here..."
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/addImageToReview"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:src="@drawable/add_image"/>
+
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:id="@+id/deleteImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/delete_image"/>
+    </LinearLayout>
+
+</LinearLayout>

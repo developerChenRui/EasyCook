@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+<!--    <item
+        android:layout_gravity="left"
+        android:title="back"
+        android:enabled="true"
+        android:id="@+id/back"
+        android:icon="@drawable/back"
+        app:showAsAction="always"
+        />-->
+
+    <item
+        android:id="@+id/share" android:icon="@android:drawable/ic_menu_share" app:showAsAction="always"
+        android:title="share"/>
+    <item
+        android:id="@+id/heart" android:icon="@drawable/heart"
+        app:showAsAction="always|withText" android:title="heart"/>
+
+
+</menu>
