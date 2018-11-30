@@ -9,10 +9,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
+import com.willy.ratingbar.RotationRatingBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +30,19 @@ public class DishItemActivity extends AppCompatActivity {
     FloatingActionButton stepBystepGuide;
     ImageView btnAdd;
 
+    ImageView dishImage;
+    TextView dishTitle;
+    TextView dishDescription;
+    RotationRatingBar ratingStar;
+    TextView numOfReviewer;
+    ImageView profile;
+    TextView makerName;
+    TextView cookTime;
+
 
     // fake data
     static List<Integer> profiles = new ArrayList<>();
-    static List<String> names = new ArrayList<>();
+    static List<String> reviewerNames = new ArrayList<>();
     static List<Float> starNum = new ArrayList<>();
     static List<String> reviewers = new ArrayList<>();
     static  List<String> dates = new ArrayList<>();
@@ -38,12 +52,75 @@ public class DishItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish_item);
 
+        // get data from the previous activity
+            // get the bundle from the DiscoveryFragment
+        Bundle bundle = getIntent().getExtras();
+
+           // covert bundle to recipe object
+        Recipe recipe = Utils.Bundle2Recipe(bundle);
+
+
+
+        // initialize the components of layout
+        dishImage = findViewById(R.id.dishImage);
+        dishTitle = findViewById(R.id.dishTitle);
+        dishDescription = findViewById(R.id.dishDescription);
+        ratingStar = findViewById(R.id.RatingStar);
+        numOfReviewer = findViewById(R.id.numOfReviewer);
+        makerName = findViewById(R.id.makerName);
+        cookTime = findViewById(R.id.cookTime);
+           // set the components
+        dishImage.setImageBitmap(recipe.getRecipeImage());
+        dishTitle.setText(recipe.getRecipeName());
+        dishDescription.setText(recipe.getBriefDescription());
+        ratingStar.setRating(recipe.getRating());
+        numOfReviewer.setText(recipe.getNumOfReviewer());
+        makerName.setText(recipe.getMakerName());
+        cookTime.setText(recipe.getCookTime());
+          // dynamic add the ingredient checkbox
+        int numOfIngredients = recipe.getIngredients().size();
+              // find the place we put the checkbox
+        LinearLayout ingredientLayout = findViewById(R.id.IngredientCheckbox);
+        LinearLayout.LayoutParams paramsCheckBox = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 50);
+        LinearLayout.LayoutParams paramsView = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
+
+        paramsCheckBox.leftMargin = 25;
+
+        for(int i=0; i<numOfIngredients; i++) {
+            CheckBox ingredient = new CheckBox(this);
+            ingredient.setText("    " + recipe.getIngredients().get(i));
+            ingredient.setTextSize(20);
+            ingredient.setLayoutParams(paramsCheckBox);
+
+            View v = new View(this);
+            v.setBackground(getResources().getDrawable(R.color.separateLine));
+            v.setLayoutParams(paramsView);
+
+            ingredientLayout.addView(ingredient);
+            ingredientLayout.addView(v);
+        }
+          // dynamic add the instructions
+        int numOfInstructions = recipe.getInstructions().size();
+        LinearLayout instructionLayout = findViewById(R.id.instructions);
+        LinearLayout.LayoutParams paramsTextView = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        paramsTextView.leftMargin = 30;
+        for(int i=0; i<numOfInstructions; i++) {
+            TextView instruction = new TextView(this);
+            instruction.setText(recipe.getInstructions().get(i));
+            instruction.setTextSize(20);
+            instruction.setTextColor(getResources().getColor(R.color.black));
+            instruction.setPadding(0,16,0,0);
+            instructionLayout.addView(instruction);
+        }
+
+        //TODO recycler view review part --------------------------------------------------------------------------
+
         // initialize fake data
         profiles.add(R.drawable.profile);
         profiles.add(R.drawable.profile);
 
-        names.add("chen");
-        names.add("rui");
+        reviewerNames.add("chen");
+        reviewerNames.add("rui");
 
         starNum.add((float)1.0);
         starNum.add((float)4.0);
@@ -54,14 +131,37 @@ public class DishItemActivity extends AppCompatActivity {
         dates.add("1 min ago");
         dates.add("1 day ago");
 
+        // review part - recycler view
+
+        reviews = findViewById(R.id.recyclerReview);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        reviews.setLayoutManager(layoutManager);
+        RecyclerAdapter adapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,dates,starNum,reviewers);
+        reviews.setNestedScrollingEnabled(false);
+        reviews.setAdapter(adapter);
+
+        // add review to the reviews
+        btnAdd = findViewById(R.id.add);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DishItemActivity.this, WriteReviewActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //TODO recycler view review part --------------------------------------------------------------------------
 
 
+
+
+        // set the toolbar in the top
         toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
-        // hide the title of actionbar
+           // hide the title of actionbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        // initialize the back button of action bar
+           // initialize the back button of action bar
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,14 +170,6 @@ public class DishItemActivity extends AppCompatActivity {
             }
         });
 
-        // review part - recycler view
-
-        reviews = findViewById(R.id.recyclerReview);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        reviews.setLayoutManager(layoutManager);
-        RecyclerAdapter adapter = new RecyclerAdapter(getBaseContext(),profiles,names,dates,starNum,reviewers);
-        reviews.setNestedScrollingEnabled(false);
-        reviews.setAdapter(adapter);
 
         // floating action button
         stepBystepGuide = findViewById(R.id.step_by_step_btn);
@@ -89,15 +181,6 @@ public class DishItemActivity extends AppCompatActivity {
             }
         });
 
-        // add review to the reviews
-        btnAdd = findViewById(R.id.add);
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(DishItemActivity.this, WriteReviewActivity.class);
-                startActivity(i);
-            }
-        });
 
     }
 

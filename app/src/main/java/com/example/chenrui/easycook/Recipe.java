@@ -13,6 +13,8 @@ public class Recipe {
 
     private Bitmap profile;
     private String makerName;
+    private String cookTime;
+    private int numOfReviewer;
     private ArrayList<String> ingredients;
     private ArrayList<String> instructions;
 
@@ -21,15 +23,35 @@ public class Recipe {
     }
 
     public Recipe(String recipeName, String briefDescription, float rating, Bitmap recipeImage, Bitmap profile, String makerName,
-                  ArrayList<String> ingredients, ArrayList<String> instructions) {
+                  String cookTime, int numOfReviewer, ArrayList<String> ingredients, ArrayList<String> instructions) {
         this.recipeName = recipeName;
         this.briefDescription = briefDescription;
         this.rating = rating;
         this.recipeImage = recipeImage;
         this.profile = profile;
         this.makerName = makerName;
+        this.cookTime = cookTime;
+        this.numOfReviewer = numOfReviewer;
         this.ingredients = ingredients;
         this.instructions = instructions;
+    }
+
+
+    public int getNumOfReviewer() {
+        return numOfReviewer;
+    }
+
+    public void setNumOfReviewer(int numOfReviewer) {
+        this.numOfReviewer = numOfReviewer;
+    }
+
+
+    public String getCookTime() {
+        return cookTime;
+    }
+
+    public void setCookTime(String cookTime) {
+        this.cookTime = cookTime;
     }
 
     public Bitmap getRecipeImage() {

@@ -109,6 +109,8 @@ public class Utils {
         bundle.putString("makerName",recipe.getMakerName());
         bundle.putStringArrayList("ingredients",recipe.getIngredients());
         bundle.putStringArrayList("instructions",recipe.getInstructions());
+        bundle.putInt("numOfReviewer",recipe.getNumOfReviewer());
+        bundle.putString("cookTime",recipe.getCookTime());
         return bundle;
     }
 
@@ -122,6 +124,8 @@ public class Utils {
         recipe.setMakerName(bundle.getString("makerName",recipe.getMakerName()));
         recipe.setIngredients(bundle.getStringArrayList("ingredients"));
         recipe.setInstructions(bundle.getStringArrayList("instructions"));
+        recipe.setCookTime(bundle.getString("cookTime"));
+        recipe.setNumOfReviewer(bundle.getInt("numOfReviewer"));
         return recipe;
     }
 

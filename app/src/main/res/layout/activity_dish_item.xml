@@ -39,12 +39,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <ImageView
-                android:background="@color/moduler"
+                android:id="@+id/dishImage"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:src="@drawable/hamburger"
-                android:scaleType="fitXY"/>
+                android:background="@color/moduler"
+                android:scaleType="fitXY"
+                android:src="@drawable/hamburger" />
 
             <View
                 android:layout_width="match_parent"
@@ -124,6 +126,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/makerName"
                     android:paddingLeft="10dp"
                     android:gravity="center"
                     android:layout_alignTop="@+id/profile"
@@ -157,7 +160,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <CheckBox
+ <!--               <CheckBox
                     android:text="    1/2 onion"
                     android:layout_marginLeft="25dp"
                     android:layout_width="match_parent"
@@ -200,7 +203,7 @@
                     android:layout_marginLeft="25dp"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:textSize="20dp" />
+                    android:textSize="20dp" />-->
             </LinearLayout>
 
             <!-- this part should be able to create the checkbox according to the num of ingredients-->
@@ -233,6 +236,7 @@
                         android:src="@drawable/clock"
                         android:scaleType="fitXY"/>
                     <TextView
+                        android:id="@+id/cookTime"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:paddingLeft="20dp"
@@ -247,7 +251,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingBottom="30dp">
-                    <TextView
+ <!--                   <TextView
                         android:paddingTop="16dp"
                         android:layout_marginLeft="30dp"
                         android:layout_width="match_parent"
@@ -270,7 +274,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20dp"
                         android:textColor="@color/black"
-                        android:text="3. cut the beef"/>
+                        android:text="3. cut the beef"/>-->
 
                 </LinearLayout>
 
@@ -304,7 +308,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-w
+
             <!-- this part should be able to create the checkbox according to the num of ingredients-->
 
             <android.support.v7.widget.RecyclerView

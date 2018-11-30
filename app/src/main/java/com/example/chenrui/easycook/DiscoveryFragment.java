@@ -260,8 +260,6 @@ class customAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     }
 
-
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dish_panel, parent, false);
