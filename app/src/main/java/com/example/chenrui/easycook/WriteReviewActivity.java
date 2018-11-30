@@ -120,7 +120,7 @@ public class WriteReviewActivity extends AppCompatActivity {
         // review part - recycler view
 
         List<Integer> profiles = DishItemActivity.profiles;
-        List<String> names = DishItemActivity.names;
+        List<String> names = DishItemActivity.reviewerNames;
         List<String> dates = DishItemActivity.dates;
         List<Float> starNum = DishItemActivity.starNum;
         List<String> reviewers =DishItemActivity.reviewers;

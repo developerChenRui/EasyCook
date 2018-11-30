@@ -177,6 +177,10 @@ public class DishItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(DishItemActivity.this,StepByStepActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("stepBystepInstructions",recipe.getInstructions());
+             //   bundle.putParcelableArray("stepImages");
+                i.putExtras(bundle);
                 startActivity(i);
             }
         });
