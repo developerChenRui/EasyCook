@@ -3,6 +3,7 @@ package com.example.chenrui.easycook;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -249,15 +250,16 @@ class customAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 public void onClick(View v) {
                     //TODO send the user information and the recipe info to the intent
                     //TODO : name / description / star rating / profile and name / ingredients / instruction / Reviews
-                    Recipe recipe = new Recipe();
-
                     Intent i = new Intent(context,DishItemActivity.class);
+                    Recipe recipe = new Recipe();
+                    i.putExtras(Utils.Recipe2Bundle(recipe));
                     context.startActivity(i);
                 }
             });
         }
 
     }
+
 
 
     @Override

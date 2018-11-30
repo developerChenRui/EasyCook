@@ -3,6 +3,7 @@ package com.example.chenrui.easycook;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.os.Bundle;
 import android.util.Log;
 
 import org.apache.commons.codec.binary.Hex;
@@ -95,6 +96,33 @@ public class Utils {
         double inches = (39.370078 * distance);
         int miles = (int) (inches / 63360);
         return miles;
+    }
+
+
+    public static Bundle Recipe2Bundle(Recipe recipe) {
+        Bundle bundle = new Bundle();
+        bundle.putString("recipeName",recipe.getRecipeName());
+        bundle.putString("briefDescription",recipe.getBriefDescription());
+        bundle.putFloat("rating",recipe.getRating());
+        bundle.putParcelable("recipeImage",recipe.getRecipeImage());
+        bundle.putParcelable("profile",recipe.getProfile());
+        bundle.putString("makerName",recipe.getMakerName());
+        bundle.putStringArrayList("ingredients",recipe.getIngredients());
+        bundle.putStringArrayList("instructions",recipe.getInstructions());
+        return bundle;
+    }
+
+    public static Recipe Bundle2Recipe(Bundle bundle) {
+        Recipe recipe = new Recipe();
+        recipe.setRecipeName(bundle.getString("recipeName"));
+        recipe.setBriefDescription(bundle.getString("briefDescription"));
+        recipe.setRating(bundle.getFloat("rating"));
+        recipe.setRecipeImage(bundle.getParcelable("recipeImage"));
+        recipe.setProfile(bundle.getParcelable("profile"));
+        recipe.setMakerName(bundle.getString("makerName",recipe.getMakerName()));
+        recipe.setIngredients(bundle.getStringArrayList("ingredients"));
+        recipe.setInstructions(bundle.getStringArrayList("instructions"));
+        return recipe;
     }
 
 

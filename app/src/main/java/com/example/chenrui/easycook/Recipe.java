@@ -2,6 +2,7 @@ package com.example.chenrui.easycook;
 
 import android.graphics.Bitmap;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe {
@@ -12,15 +13,15 @@ public class Recipe {
 
     private Bitmap profile;
     private String makerName;
-    private List<String> ingredients;
-    private List<String> instructions;
+    private ArrayList<String> ingredients;
+    private ArrayList<String> instructions;
 
     public Recipe() {
 
     }
 
     public Recipe(String recipeName, String briefDescription, float rating, Bitmap recipeImage, Bitmap profile, String makerName,
-    List<String> ingredients, List<String> instructions) {
+                  ArrayList<String> ingredients, ArrayList<String> instructions) {
         this.recipeName = recipeName;
         this.briefDescription = briefDescription;
         this.rating = rating;
@@ -79,19 +80,19 @@ public class Recipe {
         this.makerName = makerName;
     }
 
-    public List<String> getIngredients() {
+    public ArrayList<String> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(ArrayList<String> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public List<String> getInstructions() {
+    public ArrayList<String> getInstructions() {
         return instructions;
     }
 
-    public void setInstructions(List<String> instructions) {
+    public void setInstructions(ArrayList<String> instructions) {
         this.instructions = instructions;
     }
 
