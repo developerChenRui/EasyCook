@@ -15,6 +15,22 @@ public class Recipe {
     private List<String> ingredients;
     private List<String> instructions;
 
+    public Recipe() {
+
+    }
+
+    public Recipe(String recipeName, String briefDescription, float rating, Bitmap recipeImage, Bitmap profile, String makerName,
+    List<String> ingredients, List<String> instructions) {
+        this.recipeName = recipeName;
+        this.briefDescription = briefDescription;
+        this.rating = rating;
+        this.recipeImage = recipeImage;
+        this.profile = profile;
+        this.makerName = makerName;
+        this.ingredients = ingredients;
+        this.instructions = instructions;
+    }
+
     public Bitmap getRecipeImage() {
         return recipeImage;
     }

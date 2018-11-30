@@ -248,14 +248,9 @@ class customAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 @Override
                 public void onClick(View v) {
                     //TODO send the user information and the recipe info to the intent
-                    //TODO send the user information and the recipe info to the intent
-                    //TODO send the user information and the recipe info to the intent
-                    //TODO send the user information and the recipe info to the intent
-                    //TODO send the user information and the recipe info to the intent
-                    //TODO send the user information and the recipe info to the intent
-                    //TODO send the user information and the recipe info to the intent
-                    //TODO send the user information and the recipe info to the intent
                     //TODO : name / description / star rating / profile and name / ingredients / instruction / Reviews
+                    Recipe recipe = new Recipe();
+
                     Intent i = new Intent(context,DishItemActivity.class);
                     context.startActivity(i);
                 }
