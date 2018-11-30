@@ -23,7 +23,7 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
     private ShoppingListFragment shoppingListFragment;
 
     // my favorite fragment
-    public Recipes favoriteFragment;
+    public RecipesFragment favoriteFragment;
 
 
     @Override
@@ -56,8 +56,8 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
 
 
 
-        // Added by Justin for My Recipes tab
-        favoriteFragment = new Recipes();
+        // Added by Justin for My RecipesFragment tab
+        favoriteFragment = new RecipesFragment();
         fTransaction.add(R.id.FragLayout,favoriteFragment,"favoriteRecipes");
 
         fTransaction.commit();
@@ -99,7 +99,7 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
                             case R.id.favorite:
                                 //TODO
                                 if(favoriteFragment == null) {
-                                    favoriteFragment = new Recipes();
+                                    favoriteFragment = new RecipesFragment();
                                 }
                                 fTransaction = fManager.beginTransaction();
                                 fTransaction.replace(R.id.FragLayout,favoriteFragment);

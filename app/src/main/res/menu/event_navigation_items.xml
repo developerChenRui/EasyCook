@@ -9,7 +9,7 @@
         android:id="@+id/search"
         android:enabled="true"
         android:icon="@drawable/search"
-        android:title="Recipe"
+        android:title="Discovery"
         app:showAsAction="ifRoom"
         />
 
@@ -26,7 +26,7 @@
         android:id="@+id/favorite"
         android:enabled="true"
         android:icon="@drawable/heart"
-        android:title="Favorite"
+        android:title="My Recipes"
         app:showAsAction="ifRoom"
         />
 </menu>

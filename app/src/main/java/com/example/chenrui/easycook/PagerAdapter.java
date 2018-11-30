@@ -16,10 +16,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 0: // Favorites
                 Favorites favorites = new Favorites();
                 return favorites;
-            case 1: // My Public Recipes
+            case 1: // My Public RecipesFragment
                 MyRecipes myPublicRecipes = new MyRecipes();
                 return myPublicRecipes;
-            case 2: // My Private Recipes
+            case 2: // My Private RecipesFragment
                 MyRecipes myPrivateRecipes = new MyRecipes();
                 return myPrivateRecipes;
         }

@@ -11,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,7 +24,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.willy.ratingbar.RotationRatingBar;
+import com.willy.ratingbar.ScaleRatingBar;
+
+//import com.willy.ratingbar.RotationRatingBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,6 +136,9 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
                 ,favorList, commentList , getActivity(), view);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new Decoration(getActivity()));
+         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,
+                 StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(cAdaptor);
         refreshLayout.setOnRefreshListener(this);
 
@@ -242,6 +248,14 @@ class customAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 @Override
                 public void onClick(View v) {
                     //TODO send the user information and the recipe info to the intent
+                    //TODO send the user information and the recipe info to the intent
+                    //TODO send the user information and the recipe info to the intent
+                    //TODO send the user information and the recipe info to the intent
+                    //TODO send the user information and the recipe info to the intent
+                    //TODO send the user information and the recipe info to the intent
+                    //TODO send the user information and the recipe info to the intent
+                    //TODO send the user information and the recipe info to the intent
+                    //TODO : name / description / star rating / profile and name / ingredients / instruction / Reviews
                     Intent i = new Intent(context,DishItemActivity.class);
                     context.startActivity(i);
                 }
@@ -267,7 +281,7 @@ class customAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     class contentHolder extends RecyclerView.ViewHolder{
         protected TextView dishNameLabel;
         protected ImageView dishImage;
-        protected RotationRatingBar dishRB;
+        protected ScaleRatingBar dishRB;
         private TextView likeNumLabel;
         private CheckBox favBar;
         private RoundImageView userImage;
