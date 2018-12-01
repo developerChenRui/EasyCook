@@ -181,13 +181,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/comment"
-            android:paddingLeft="10dp"
-            android:layout_height="0dp"
-            android:layout_width="match_parent"
-            android:layout_weight="2"
-            android:text="Burg is a famous US fast food "/>
 
     </LinearLayout>
 </LinearLayout>

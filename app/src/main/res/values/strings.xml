@@ -8,6 +8,7 @@
     <string name="favorites">Favorites</string>
     <string name="my_recipes">My Recipes</string>
 
+    <string name="permission_required">Please grant the permission to use the microphone</string>
 
     <string name="recipe_name">Recipe Name:</string>
 

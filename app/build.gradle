@@ -21,6 +21,17 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     useLibrary 'org.apache.http.legacy'
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
 }
 
 dependencies {
@@ -52,6 +63,16 @@ dependencies {
 
     implementation 'com.github.ome450901:SimpleRatingBar:1.4.2'
     implementation 'com.robertlevonyan.view:CustomFloatingActionButton:2.1.1'
+
+    implementation 'com.github.sachinvarma:Speech-Recognizer:0.0.1'
+    implementation 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+    implementation 'io.reactivex:rxjava:1.1.6'
+
+    implementation 'com.loopj.android:android-async-http:1.4.9'
+    implementation 'org.apache.httpcomponents:httpasyncclient:4.0.2'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 
 
 }

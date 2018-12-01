@@ -6,7 +6,14 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import org.apache.commons.codec.binary.Hex;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +21,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import cz.msebera.android.httpclient.Header;
 
 
 public class Utils {
@@ -104,8 +115,8 @@ public class Utils {
         bundle.putString("recipeName",recipe.getRecipeName());
         bundle.putString("briefDescription",recipe.getBriefDescription());
         bundle.putFloat("rating",recipe.getRating());
-        bundle.putParcelable("recipeImage",recipe.getRecipeImage());
-        bundle.putParcelable("profile",recipe.getProfile());
+        bundle.putString("recipeImage",recipe.getRecipeImageURL());
+        bundle.putString("profile",recipe.getProfileURL());
         bundle.putString("makerName",recipe.getMakerName());
         bundle.putStringArrayList("ingredients",recipe.getIngredients());
         bundle.putStringArrayList("instructions",recipe.getInstructions());
@@ -119,14 +130,102 @@ public class Utils {
         recipe.setRecipeName(bundle.getString("recipeName"));
         recipe.setBriefDescription(bundle.getString("briefDescription"));
         recipe.setRating(bundle.getFloat("rating"));
-        recipe.setRecipeImage(bundle.getParcelable("recipeImage"));
-        recipe.setProfile(bundle.getParcelable("profile"));
+        recipe.setRecipeImageURL(bundle.getString("recipeImage"));
+        recipe.setProfileURL(bundle.getString("profile"));
         recipe.setMakerName(bundle.getString("makerName",recipe.getMakerName()));
         recipe.setIngredients(bundle.getStringArrayList("ingredients"));
         recipe.setInstructions(bundle.getStringArrayList("instructions"));
         recipe.setCookTime(bundle.getString("cookTime"));
         recipe.setNumOfReviewer(bundle.getInt("numOfReviewer"));
         return recipe;
+    }
+
+
+    // http request
+
+
+    private static final String BASE_URL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/";
+    private static final String API_KEY = "ua9TN5jI9Zmsh2GQruoJx9GDuB6kp16z22FjsnpoTwy1GJRizA";
+
+    private static AsyncHttpClient client = new AsyncHttpClient();
+
+    public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        client.addHeader("X-RapidAPI-Key",API_KEY);
+        client.get(getAbsoluteUrl(url), params, responseHandler);
+    }
+
+    public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        client.addHeader("X-RapidAPI-Key",API_KEY);
+        client.addHeader("Content-Type", "application/json");
+        client.post(getAbsoluteUrl(url), params, responseHandler);
+    }
+
+
+    private static String getAbsoluteUrl(String relativeUrl) {
+        return BASE_URL + relativeUrl;
+    }
+
+    private static String TAG = "YANG";
+    private static ArrayList<Recipe> recipeList = new ArrayList<>();
+
+    public static ArrayList<Recipe> randomSearch(){
+  //      while(recipeList.size()==0) {
+
+            AsyncHttpRequest.get("recipes/random?number=10", null, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        recipeList = new ArrayList<>();
+
+                        Log.d("checkNUm5", "Successfully");
+                        Recipe newRecipe;
+                        JSONObject jsonObj = new JSONObject(response.toString());
+                        JSONArray recipes = jsonObj.getJSONArray("recipes");
+                        for (int i = 0; i < recipes.length(); i++) {
+                            JSONObject recipe = recipes.getJSONObject(i);
+                            String title = recipe.getString("title");
+                            Log.d(TAG, "onSuccess: title " + title);
+                            String id = recipe.getString("id");
+                            Log.d(TAG, "onSuccess: id " + id);
+                            String imageURL = recipe.getString("image");
+                            Log.d(TAG, "onSuccess: image " + imageURL);
+                            ArrayList<String> ingredients = new ArrayList<>();
+                            JSONArray ingredArr = recipe.getJSONArray("extendedIngredients");
+                            for (int j = 0; j < ingredArr.length(); j++) {
+                                JSONObject ingredObj = (JSONObject) ingredArr.get(j);
+                                ingredients.add(ingredObj.getString("name"));
+                            }
+                            Log.d(TAG, "onSuccess: ingredients " + ingredients.toString());
+                            newRecipe = new Recipe(title, ingredients, imageURL, 0, id);
+                            recipeList.add(newRecipe);
+                            Log.d("checkNUm6", recipeList.size() + "");
+                        }
+                        Log.d("checkNUm8", recipeList.size() + "");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.d(TAG, "onFailure: " + errorResponse.toString());
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    Log.d(TAG, "onFailure: " + throwable.toString());
+                }
+            });
+
+
+     //   }
+        Log.d("checkNUm7", recipeList.size() + "");
+        return recipeList;
+
     }
 
 

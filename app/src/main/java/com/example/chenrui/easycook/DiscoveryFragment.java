@@ -3,8 +3,8 @@ package com.example.chenrui.easycook;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -44,7 +44,7 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
-    private customAdaptor cAdaptor;
+    private CustomAdaptor cAdaptor;
     private List<Integer> imageList;
     private List<String> nameList;
     private List<Integer> rateList;
@@ -52,7 +52,13 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
     private List<Boolean> favorList;
     private List<Integer> userImageList;
     private List<String> commentList;
+
+
     private String TAG = "YANG";
+    private ArrayList<Recipe> recipeList;
+    private ArrayList<Recipe> RecylerRecipeList;
+
+
 
     public DiscoveryFragment() {
 
@@ -133,8 +139,7 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
         linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         loadData();
-        cAdaptor = new customAdaptor(nameList, imageList,rateList,likeNumList, userImageList
-                ,favorList, commentList , getActivity(), view);
+        cAdaptor = new CustomAdaptor(recipeList , getActivity(), view);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new Decoration(getActivity()));
          StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,
@@ -158,16 +163,19 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
 
     private void loadData(){
         /** modify later**/
-        for (int i = 0; i < 5; i++){
-            imageList.add(R.drawable.hamburger);
-            userImageList.add(R.drawable.superman);
-            favorList.add((i % 2 == 1)? true : false);
-            nameList.add("burger" + i);
-            rateList.add(i);
-            likeNumList.add(i*100);
-            commentList.add("The burger is a kind of popular US fast food ....");
+        if(recipeList == null || recipeList.size()==0) {
+            recipeList = Utils.randomSearch();
+            Log.d("checkNUm1",recipeList.size()+"");
+        } else {
+            ArrayList<Recipe> newRecipes = Utils.randomSearch();
+            Log.d("checkNUm4",newRecipes.size()+"");
+            for (int i=0; i<newRecipes.size();i++) {
+                Log.d("checkNUm3",recipeList.size()+"");
+                recipeList.add(0,newRecipes.get(i));
+            }
         }
 
+        Log.d("checkNUm2",recipeList.size()+"");
     }
 
 //    @Override
@@ -180,119 +188,24 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onRefresh() {
         /** refresh new recipe **/
-        Log.d(TAG,"onRefresh happened");
-        refreshLayout.setRefreshing(false);
+
+
+        Log.d("checkNUm9","REFRESH");
+ //       new Handler().postDelayed(new Runnable() {
+
+ //           @Override public void run() {
+                Log.d(TAG,"onRefresh happened");
+                loadData();
+                cAdaptor.notifyDataSetChanged();
+                //recyclerView.setAdapter(cAdaptor);
+                refreshLayout.setRefreshing(false);
+
+ //           }
+
+  //      }, 500);
+
+
     }
 }
 
 
-/***********************************************************************************************************/
-class customAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-//    private RecyclerViewClickListener clickListener;
-    private List<String> nameList;
-    private List<Integer> ImageList;
-    private List<Integer> rateList;
-    private List<Integer> likeNumList;
-    private List<Integer> userImageList;
-    private List<Boolean> favorList;
-    private List<String> commentList;
-    private Context context;
-    private View v;
-
-
-    public customAdaptor(List<String> nameList, List<Integer> ImageList, List<Integer> rateList, List<Integer> likeNumList,
-                         List<Integer> userImageList, List<Boolean> favorList, List<String> commentList, Context context,
-                          View v){
-        this.nameList = nameList;
-        this.ImageList = ImageList;
-        this.context = context;
-        this.rateList = rateList;
-        this.likeNumList = likeNumList;
-        this.commentList = commentList;
-        this.context = context;
-//        this.clickListener = clickListener;
-        this.userImageList = userImageList;
-        this.favorList = favorList;
-        this.v = v;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return nameList.size();
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        /** modify latter**/
-        /** setOnRatingBarChangeListener **/
-        if (holder instanceof contentHolder){
-            contentHolder cHolder = (contentHolder) holder;
-            cHolder.dishRB.setRating(this.rateList.get(position).intValue());
-            cHolder.dishImage.setImageResource(this.ImageList.get(position).intValue());
-            cHolder.dishNameLabel.setText(this.nameList.get(position));
-            cHolder.likeNumLabel.setText(String.valueOf(this.likeNumList.get(position)));
-            cHolder.commentLabel.setText(commentList.get(position));
-            cHolder.favBar.setChecked(favorList.get(position));
-            cHolder.favBar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    /** modify later**/
-                    if (cHolder.favBar.isChecked()) Toast.makeText(context,
-                            "User likes recipe " + position, Toast.LENGTH_SHORT).show();
-                    else Toast.makeText(context,
-                            "User unlikes recipe " + position, Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            cHolder.userImage.setImageResource(this.userImageList.get(position).intValue());
-            cHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO send the user information and the recipe info to the intent
-                    //TODO : name / description / star rating / profile and name / ingredients / instruction / Reviews
-                    Intent i = new Intent(context,DishItemActivity.class);
-                    Recipe recipe = new Recipe();
-                    i.putExtras(Utils.Recipe2Bundle(recipe));
-                    context.startActivity(i);
-                }
-            });
-        }
-
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dish_panel, parent, false);
-        return new customAdaptor.contentHolder(view);
-    }
-
-
-
-    @Override
-    public int getItemCount() {
-        return nameList.size();
-    }
-
-    class contentHolder extends RecyclerView.ViewHolder{
-        protected TextView dishNameLabel;
-        protected ImageView dishImage;
-        protected ScaleRatingBar dishRB;
-        private TextView likeNumLabel;
-        private CheckBox favBar;
-        private RoundImageView userImage;
-        private TextView commentLabel;
-
-        contentHolder(View itemView){
-            super(itemView);
-            dishNameLabel = itemView.findViewById(R.id.dishNameLabel);
-            dishImage = itemView.findViewById(R.id.dishImage);
-            dishRB = itemView.findViewById(R.id.rBar);
-            likeNumLabel = itemView.findViewById(R.id.likeNumLabel);
-            favBar = itemView.findViewById(R.id.userFavourite);
-            userImage = itemView.findViewById(R.id.userImage);
-            commentLabel = itemView.findViewById(R.id.comment);
-        }
-
-    }
-
-}

@@ -70,7 +70,8 @@ public class DishItemActivity extends AppCompatActivity {
         makerName = findViewById(R.id.makerName);
         cookTime = findViewById(R.id.cookTime);
            // set the components
-        dishImage.setImageBitmap(recipe.getRecipeImage());
+        // TODO !!!!!!!!!
+//        dishImage.setImageBitmap(recipe.getRecipeImageURL());
         dishTitle.setText(recipe.getRecipeName());
         dishDescription.setText(recipe.getBriefDescription());
         ratingStar.setRating(recipe.getRating());

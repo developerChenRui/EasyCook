@@ -1,7 +1,12 @@
 package com.example.chenrui.easycook;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -12,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 public class StepByStepActivity extends AppCompatActivity {
 
@@ -37,13 +44,65 @@ public class StepByStepActivity extends AppCompatActivity {
             "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy" +
             "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy","hhhahahahahaahahah"};
     int[] imageRes = {R.drawable.cut_egg,R.drawable.salad,R.drawable.hamburger};
+    int numOfImage = des.length;
+
+    public void performLeft(){
+        cur--;
+        step_description.setText(des[cur]);
+        stepImage.setImageResource(imageRes[cur]);
+        stepCount.setText("Step " + (cur+1) + " Of " + des.length);
+
+        // when it comes to the first step or last step , hide left button or right button
+
+        if(cur ==0 && cur==numOfImage-1) {
+            left.setVisibility(View.GONE);
+            right.setVisibility(View.GONE);
+        } else if(cur==numOfImage-1) {
+            left.setVisibility(View.VISIBLE);
+            right.setVisibility(View.GONE);
+        } else if(cur ==0) {
+            left.setVisibility(View.GONE);
+            right.setVisibility(View.VISIBLE);
+        } else {
+            left.setVisibility(View.VISIBLE);
+            right.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void performRight() {
+        cur++;
+        step_description.setText(des[cur]);
+        stepImage.setImageResource(imageRes[cur]);
+        stepCount.setText("Step " + (cur+1) + " Of " + des.length);
+
+        // when it comes to the first step or last step , hide left button or right button
+        if(cur ==0 && cur==numOfImage-1) {
+            left.setVisibility(View.GONE);
+            right.setVisibility(View.GONE);
+        } else if(cur==numOfImage-1) {
+            left.setVisibility(View.VISIBLE);
+            right.setVisibility(View.GONE);
+        } else if(cur ==0) {
+            left.setVisibility(View.GONE);
+            right.setVisibility(View.VISIBLE);
+        } else {
+            left.setVisibility(View.VISIBLE);
+            right.setVisibility(View.VISIBLE);
+        }
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_by_step);
-        int numOfImage = des.length;
+
+        // get the instruction from previous activity
+//        ArrayList<String> instructions = getIntent().getExtras().getStringArrayList("stepBystepInstructions");
+
+
+
+
         cur = 0;
         stepImage = findViewById(R.id.stepImage);
         left = findViewById(R.id.left);
@@ -66,31 +125,14 @@ public class StepByStepActivity extends AppCompatActivity {
         stepImage.setImageResource(imageRes[cur]);
         stepCount.setText("Step " + (cur+1) + " Of " + des.length);
 
+
+
         // implement left button listener
 
         left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cur--;
-                step_description.setText(des[cur]);
-                stepImage.setImageResource(imageRes[cur]);
-                stepCount.setText("Step " + (cur+1) + " Of " + des.length);
-
-                // when it comes to the first step or last step , hide left button or right button
-
-                if(cur ==0 && cur==numOfImage-1) {
-                    left.setVisibility(View.GONE);
-                    right.setVisibility(View.GONE);
-                } else if(cur==numOfImage-1) {
-                    left.setVisibility(View.VISIBLE);
-                    right.setVisibility(View.GONE);
-                } else if(cur ==0) {
-                    left.setVisibility(View.GONE);
-                    right.setVisibility(View.VISIBLE);
-                } else {
-                    left.setVisibility(View.VISIBLE);
-                    right.setVisibility(View.VISIBLE);
-                }
+                performLeft();
             }
         });
         // implement right button listener
@@ -98,25 +140,7 @@ public class StepByStepActivity extends AppCompatActivity {
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cur++;
-                step_description.setText(des[cur]);
-                stepImage.setImageResource(imageRes[cur]);
-                stepCount.setText("Step " + (cur+1) + " Of " + des.length);
-
-                // when it comes to the first step or last step , hide left button or right button
-                if(cur ==0 && cur==numOfImage-1) {
-                    left.setVisibility(View.GONE);
-                    right.setVisibility(View.GONE);
-                } else if(cur==numOfImage-1) {
-                    left.setVisibility(View.VISIBLE);
-                    right.setVisibility(View.GONE);
-                } else if(cur ==0) {
-                    left.setVisibility(View.GONE);
-                    right.setVisibility(View.VISIBLE);
-                } else {
-                    left.setVisibility(View.VISIBLE);
-                    right.setVisibility(View.VISIBLE);
-                }
+                performRight();
             }
         });
 
@@ -147,7 +171,16 @@ public class StepByStepActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                // TODO start the voice control here
+                                // add the mute permission here
+                                NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                                        && !notificationManager.isNotificationPolicyAccessGranted()) {
+                                    Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                                    getApplicationContext().startActivity(intent);
+                                    return;
+                                }
+                                startService(new Intent(StepByStepActivity.this, VoiceControlService.class));
                             }
                         });
                 customizeDialog.show();

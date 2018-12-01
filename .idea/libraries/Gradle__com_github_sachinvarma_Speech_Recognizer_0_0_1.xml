@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.sachinvarma:Speech-Recognizer-0.0.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Speech-Recognizer-0.0.1.aar/93f664f6ce4ba4f546a5a7e22574f278/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Speech-Recognizer-0.0.1.aar/93f664f6ce4ba4f546a5a7e22574f278/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.sachinvarma/Speech-Recognizer/0.0.1/e965b9a810b5da07014050bf3f2ad7785214abe2/Speech-Recognizer-0.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
