@@ -24,11 +24,13 @@
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/SplashTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
 
         </activity>
         <activity android:name=".RegisterActivity" />
@@ -41,6 +43,7 @@
         <activity
             android:name=".StepByStepActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+
         </activity>
         <activity
             android:name=".WriteReviewActivity"

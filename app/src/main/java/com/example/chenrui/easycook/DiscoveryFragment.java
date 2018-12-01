@@ -53,6 +53,8 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
     private List<Integer> userImageList;
     private List<String> commentList;
 
+    private View fragView;
+
 
     private String TAG = "YANG";
     private ArrayList<Recipe> recipeList;
@@ -88,6 +90,35 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
                 public boolean onQueryTextSubmit(String query) {
                     /** implement later**/
                     Log.d(TAG, "onQueryTextSubmit: " + query);
+                    ArrayList<Recipe> newQueryRecipes;
+                  //  Utils.keyWordSearch(query);
+                    newQueryRecipes = Utils.keyWordSearch(query);
+                    try{
+                        if(recipeList == null || recipeList.size() ==0) {
+                            recipeList = newQueryRecipes;
+                            Log.d("Here1",recipeList.size()+"");
+                       //     cAdaptor = new CustomAdaptor(recipeList,getActivity(),fragView);
+                       //     recyclerView.setAdapter(cAdaptor);
+                        } else {
+                            for(int i=0; i<newQueryRecipes.size();i++) {
+                                recipeList.add(0,newQueryRecipes.get(i));
+                                Log.d("Here2",newQueryRecipes.size()+"");
+                                Log.d("Here3",recipeList.size()+"");
+                            }
+                        }
+                        cAdaptor.notifyDataSetChanged();
+
+                    //    onRefresh();
+
+                        //recyclerView.setAdapter(cAdaptor);
+
+
+                    }catch(Exception e) {
+                        e.printStackTrace();
+                    }finally {
+                        searchView.setQuery("",false);
+                    }
+                    refreshLayout.setRefreshing(false);
                     return true;
                 }
 
@@ -95,7 +126,7 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
                 public boolean onQueryTextChange(String newText) {
                     /** implement later**/
                     Log.d(TAG, "onQueryTextChange: " + newText);
-                    return true;
+                    return false;
                 }
             };
             searchView.setOnQueryTextListener(queryTextListener);
@@ -129,6 +160,7 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
         favorList = new ArrayList<>();
         commentList = new ArrayList<>();
         View view = inflater.inflate(R.layout.fragment_discovery, container, false);
+        fragView =view;
         refreshLayout = view.findViewById(R.id.SwipeRefView);
         refreshLayout.setColorSchemeResources(
                 R.color.colorRed,
@@ -148,16 +180,17 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
         recyclerView.setAdapter(cAdaptor);
         refreshLayout.setOnRefreshListener(this);
 
-        recyclerView.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int currentPage) {
-                refreshLayout.setRefreshing(true);
-                loadData();
-                refreshLayout.setRefreshing(false);
-                cAdaptor.notifyDataSetChanged();
-
-            }
-        });
+//        recyclerView.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
+//            @Override
+//            public void onLoadMore(int currentPage) {
+////                refreshLayout.setRefreshing(true);
+////                loadData();
+////                refreshLayout.setRefreshing(false);
+////                cAdaptor.notifyDataSetChanged();
+//
+//            }
+//        });
+        fragView = view;
         return view;
     }
 
@@ -197,7 +230,8 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
                 Log.d(TAG,"onRefresh happened");
                 loadData();
                 cAdaptor.notifyDataSetChanged();
-                //recyclerView.setAdapter(cAdaptor);
+            //    cAdaptor = new CustomAdaptor(recipeList,getActivity(),fragView);
+            //    recyclerView.setAdapter(cAdaptor);
                 refreshLayout.setRefreshing(false);
 
  //           }

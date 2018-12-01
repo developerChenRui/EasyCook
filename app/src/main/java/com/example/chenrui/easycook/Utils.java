@@ -229,6 +229,121 @@ public class Utils {
     }
 
 
+    private static ArrayList<Recipe> recipeListKeyWord = new ArrayList<>();
+
+    public static ArrayList<Recipe> keyWordSearch(String keyWord){
+ //       ArrayList<Recipe> recipeList = new ArrayList<>();
+        if (keyWord != null && keyWord.length() != 0){
+            keyWord.replace(" ","+");
+            AsyncHttpRequest.get("recipes/search?number=20&offset=0&query=" + keyWord, null, new JsonHttpResponseHandler(){
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        Recipe newRecipe;
+                        JSONObject jsonObj = new JSONObject(response.toString());
+                        JSONArray recipes = jsonObj.getJSONArray("results");
+                        for (int i = 0 ; i < recipes.length(); i++){
+                            JSONObject recipe = recipes.getJSONObject(i);
+                            String title = recipe.getString("title");
+                            Log.d(TAG, "onSuccess: title " + title);
+                            String id = recipe.getString("id");
+                            Log.d(TAG, "onSuccess: id " + id);
+                            String imageURL = recipe.getString("image");
+                            Log.d(TAG, "onSuccess: image " + imageURL);
+                            String[] urlArr = imageURL.split("-");
+                            String[] imageIdArr = urlArr[urlArr.length - 1].split("\\.");
+                            String imageId = imageIdArr[0];
+                            String imageFormat = imageIdArr[1];
+                            String realImageURL = "https://spoonacular.com/recipeImages/" + imageId + "-556x370." + imageFormat;
+                            ArrayList<String> ingredients = new ArrayList<>();
+                            newRecipe = new Recipe(title,ingredients,realImageURL,0,id);
+                            recipeListKeyWord.add(newRecipe);
+                        }
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.d(TAG, "onFailure: " + errorResponse.toString());
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    Log.d(TAG, "onFailure: " + throwable.toString());
+                }
+            });
+
+
+        }
+
+        return recipeListKeyWord;
+    }
+
+
+    static Recipe specificRecipe;
+
+    public static Recipe recipeIdSearch(String recipeID){
+        Log.d(TAG, "recipeIdSearch: begin");
+ //       ArrayList<Recipe> recipeList = new ArrayList<>();
+        if (recipeID != null){
+            Log.d(TAG, "recipeIdSearch: if ");
+            AsyncHttpRequest.get("recipes/" + recipeID + "/information",null, new JsonHttpResponseHandler(){
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try{
+                        Log.d(TAG, "recipeIdSearch: ");
+                        JSONObject jsonObj = new JSONObject(response.toString());
+                        Log.d(TAG, "recipeIdSearchon: 1");
+                        String title = jsonObj.getString("title");
+                        Log.d(TAG, "recipeIdSearch: title " + title);
+                        String cookMinutes = jsonObj.getString("readyInMinutes"); /**!!!!cooktime**/
+                        Log.d(TAG, "recipeIdSearch: cookMinutes " + cookMinutes);
+                        String ImageURL = jsonObj.getString("image");
+                        Log.d(TAG, "recipeIdSearch: ImageURL " + ImageURL);
+                        ArrayList<String> ingredients = new ArrayList<>();
+                        JSONArray ingredArr = jsonObj.getJSONArray("extendedIngredients");
+                        for (int j = 0; j < ingredArr.length(); j++){
+                            JSONObject ingredObj = (JSONObject)ingredArr.get(j);
+                            ingredients.add(ingredObj.getString("name"));
+                        }
+                        List<String> stepList = new ArrayList<>(); /**!!!!!!steps**/
+                        JSONArray stepsArr = jsonObj.getJSONArray("analyzedInstructions");
+                        JSONObject stepsArrObj = (JSONObject)stepsArr.get(0);
+                        JSONArray realStepsArr = stepsArrObj.getJSONArray("steps");
+                        for (int i = 0; i < realStepsArr.length(); i++){
+                            JSONObject step = (JSONObject)realStepsArr.get(i);
+                            stepList.add(step.getString("step"));
+                        }
+                        specificRecipe= new Recipe();
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.d(TAG, "onFailure: " + errorResponse.toString());
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    Log.d(TAG, "onFailure: " + throwable.toString());
+                }
+            });
+
+        }
+
+        return specificRecipe;
+
+
+    }
+
+
 
 
 }

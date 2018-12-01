@@ -10,6 +10,7 @@ import android.media.AudioManager;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -25,7 +26,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class VoiceControlService extends Service implements SpeechDelegate, Speech.stopDueToDelay {
+public class  VoiceControlService extends Service implements SpeechDelegate, Speech.stopDueToDelay {
 
     public static SpeechDelegate delegate;
 
@@ -96,7 +97,10 @@ public class VoiceControlService extends Service implements SpeechDelegate, Spee
     public void onSpeechResult(String result) {
         Log.d("Result", result+"");
         if (!TextUtils.isEmpty(result)) {
-            Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(StepByStepActivity.RECEIVER_INTENT);
+            intent.putExtra(StepByStepActivity.RECEIVER_MESSAGE, result);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         }
     }
 
