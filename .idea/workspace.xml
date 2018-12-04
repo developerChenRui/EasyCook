@@ -6,7 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="CMakeSettings">
@@ -16,7 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da313ff0-ba7f-4fae-824f-e9d2f7b7e1da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/AsyncData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/defaultstep.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" afterDir="false" />
@@ -26,11 +26,10 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/CustomAdaptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/CustomAdaptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DiscoveryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DiscoveryFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/EndLessOnScrollListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/EndLessOnScrollListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Recipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DishItemActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DishItemActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/StepByStepActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/StepByStepActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/VoiceControlService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/VoiceControlService.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -53,11 +52,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AsyncData.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/AsyncData.java">
+      <file leaf-file-name="DishItemActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DishItemActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+            <state relative-caret-position="242">
+              <caret line="183" selection-start-line="183" selection-end-line="183" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Utils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Utils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="79">
+              <caret line="185" column="58" selection-start-line="185" selection-start-column="49" selection-end-line="185" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -65,8 +73,8 @@
       <file leaf-file-name="Recipe.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Recipe.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="46" column="52" selection-start-line="46" selection-start-column="46" selection-end-line="46" selection-end-column="52" />
+            <state relative-caret-position="149">
+              <caret line="57" selection-start-line="57" selection-end-line="58" selection-end-column="133" />
               <folding>
                 <element signature="e#902#903#0" expanded="true" />
                 <element signature="e#933#934#0" expanded="true" />
@@ -77,11 +85,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CustomAdaptor.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StepByStepActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/StepByStepActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="134">
+              <caret line="142" selection-start-line="142" selection-end-line="142" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="voice_setting_dialog.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/voice_setting_dialog.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="218">
+              <caret line="38" column="40" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="40" />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CustomAdaptor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/CustomAdaptor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="67" selection-start-line="67" selection-end-line="67" />
+            <state relative-caret-position="-663">
+              <caret line="45" column="19" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -89,38 +118,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Utils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Utils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4221">
-              <caret line="505" column="31" lean-forward="true" selection-start-line="505" selection-start-column="31" selection-end-line="505" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="DiscoveryFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DiscoveryFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="225" column="51" lean-forward="true" selection-start-line="225" selection-start-column="51" selection-end-line="225" selection-end-column="51" />
+            <state relative-caret-position="685">
+              <caret line="225" column="51" selection-start-line="225" selection-start-column="51" selection-end-line="225" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EndLessOnScrollListener.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/EndLessOnScrollListener.java">
+      <file leaf-file-name="VoiceControlService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/VoiceControlService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="31" column="91" selection-start-line="31" selection-start-column="91" selection-end-line="31" selection-end-column="91" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StaggeredGridLayoutManager.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/6c8539e6b04c5fc0ed72b7a0e062b834/jars/classes.jar!/android/support/v7/widget/StaggeredGridLayoutManager.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
-              <caret line="666" column="17" selection-start-line="666" selection-start-column="17" selection-end-line="666" selection-end-column="17" />
+            <state relative-caret-position="165">
+              <caret line="99" selection-start-line="99" selection-end-line="99" />
             </state>
           </provider>
         </entry>
@@ -137,6 +148,9 @@
       <find>randomsearch</find>
       <find>RecylerRecipeList</find>
       <find>recipeList</find>
+      <find>yang1</find>
+      <find>tag</find>
+      <find>picasso</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2425,20 +2439,20 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DishItemActivity.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/dish_panel.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/VoiceControlService.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/voice_setting_dialog.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/StepByStepActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Recipe.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/AsyncData.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/CustomAdaptor.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/EndLessOnScrollListener.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DiscoveryFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/CustomAdaptor.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Utils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DishItemActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/VoiceControlService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/StepByStepActivity.java" />
       </list>
     </option>
   </component>
@@ -2545,6 +2559,15 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="EasyCook" type="b2602c69:ProjectViewProjectNode" />
+              <item name="EasyCook" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="drawable" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="EasyCook" type="b2602c69:ProjectViewProjectNode" />
@@ -2731,6 +2754,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -2739,10 +2763,11 @@
       <window_info id="Build Variants" order="2" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="right" id="Preview" order="3" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" anchor="bottom" id="Logcat" order="7" visible="true" weight="0.35754985" />
+      <window_info anchor="bottom" id="Logcat" order="7" weight="0.35612535" />
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
@@ -2752,10 +2777,9 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.31766382" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.36039886" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Preview" order="3" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -2771,19 +2795,13 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Utils.java</url>
-          <line>404</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/StepByStepActivity.java</url>
+          <line>142</line>
           <properties />
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Utils.java</url>
-          <line>398</line>
-          <properties />
-          <option name="timeStamp" value="4" />
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="6" />
+      <option name="time" value="20" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -3056,41 +3074,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/voice_setting_dialog.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="38" column="40" selection-start-line="38" selection-start-column="40" selection-end-line="38" selection-end-column="40" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/StepByStepActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1128">
-          <caret line="132" column="51" selection-start-line="132" selection-start-column="51" selection-end-line="132" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/VoiceControlService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="99" column="70" selection-start-line="99" selection-start-column="70" selection-end-line="99" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/c0d1a04c2a1f450fb477b2668912c681/jars/classes.jar!/android/support/v7/widget/SearchView.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="762" selection-start-line="762" selection-end-line="762" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DishItemActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="77" selection-start-line="77" selection-end-line="77" />
         </state>
       </provider>
     </entry>
@@ -3107,19 +3094,6 @@
           <caret line="47" selection-start-line="47" selection-end-line="47" />
           <folding>
             <element signature="e#1862#1863#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Recipe.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="46" column="52" selection-start-line="46" selection-start-column="46" selection-end-line="46" selection-end-column="52" />
-          <folding>
-            <element signature="e#902#903#0" expanded="true" />
-            <element signature="e#933#934#0" expanded="true" />
-            <element signature="e#2097#2098#0" expanded="true" />
-            <element signature="e#2133#2134#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3152,27 +3126,83 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-27/android/app/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="4800" selection-start-line="4800" selection-end-line="4800" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Recipe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="57" selection-start-line="57" selection-end-line="58" selection-end-column="133" />
+          <folding>
+            <element signature="e#902#903#0" expanded="true" />
+            <element signature="e#933#934#0" expanded="true" />
+            <element signature="e#2097#2098#0" expanded="true" />
+            <element signature="e#2133#2134#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4221">
-          <caret line="505" column="31" lean-forward="true" selection-start-line="505" selection-start-column="31" selection-end-line="505" selection-end-column="31" />
+        <state relative-caret-position="79">
+          <caret line="185" column="58" selection-start-line="185" selection-start-column="49" selection-end-line="185" selection-end-column="58" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DiscoveryFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="225" column="51" lean-forward="true" selection-start-line="225" selection-start-column="51" selection-end-line="225" selection-end-column="51" />
+        <state relative-caret-position="685">
+          <caret line="225" column="51" selection-start-line="225" selection-start-column="51" selection-end-line="225" selection-end-column="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/CustomAdaptor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        <state relative-caret-position="-663">
+          <caret line="45" column="19" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/defaultstepImage.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/VoiceControlService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="99" selection-start-line="99" selection-end-line="99" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DishItemActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="183" selection-start-line="183" selection-end-line="183" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/voice_setting_dialog.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="38" column="40" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="40" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/StepByStepActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="142" selection-start-line="142" selection-end-line="142" />
         </state>
       </provider>
     </entry>

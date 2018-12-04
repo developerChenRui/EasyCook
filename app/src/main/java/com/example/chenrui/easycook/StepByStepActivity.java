@@ -22,13 +22,7 @@ import android.widget.Toast;
 
 import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class StepByStepActivity extends AppCompatActivity {
 
@@ -55,20 +49,26 @@ public class StepByStepActivity extends AppCompatActivity {
     FloatingActionButton gestureControl;
     FloatingActionButton setClock;
 
+    ArrayList<String> des = new ArrayList<>();
+
+    // command
+    String leftCommand;
+    String rightCommand;
+
 
     // fake image and description
-    String[] des = {"the first step is to put the oil in the hot pot","the second step is to put the onion into oil and fryyyyyy" +
-            "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy" +
-            "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy" +
-            "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy","hhhahahahahaahahah"};
-    int[] imageRes = {R.drawable.cut_egg,R.drawable.salad,R.drawable.hamburger};
-    int numOfImage = des.length;
+//    String[] des = {"the first step is to put the oil in the hot pot","the second step is to put the onion into oil and fryyyyyy" +
+//            "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy" +
+//            "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy" +
+//            "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy","hhhahahahahaahahah"};
+    int[] imageRes; //= {R.drawable.cut_egg,R.drawable.salad,R.drawable.hamburger};
+    int numOfImage;
 
     public void performLeft(){
         cur--;
-        step_description.setText(des[cur]);
+        step_description.setText(des.get(cur));
         stepImage.setImageResource(imageRes[cur]);
-        stepCount.setText("Step " + (cur+1) + " Of " + des.length);
+        stepCount.setText("Step " + (cur+1) + " Of " + des.size());
 
         // when it comes to the first step or last step , hide left button or right button
 
@@ -89,9 +89,9 @@ public class StepByStepActivity extends AppCompatActivity {
 
     public void performRight() {
         cur++;
-        step_description.setText(des[cur]);
+        step_description.setText(des.get(cur));
         stepImage.setImageResource(imageRes[cur]);
-        stepCount.setText("Step " + (cur+1) + " Of " + des.length);
+        stepCount.setText("Step " + (cur+1) + " Of " + des.size());
 
         // when it comes to the first step or last step , hide left button or right button
         if(cur ==0 && cur==numOfImage-1) {
@@ -114,8 +114,19 @@ public class StepByStepActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_by_step);
-        TextView nextCommand = findViewById(R.id.nextCommand);
-        TextView lastCommand = findViewById(R.id.lastCommand);
+
+        leftCommand = "left";
+        rightCommand = "right";
+
+
+        // get the instructions
+        des = getIntent().getStringArrayListExtra("stepBystepInstructions");
+        numOfImage = des.size();
+        imageRes = new int[numOfImage];
+
+        for(int i=0; i<numOfImage; i++) {
+            imageRes[i] = R.drawable.defaultstep;
+        }
 
         // register the broadcast to receive the message from voice control service
         mBroadcastReceiver = new BroadcastReceiver() {
@@ -129,13 +140,10 @@ public class StepByStepActivity extends AppCompatActivity {
 //                    mesSet.add(c);
 //                }
 
-                String right = nextCommand.getText()!=""?nextCommand.getText().toString():"right";
-                String left = lastCommand.getText()!=""?lastCommand.getText().toString():"left";
-
-                if(message.equals(left) && cur>0) {
+                if(message.equals(leftCommand) && cur>0) {
                     performLeft();
                 }
-                if(message.equals(right) && cur<des.length) {
+                if(message.equals(rightCommand) && cur<des.size()) {
                     performRight();
                 }
             }
@@ -165,9 +173,9 @@ public class StepByStepActivity extends AppCompatActivity {
 
         left.setVisibility(View.GONE);
 
-        step_description.setText(des[cur]);
+        step_description.setText(des.get(cur));
         stepImage.setImageResource(imageRes[cur]);
-        stepCount.setText("Step " + (cur+1) + " Of " + des.length);
+        stepCount.setText("Step " + (cur+1) + " Of " + des.size());
 
 
 
@@ -223,7 +231,10 @@ public class StepByStepActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // TODO start the voice control here
                                     voiceControlOn = true;
-
+                                    leftCommand = ((TextView)dialogView.findViewById(R.id.lastCommand)).getText().toString();
+                                    rightCommand = ((TextView)dialogView.findViewById(R.id.nextCommand)).getText().toString();
+                                    leftCommand = leftCommand.isEmpty()?"left":leftCommand;
+                                    rightCommand = rightCommand.isEmpty()?"right":rightCommand;
                                     // add the mute permission here
                                     NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N

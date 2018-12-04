@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 import com.willy.ratingbar.RotationRatingBar;
 
 import java.util.ArrayList;
@@ -71,18 +72,18 @@ public class DishItemActivity extends AppCompatActivity {
         cookTime = findViewById(R.id.cookTime);
            // set the components
         // TODO !!!!!!!!!
-//        dishImage.setImageBitmap(recipe.getRecipeImageURL());
+        Picasso.get().load(recipe.getRecipeImageURL()).into(dishImage);
         dishTitle.setText(recipe.getRecipeName());
         dishDescription.setText(recipe.getBriefDescription());
         ratingStar.setRating(recipe.getRating());
-        numOfReviewer.setText(recipe.getNumOfReviewer());
+//        numOfReviewer.setText(recipe.getNumOfReviewer());
         makerName.setText(recipe.getMakerName());
         cookTime.setText(recipe.getCookTime());
           // dynamic add the ingredient checkbox
         int numOfIngredients = recipe.getIngredients().size();
               // find the place we put the checkbox
         LinearLayout ingredientLayout = findViewById(R.id.IngredientCheckbox);
-        LinearLayout.LayoutParams paramsCheckBox = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 50);
+        LinearLayout.LayoutParams paramsCheckBox = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100);
         LinearLayout.LayoutParams paramsView = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
 
         paramsCheckBox.leftMargin = 25;
@@ -107,11 +108,12 @@ public class DishItemActivity extends AppCompatActivity {
         paramsTextView.leftMargin = 30;
         for(int i=0; i<numOfInstructions; i++) {
             TextView instruction = new TextView(this);
-            instruction.setText(recipe.getInstructions().get(i));
+            instruction.setText("   " + (i+1) + ". " +recipe.getInstructions().get(i));
             instruction.setTextSize(20);
             instruction.setTextColor(getResources().getColor(R.color.black));
             instruction.setPadding(0,16,0,0);
             instructionLayout.addView(instruction);
+
         }
 
         //TODO recycler view review part --------------------------------------------------------------------------
