@@ -78,7 +78,7 @@ public class DishItemActivity extends AppCompatActivity {
         ratingStar.setRating(recipe.getRating());
 //        numOfReviewer.setText(recipe.getNumOfReviewer());
         makerName.setText(recipe.getMakerName());
-        cookTime.setText(recipe.getCookTime());
+        cookTime.setText(recipe.getCookTime() + " min");
           // dynamic add the ingredient checkbox
         int numOfIngredients = recipe.getIngredients().size();
               // find the place we put the checkbox
@@ -90,6 +90,20 @@ public class DishItemActivity extends AppCompatActivity {
 
         for(int i=0; i<numOfIngredients; i++) {
             CheckBox ingredient = new CheckBox(this);
+            ingredient.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    if(ingredient.isChecked()){
+                        //add to the shopping list
+                        System.out.println("Checked");
+                    }else{
+                        //delete from the shopping list
+                        System.out.println("Un-Checked");
+                    }
+                }
+            });
             ingredient.setText("    " + recipe.getIngredients().get(i));
             ingredient.setTextSize(20);
             ingredient.setLayoutParams(paramsCheckBox);

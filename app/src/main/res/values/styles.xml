@@ -25,7 +25,63 @@
         <!--<item name="actionBarStyle">@style/MyActionBar</item>-->
     </style>
 
+    <style name="CustomActionBarStyle" parent="@android:style/Widget.DeviceDefault.Light.ActionBar">
+        <item name="android:contentInsetEnd">0dp</item>
+        <item name="android:contentInsetStart">0dp</item>
+        <item name="android:text">"I Made It!"</item>
+    </style>
 
+    <style name="MXAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/bar_grey</item>
+        <item name="colorPrimaryDark">@color/bar_grey</item>
+        <item name="colorAccent">@color/bar_grey</item>
+
+    </style>
+
+    <style name="CreateRecipes" parent="Theme.AppCompat.Light">
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:actionBarSize">@dimen/actionbar_hight</item>
+        <item name="android:actionBarStyle">@style/CustomActionBarStyle</item>
+        <item name="android:statusBarColor">@color/color_c0c0c0</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+    </style>
+
+    <style name="spinnerStyle" parent="@style/Base.TextAppearance.AppCompat">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="picture.white.style" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="picture.statusFontColor">true</item>
+        <item name="picture.leftBack.icon">@drawable/back2</item>
+        <item name="picture.arrow_down.icon">@drawable/orange_arrow_down</item>
+        <item name="picture.arrow_up.icon">@drawable/orange_arrow_up</item>
+        <item name="picture.title.textColor">@color/black</item>
+        <item name="picture.right.textColor">@color/black</item>
+        <item name="picture.checked.style">@drawable/picture_checkbox_selector</item>
+        <item name="picture.style.checkNumMode">false</item>
+        <item name="picture.style.numComplete">true</item>
+        <item name="picture.bottom.bg">@color/color_fa</item>
+        <item name="picture.preview.textColor">@color/tab_color_false</item>
+        <item name="picture.complete.textColor">@color/tab_color_false</item>
+        <item name="picture.num.style">@drawable/num_oval</item>
+        <item name="picture.ac_preview.title.bg">@color/white</item>
+        <item name="picture.ac_preview.title.textColor">@color/black</item>
+        <item name="picture.ac_preview.complete.textColor">@color/tab_color_false</item>
+        <item name="picture.ac_preview.bottom.bg">@color/color_fa</item>
+        <item name="picture.preview.leftBack.icon">@drawable/back2</item>
+        <item name="picture.crop.toolbar.bg">@color/bar_grey</item>
+        <item name="picture.crop.status.color">@color/bar_grey</item>
+        <item name="picture.crop.title.color">@color/white</item>
+        <item name="picture.folder_checked_dot">@drawable/orange_oval</item>
+    </style>
 
 
 </resources>

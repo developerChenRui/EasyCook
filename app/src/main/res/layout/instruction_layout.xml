@@ -7,21 +7,33 @@
 
     <ImageButton
         android:id="@+id/pic"
-        android:layout_width="65dp"
-        android:layout_height="74dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_below="@id/title"
         android:layout_marginStart="0dp"
         android:layout_marginTop="1dp"
-        android:background="@drawable/ado" />
+        android:src="@drawable/addimg_1x" />
+
+    <ImageView
+        android:id="@+id/iv_del"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="-13dp"
+        android:layout_marginEnd="-101dp"
+        android:layout_toStartOf="@+id/detail"
+        android:scaleType="center"
+        android:src="@drawable/delet_zhaopian_1x"
+        android:visibility="invisible" />
 
     <EditText
         android:id="@+id/detail"
-        android:layout_width="303dp"
-        android:layout_height="177dp"
+        android:layout_width="374dp"
+        android:layout_height="125dp"
         android:layout_below="@+id/pic"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="71dp"
-        android:layout_marginTop="-60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/order_edt_note_bg"
         android:gravity="top"
         android:hint="Add instruction here"
@@ -32,12 +44,12 @@
 
     <ImageButton
         android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="245dp"
-        android:layout_marginEnd="7dp"
+        android:layout_marginTop="277dp"
+        android:layout_marginEnd="9dp"
         android:adjustViewBounds="true"
         android:background="@android:drawable/ic_menu_delete"
         android:padding="0dp" />

@@ -221,7 +221,6 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
                 }
                 cAdaptor = new CustomAdaptor(RecylerRecipeList, getActivity(), fragView);
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.addItemDecoration(new Decoration(getActivity()));
                 recyclerView.setAdapter(cAdaptor);
                 refreshLayout.setRefreshing(false);
             }

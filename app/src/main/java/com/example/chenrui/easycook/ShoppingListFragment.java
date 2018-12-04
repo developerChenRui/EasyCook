@@ -98,6 +98,10 @@ public class ShoppingListFragment extends Fragment {
         return view;
     }
 
+//    public static void addItemtoShoppingList(String item) {
+//        items.add(new Item(item,true));
+//    }
+
     private void initItems(){
         items = new ArrayList<Item>();
 
