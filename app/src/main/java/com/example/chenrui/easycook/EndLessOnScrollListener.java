@@ -2,6 +2,7 @@ package com.example.chenrui.easycook;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 
 /**
@@ -9,7 +10,7 @@ import android.util.Log;
  */
 
 public abstract class EndLessOnScrollListener extends  RecyclerView.OnScrollListener{
-    private LinearLayoutManager linearLayoutManager;
+    private StaggeredGridLayoutManager staggeredGridLayoutManager;
     private int currentPage = 0;
     private int totalItemCount;
     private int previousTotal = 0;
@@ -18,16 +19,17 @@ public abstract class EndLessOnScrollListener extends  RecyclerView.OnScrollList
     private boolean loading = true;
     private String TAG = "YANG";
 
-    public EndLessOnScrollListener(LinearLayoutManager linearLayoutManager) {
-        this.linearLayoutManager = linearLayoutManager;
+    public EndLessOnScrollListener(StaggeredGridLayoutManager staggeredGridLayoutManager) {
+        this.staggeredGridLayoutManager = staggeredGridLayoutManager;
     }
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         visibleItemCount = recyclerView.getChildCount();
-        totalItemCount = linearLayoutManager.getItemCount();
-        firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+        totalItemCount = staggeredGridLayoutManager.getItemCount();
+//        firstVisibleItem = staggeredGridLayoutManager.findFirstVisibleItemPosition();
+        firstVisibleItem = staggeredGridLayoutManager.findFirstVisibleItemPositions(null)[0];
 
         if (loading) {
 

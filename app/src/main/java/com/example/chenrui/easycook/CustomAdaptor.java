@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.willy.ratingbar.ScaleRatingBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
@@ -64,9 +65,21 @@ class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(context,DishItemActivity.class);
-                    Recipe recipe = new Recipe();
-                    i.putExtras(Utils.Recipe2Bundle(recipe));
-                    context.startActivity(i);
+                    Utils.recipeIdSearch(recipesList.get(position).getRecipeId(), new AsyncData() {
+                        @Override
+                        public void onData(ArrayList<Recipe> recipeList) {
+                            Recipe recipe = recipeList.get(0);
+                            i.putExtras(Utils.Recipe2Bundle(recipe));
+                            context.startActivity(i);
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+                            Toast.makeText(context,"There is an error retrieving data", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+
                 }
             });
         }

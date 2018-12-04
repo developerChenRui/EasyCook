@@ -55,7 +55,7 @@ public class Recipe {
 
     }
 
-    public Recipe(String recipeName, String briefDescription, float rating, String recipeImageURL, String profileURL, String makerName,
+    public Recipe(String recipeName, String briefDescription, float rating, String recipeImageURL, String makerName,
                   String cookTime, int numOfReviewer, ArrayList<String> ingredients, ArrayList<String> instructions, String recipeId) {
         this.recipeName = recipeName;
         this.briefDescription = briefDescription;

@@ -57,8 +57,8 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
 
 
     private String TAG = "YANG";
-    private ArrayList<Recipe> recipeList;
-    private ArrayList<Recipe> RecylerRecipeList;
+//    private ArrayList<Recipe> recipeList;
+    private ArrayList<Recipe> RecylerRecipeList = new ArrayList<>();
 
 
 
@@ -89,36 +89,25 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     /** implement later**/
-                    Log.d(TAG, "onQueryTextSubmit: " + query);
-                    ArrayList<Recipe> newQueryRecipes;
-                  //  Utils.keyWordSearch(query);
-                    newQueryRecipes = Utils.keyWordSearch(query);
-                    try{
-                        if(recipeList == null || recipeList.size() ==0) {
-                            recipeList = newQueryRecipes;
-                            Log.d("Here1",recipeList.size()+"");
-                       //     cAdaptor = new CustomAdaptor(recipeList,getActivity(),fragView);
-                       //     recyclerView.setAdapter(cAdaptor);
-                        } else {
-                            for(int i=0; i<newQueryRecipes.size();i++) {
-                                recipeList.add(0,newQueryRecipes.get(i));
-                                Log.d("Here2",newQueryRecipes.size()+"");
-                                Log.d("Here3",recipeList.size()+"");
+                    refreshLayout.setRefreshing(true);
+                    RecylerRecipeList.clear();
+                    Utils.keyWordSearch(query, new AsyncData() {
+                        @Override
+                        public void onData(ArrayList<Recipe> recipeList) {
+                            for(Recipe r : recipeList){
+                                RecylerRecipeList.add(r);
                             }
+                            cAdaptor.notifyDataSetChanged();
+                            searchView.setQuery("",false);
+                            refreshLayout.setRefreshing(false);
                         }
-                        cAdaptor.notifyDataSetChanged();
 
-                    //    onRefresh();
-
-                        //recyclerView.setAdapter(cAdaptor);
-
-
-                    }catch(Exception e) {
-                        e.printStackTrace();
-                    }finally {
-                        searchView.setQuery("",false);
-                    }
-                    refreshLayout.setRefreshing(false);
+                        @Override
+                        public void onError(String errorMessage) {
+                            refreshLayout.setRefreshing(false);
+                            Toast.makeText(getContext(),"There was error retriving data", Toast.LENGTH_LONG).show();
+                        }
+                    });
                     return true;
                 }
 
@@ -170,15 +159,17 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
         recyclerView = view.findViewById(R.id.RecyView);
         linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        loadData();
-        cAdaptor = new CustomAdaptor(recipeList , getActivity(), view);
+        refreshLayout.setOnRefreshListener(this);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new Decoration(getActivity()));
-         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,
-                 StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,
+                StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(cAdaptor);
-        refreshLayout.setOnRefreshListener(this);
+        loadData();
+//        cAdaptor = new CustomAdaptor(recipeList , getActivity(), view);
+//
+//        recyclerView.setAdapter(cAdaptor);
+
 
 //        recyclerView.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
 //            @Override
@@ -190,26 +181,75 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
 //
 //            }
 //        });
+
+        recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                Log.d(TAG, "onLoadMore: happened");
+                refreshLayout.setRefreshing(true);
+                 Utils.randomSearch(new AsyncData() {
+                    @Override
+                    public void onData(ArrayList<Recipe> recipeList) {
+                        for(Recipe r : recipeList){
+                            RecylerRecipeList.add(r);
+                        }
+                        cAdaptor.notifyDataSetChanged();
+                        refreshLayout.setRefreshing(false);
+                    }
+                    @Override
+                    public void onError(String errorMessage) {
+                        refreshLayout.setRefreshing(false);
+                        Toast.makeText(getContext(),"There was error retrieving data", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+            }
+        });
+
         fragView = view;
         return view;
     }
 
     private void loadData(){
         /** modify later**/
-        if(recipeList == null || recipeList.size()==0) {
-            recipeList = Utils.randomSearch();
-            Log.d("checkNUm1",recipeList.size()+"");
-        } else {
-            ArrayList<Recipe> newRecipes = Utils.randomSearch();
-            Log.d("checkNUm4",newRecipes.size()+"");
-            for (int i=0; i<newRecipes.size();i++) {
-                Log.d("checkNUm3",recipeList.size()+"");
-                recipeList.add(0,newRecipes.get(i));
+        refreshLayout.setRefreshing(true);
+        Utils.randomSearch(new AsyncData() {
+            @Override
+            public void onData(ArrayList<Recipe> recipeList) {
+                for(Recipe r : recipeList){
+                    RecylerRecipeList.add(r);
+                }
+                cAdaptor = new CustomAdaptor(RecylerRecipeList, getActivity(), fragView);
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                recyclerView.addItemDecoration(new Decoration(getActivity()));
+                recyclerView.setAdapter(cAdaptor);
+                refreshLayout.setRefreshing(false);
             }
-        }
+            @Override
+            public void onError(String errorMessage) {
+                refreshLayout.setRefreshing(false);
+                Toast.makeText(getContext(),"There was error retrieving data", Toast.LENGTH_LONG).show();
+            }
+        });
 
-        Log.d("checkNUm2",recipeList.size()+"");
     }
+
+//    private void loadData(){
+//        /** modify later**/
+//        if(recipeList == null || recipeList.size()==0) {
+//            recipeList = Utils.randomSearch();
+//            Log.d("checkNUm1",recipeList.size()+"");
+//        } else {
+//            ArrayList<Recipe> newRecipes = Utils.randomSearch();
+//            Log.d("checkNUm4",newRecipes.size()+"");
+//            for (int i=0; i<newRecipes.size();i++) {
+//                Log.d("checkNUm3",recipeList.size()+"");
+//                recipeList.add(0,newRecipes.get(i));
+//            }
+//        }
+//
+//        Log.d("checkNUm2",recipeList.size()+"");
+//    }
 
 //    @Override
 //    public void onClick(View v, int position) {
@@ -221,22 +261,39 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onRefresh() {
         /** refresh new recipe **/
-
-
-        Log.d("checkNUm9","REFRESH");
- //       new Handler().postDelayed(new Runnable() {
-
- //           @Override public void run() {
-                Log.d(TAG,"onRefresh happened");
-                loadData();
+        Log.d(TAG,"onRefresh happened");
+        RecylerRecipeList.clear();
+        Utils.randomSearch(new AsyncData() {
+            @Override
+            public void onData(ArrayList<Recipe> recipeList) {
+                for(Recipe r : recipeList){
+                    RecylerRecipeList.add(r);
+                }
                 cAdaptor.notifyDataSetChanged();
-            //    cAdaptor = new CustomAdaptor(recipeList,getActivity(),fragView);
-            //    recyclerView.setAdapter(cAdaptor);
                 refreshLayout.setRefreshing(false);
+            }
 
- //           }
+            @Override
+            public void onError(String errorMessage) {
+                refreshLayout.setRefreshing(false);
+                Toast.makeText(getContext(),"There was error retrieving data", Toast.LENGTH_LONG).show();
+            }
+        });
 
-  //      }, 500);
+//        Log.d("checkNUm9","REFRESH");
+// //       new Handler().postDelayed(new Runnable() {
+//
+// //           @Override public void run() {
+//                Log.d(TAG,"onRefresh happened");
+//                loadData();
+//                cAdaptor.notifyDataSetChanged();
+//            //    cAdaptor = new CustomAdaptor(recipeList,getActivity(),fragView);
+//            //    recyclerView.setAdapter(cAdaptor);
+//                refreshLayout.setRefreshing(false);
+//
+// //           }
+//
+//  //      }, 500);
 
 
     }
