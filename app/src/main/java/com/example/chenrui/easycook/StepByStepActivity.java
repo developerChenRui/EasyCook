@@ -140,10 +140,14 @@ public class StepByStepActivity extends AppCompatActivity {
 //                    mesSet.add(c);
 //                }
 
+
+              //  Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
                 if(message.equals(leftCommand) && cur>0) {
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
                     performLeft();
                 }
                 if(message.equals(rightCommand) && cur<des.size()) {
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
                     performRight();
                 }
             }

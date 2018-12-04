@@ -21,6 +21,17 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:background="@drawable/trash" />
 
+    <ImageButton
+        android:id="@+id/btnStore"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:clickable="true"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:background="@drawable/supermarket" />
+
     <ImageView
         android:id="@+id/shopping_list"
         android:layout_width="200dp"

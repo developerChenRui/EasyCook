@@ -6,6 +6,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES"/>
+
 
     <application
         android:allowBackup="true"
@@ -15,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/CustomActionBarTheme"
         tools:replace="android:theme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCj0uSuC1QJiarxdkYlAL2RxO2r0mYU0ck" />
         <activity
             android:name=".CreateRecipeActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
@@ -48,6 +57,8 @@
         <activity
             android:name=".WriteReviewActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".MapsActivity"></activity>
 
         <service
             android:name=".VoiceControlService"

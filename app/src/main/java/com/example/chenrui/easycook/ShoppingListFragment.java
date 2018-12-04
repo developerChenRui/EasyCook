@@ -3,6 +3,7 @@ package com.example.chenrui.easycook;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,8 @@ public class ShoppingListFragment extends Fragment {
     ListView listView;
     ItemsListAdapter myItemsListAdapter;
 
+    ImageButton btnSupermarket;
+
 
     public ShoppingListFragment() {
         // Required empty public constructor
@@ -49,6 +52,7 @@ public class ShoppingListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_shopping_list, container, false);
         listView = (ListView)view.findViewById(R.id.listview);
         btnDelete_shoplist = (ImageButton)view.findViewById(R.id.btnDelete_shoplist);
+        btnSupermarket = (ImageButton)view.findViewById(R.id.btnStore);
 
         initItems();
         myItemsListAdapter = new ItemsListAdapter(getActivity(), items);
@@ -78,6 +82,16 @@ public class ShoppingListFragment extends Fragment {
                 }
 
                // Toast.makeText(MainActivity.this, str, Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        btnSupermarket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent appInfo = new Intent(getActivity(), MapsActivity.class);
+                startActivity(appInfo);
 
             }
         });

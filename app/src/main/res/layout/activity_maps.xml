@@ -1,0 +1,61 @@
+<RelativeLayout
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/productToolbar"
+        android:layout_width="match_parent"
+        android:background="@color/colorWhite"
+        android:elevation="2dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:title="Product Online Buying"
+        android:layout_height="50dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ImageButton
+            android:layout_marginRight="0dp"
+            android:id="@+id/btnGoBack"
+            android:layout_width="55dp"
+            android:layout_height="60dp"
+            android:src="@drawable/goback"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_alignParentStart="true"
+            android:scaleType="fitXY"
+            />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="com.example.priyanka.mapsdemo.MapsActivity"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSupermarket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="60dp"
+        android:layout_marginEnd="20dp"
+        android:clickable="true"
+        app:backgroundTint="@android:color/white"
+        app:srcCompat="@drawable/store"
+        app:fabSizes="normal" />
+
+
+</RelativeLayout>
