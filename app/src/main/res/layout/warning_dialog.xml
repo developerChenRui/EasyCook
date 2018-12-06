@@ -1,88 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="49dp"
-        android:layout_height="56dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="0dp"
-        app:srcCompat="@drawable/warning" />
+    android:layout_height="180dp">
 
     <TextView
         android:id="@+id/Error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="5dp"
-        android:layout_toEndOf="@+id/imageView"
-        android:text="Error"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
+        android:text="Post Unsuccessful"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/warning"
+        android:layout_width="314dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="35dp"
+        android:text="Your recipe is not completed, please finish it before posing."
+        android:textAlignment="center"
+        android:textColor="@color/color_4d"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Error" />
+
+    <Button
+        android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Error"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="13dp"
-        android:text="Missing required information!"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_margin="5dip"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="49dp"
+        android:layout_marginEnd="291dp"
+        android:layout_weight="1"
+        android:background="@drawable/btn_bottom_confirm_bg"
+        android:gravity="center"
+        android:text="OK"
+        android:textAlignment="center"
+        android:textColor="@color/colorFabIcon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/warning"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/warning"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="13dp">
-
-        <Button
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_marginStart="24dp"
-            android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
-            android:text="Back"
-            android:textAllCaps="false"
-            android:textColor="@color/black" />
-
-        <Button
-            android:id="@+id/draft"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="0dp"
-            android:layout_toRightOf="@+id/back"
-            android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
-            android:text="Save"
-            android:textAllCaps="false"
-            android:textColor="@color/black" />
-
-        <Button
-            android:id="@+id/exit"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="0dp"
-            android:layout_toRightOf="@+id/draft"
-            android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
-            android:text="Cancel"
-            android:textAllCaps="false"
-            android:textColor="@color/black" />
-    </RelativeLayout>
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

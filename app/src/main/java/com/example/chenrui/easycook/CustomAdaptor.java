@@ -1,5 +1,6 @@
 package com.example.chenrui.easycook;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -70,7 +71,7 @@ class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         public void onData(ArrayList<Recipe> recipeList) {
                             Recipe recipe = recipeList.get(0);
                             i.putExtras(Utils.Recipe2Bundle(recipe));
-                            context.startActivity(i);
+                            ((Activity)context).startActivityForResult(i,NavigateActivity.GETINGREDIENTS);
                         }
 
                         @Override

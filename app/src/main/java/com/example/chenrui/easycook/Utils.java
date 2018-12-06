@@ -13,6 +13,7 @@ import com.loopj.android.http.RequestParams;
 
 import org.apache.commons.codec.binary.Hex;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -118,10 +119,10 @@ public class Utils {
         bundle.putString("recipeImage",recipe.getRecipeImageURL());
     //    bundle.putString("profile",recipe.getProfileURL());
         bundle.putString("makerName",recipe.getMakerName());
-        bundle.putStringArrayList("ingredients",recipe.getIngredients());
-        bundle.putStringArrayList("instructions",recipe.getInstructions());
+        bundle.putString("ingredients",recipe.getIngredients().toString());
+        bundle.putString("instructions",recipe.getInstructions().toString());
         bundle.putInt("numOfReviewer",recipe.getNumOfReviewer());
-        bundle.putString("cookTime",recipe.getCookTime());
+        bundle.putInt("cookTime",recipe.getCookTime());
         return bundle;
     }
 
@@ -133,9 +134,14 @@ public class Utils {
         recipe.setRecipeImageURL(bundle.getString("recipeImage"));
     //    recipe.setProfileURL(bundle.getString("profile"));
         recipe.setMakerName(bundle.getString("makerName",recipe.getMakerName()));
-        recipe.setIngredients(bundle.getStringArrayList("ingredients"));
-        recipe.setInstructions(bundle.getStringArrayList("instructions"));
-        recipe.setCookTime(bundle.getString("cookTime"));
+        try{
+            recipe.setIngredients(new JSONArray(bundle.getString("ingredients")));
+            recipe.setInstructions(new JSONArray(bundle.getString("instructions")));
+            System.out.format("Getting instructions from bundle: %s%n",recipe.getInstructions().toString());
+        } catch (JSONException e) {
+            System.err.format("%s%n",e);
+        }
+        recipe.setCookTime(bundle.getInt("cookTime"));
         recipe.setNumOfReviewer(bundle.getInt("numOfReviewer"));
         return recipe;
     }
@@ -185,21 +191,27 @@ public class Utils {
                         Log.d(TAG, "onSuccess: id " + id);
                         String imageURL = recipe.getString("image");
                         Log.d(TAG, "onSuccess: image " + imageURL);
-                        ArrayList<String> ingredients = new ArrayList<>();
+                        JSONArray ingredients = new JSONArray();
                         JSONArray ingredArr = recipe.getJSONArray("extendedIngredients");
                         String cookingMinutes = recipe.getString("readyInMinutes");/** cooking minutes**/
                         Log.d(TAG, "onSuccess: cookingMinutes " + cookingMinutes);
                         for (int j = 0; j < ingredArr.length(); j++){
                             JSONObject ingredObj = (JSONObject)ingredArr.get(j);
-                            ingredients.add(ingredObj.getString("name"));
+                            JSONObject ing = new JSONObject();
+                            ing.put("name",ingredObj.getString("name"));
+                            ing.put("amount",ingredObj.getDouble("amount"));
+                            ing.put("unit",ingredObj.getString("unit"));
+                            ingredients.put(ing);
                         }
-                        List<String> stepList = new ArrayList<>(); /**!!!!!!steps**/
+                        JSONArray stepList = new JSONArray(); /**!!!!!!steps**/
                         JSONArray stepsArr = recipe.getJSONArray("analyzedInstructions");
                         JSONObject stepsArrObj = (JSONObject)stepsArr.get(0);
                         JSONArray realStepsArr = stepsArrObj.getJSONArray("steps");
                         for (int k = 0; k < realStepsArr.length(); k++){
                             JSONObject step = (JSONObject)realStepsArr.get(k);
-                            stepList.add(step.getString("step"));
+                            JSONObject inst = new JSONObject();
+                            inst.put("step",step.getString("step"));
+                            stepList.put(inst);
                         }
                         Log.d(TAG, "onSuccess: ingredients " + ingredients.toString());
                         newRecipe = new Recipe(title,ingredients,imageURL,0.0f,id);
@@ -252,7 +264,7 @@ public class Utils {
                             String imageId = imageIdArr[0];
                             String imageFormat = imageIdArr[1];
                             String realImageURL = "https://spoonacular.com/recipeImages/" + imageId + "-556x370." + imageFormat;
-                            ArrayList<String> ingredients = new ArrayList<>();
+                            JSONArray ingredients = new JSONArray();
                             newRecipe = new Recipe(title,ingredients,realImageURL,0.0f,id);
                             recipeList.add(newRecipe);
                         }
@@ -282,7 +294,7 @@ public class Utils {
         Log.d(TAG, "recipeIdSearch: begin");
         ArrayList<Recipe> recipeList = new ArrayList<>();
         if (true){
-            Log.d(TAG, "recipeIdSearch: if ");
+            Log.d(TAG, "recipeIdSearch: if " + recipeID);
             AsyncHttpRequest.get("recipes/" + recipeID + "/information",null, new JsonHttpResponseHandler(){
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -291,29 +303,74 @@ public class Utils {
                         Log.d(TAG, "recipeIdSearchon: 1");
                         String title = response.getString("title");
                         Log.d(TAG, "recipeIdSearch: title " + title);
-                        String cookMinutes = response.getString("readyInMinutes"); /**!!!!cooktime**/
+                        int cookMinutes = Integer.valueOf(response.getString("readyInMinutes")); /**!!!!cooktime**/
                         Log.d(TAG, "recipeIdSearch: cookMinutes " + cookMinutes);
                         String ImageURL = response.getString("image");
                         Log.d(TAG, "recipeIdSearch: ImageURL " + ImageURL);
-                        ArrayList<String> ingredients = new ArrayList<>();
+                        JSONArray ingredients = new JSONArray();
                         JSONArray ingredArr = response.getJSONArray("extendedIngredients");
                         for (int j = 0; j < ingredArr.length(); j++){
                             JSONObject ingredObj = (JSONObject)ingredArr.get(j);
-                            ingredients.add(ingredObj.getString("name"));
+                            JSONObject ing = new JSONObject();
+                            ing.put("name",ingredObj.getString("name"));
+                            ing.put("amount",ingredObj.getDouble("amount"));
+                            ing.put("unit",ingredObj.getString("unit"));
+                            ingredients.put(ing);
                         }
-                        ArrayList<String> stepList = new ArrayList<>(); /**!!!!!!steps**/
+                        Log.d(TAG,"Got ingredients");
+                        JSONArray stepList = new JSONArray(); /**!!!!!!steps**/
                         JSONArray stepsArr = response.getJSONArray("analyzedInstructions");
-                        JSONObject stepsArrObj = (JSONObject)stepsArr.get(0);
-                        JSONArray realStepsArr = stepsArrObj.getJSONArray("steps");
-                        for (int i = 0; i < realStepsArr.length(); i++){
-                            JSONObject step = (JSONObject)realStepsArr.get(i);
-                            stepList.add(step.getString("step"));
+                        if (stepsArr.length() > 0) {
+                            JSONObject stepsArrObj = (JSONObject)stepsArr.get(0);
+                            JSONArray realStepsArr = stepsArrObj.getJSONArray("steps");
+                            for (int i = 0; i < realStepsArr.length(); i++){
+                                JSONObject step = (JSONObject)realStepsArr.get(i);
+                                JSONObject inst = new JSONObject();
+                                inst.put("step",step.getString("step"));
+                                stepList.put(inst);
+                            }
+                            Log.d(TAG,"Got instructions");
+
                         }
-                        recipeList.add(new Recipe(title,"",0.0f,ImageURL,"By Spoonacular",cookMinutes,0,ingredients,stepList,
+                        JSONArray tags = new JSONArray();/**!!!!tags**/
+                        if (response.getBoolean("vegetarian")){
+                            tags.put("vegetarian");
+                        }
+                        if (response.getBoolean("vegan")){
+                            tags.put("vegan");
+                        }
+                        if (response.getBoolean("glutenFree")){
+                            tags.put("gluten free");
+                        }
+                        if (response.getBoolean("dairyFree")){
+                            tags.put("dairy free");
+                        }
+                        if (response.getBoolean("cheap")){
+                            tags.put("cheap");
+                        }
+                        if (response.getBoolean("veryPopular")){
+                            tags.put("popular");
+                        }
+                        if (response.getBoolean("sustainable")){
+                            tags.put("sustainable");
+                        }
+                        for (int i = 0; i < response.getJSONArray("cuisines").length(); i++) {
+                            tags.put(response.getJSONArray("cuisines").getString(i));
+                        }
+                        for (int i = 0; i < response.getJSONArray("dishTypes").length(); i++) {
+                            tags.put(response.getJSONArray("dishTypes").getString(i));
+                        }
+                        for (int i = 0; i < response.getJSONArray("occasions").length(); i++) {
+                            tags.put(response.getJSONArray("occasions").getString(i));
+                        }
+                        Log.d(TAG,"Got tags");
+
+                        recipeList.add(new Recipe(title,"",0.0f,ImageURL,"","By Spoonacular",cookMinutes,0,ingredients,stepList,tags,
                                 recipeID));
                     }catch (Exception e){
                         e.printStackTrace();
                         callback.onError(e.getMessage());
+                        Log.e(TAG,"Error id search");
                     }
                     callback.onData(recipeList);
                 }

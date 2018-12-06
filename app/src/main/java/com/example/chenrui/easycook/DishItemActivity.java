@@ -1,5 +1,6 @@
 package com.example.chenrui.easycook;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,8 @@ import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 import com.willy.ratingbar.RotationRatingBar;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +42,9 @@ public class DishItemActivity extends AppCompatActivity {
     ImageView profile;
     TextView makerName;
     TextView cookTime;
+
+    //shopping list
+    ArrayList<String> shoppinglist = new ArrayList<>();
 
 
     // fake data
@@ -78,9 +84,9 @@ public class DishItemActivity extends AppCompatActivity {
         ratingStar.setRating(recipe.getRating());
 //        numOfReviewer.setText(recipe.getNumOfReviewer());
         makerName.setText(recipe.getMakerName());
-        cookTime.setText(recipe.getCookTime() + " min");
+        cookTime.setText(String.valueOf(recipe.getCookTime()));
           // dynamic add the ingredient checkbox
-        int numOfIngredients = recipe.getIngredients().size();
+        int numOfIngredients = recipe.getIngredients().length();
               // find the place we put the checkbox
         LinearLayout ingredientLayout = findViewById(R.id.IngredientCheckbox);
         LinearLayout.LayoutParams paramsCheckBox = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100);
@@ -90,23 +96,23 @@ public class DishItemActivity extends AppCompatActivity {
 
         for(int i=0; i<numOfIngredients; i++) {
             CheckBox ingredient = new CheckBox(this);
-            ingredient.setOnClickListener(new View.OnClickListener() {
+            try {
+                ingredient.setText("    " + recipe.getIngredients().getJSONObject(i).getString("name"));
+            } catch (JSONException e) {
 
+            }
+            ingredient.setTextSize(20);
+            ingredient.setLayoutParams(paramsCheckBox);
+
+            ingredient.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO Auto-generated method stub
                     if(ingredient.isChecked()){
                         //add to the shopping list
-                        System.out.println("Checked");
-                    }else{
-                        //delete from the shopping list
-                        System.out.println("Un-Checked");
+                        shoppinglist.add(ingredient.getText().toString());
                     }
                 }
             });
-            ingredient.setText("    " + recipe.getIngredients().get(i));
-            ingredient.setTextSize(20);
-            ingredient.setLayoutParams(paramsCheckBox);
 
             View v = new View(this);
             v.setBackground(getResources().getDrawable(R.color.separateLine));
@@ -116,13 +122,17 @@ public class DishItemActivity extends AppCompatActivity {
             ingredientLayout.addView(v);
         }
           // dynamic add the instructions
-        int numOfInstructions = recipe.getInstructions().size();
+        int numOfInstructions = recipe.getInstructions().length();
         LinearLayout instructionLayout = findViewById(R.id.instructions);
         LinearLayout.LayoutParams paramsTextView = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         paramsTextView.leftMargin = 30;
         for(int i=0; i<numOfInstructions; i++) {
             TextView instruction = new TextView(this);
-            instruction.setText("   " + (i+1) + ". " +recipe.getInstructions().get(i));
+            try {
+                instruction.setText("   " + (i+1) + ". " +recipe.getInstructions().getJSONObject(i).getString("step"));
+            } catch (JSONException e) {
+
+            }
             instruction.setTextSize(20);
             instruction.setTextColor(getResources().getColor(R.color.black));
             instruction.setPadding(0,16,0,0);
@@ -183,7 +193,10 @@ public class DishItemActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent();
+                intent.putStringArrayListExtra("shoppingList",shoppinglist);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
             }
         });
 
@@ -195,7 +208,7 @@ public class DishItemActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(DishItemActivity.this,StepByStepActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("stepBystepInstructions",recipe.getInstructions());
+                bundle.putString("stepBystepInstructions",recipe.getInstructions().toString());
              //   bundle.putParcelableArray("stepImages");
                 i.putExtras(bundle);
                 startActivity(i);

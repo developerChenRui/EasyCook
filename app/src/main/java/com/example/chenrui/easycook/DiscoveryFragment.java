@@ -57,7 +57,6 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
 
 
     private String TAG = "YANG";
-//    private ArrayList<Recipe> recipeList;
     private ArrayList<Recipe> RecylerRecipeList = new ArrayList<>();
 
 
@@ -161,26 +160,10 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
         recyclerView.setLayoutManager(linearLayoutManager);
         refreshLayout.setOnRefreshListener(this);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new Decoration(getActivity()));
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         loadData();
-//        cAdaptor = new CustomAdaptor(recipeList , getActivity(), view);
-//
-//        recyclerView.setAdapter(cAdaptor);
-
-
-//        recyclerView.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
-//            @Override
-//            public void onLoadMore(int currentPage) {
-////                refreshLayout.setRefreshing(true);
-////                loadData();
-////                refreshLayout.setRefreshing(false);
-////                cAdaptor.notifyDataSetChanged();
-//
-//            }
-//        });
 
         recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
             @Override
@@ -221,6 +204,7 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
                 }
                 cAdaptor = new CustomAdaptor(RecylerRecipeList, getActivity(), fragView);
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
+//                recyclerView.addItemDecoration(new Decoration(getActivity()));
                 recyclerView.setAdapter(cAdaptor);
                 refreshLayout.setRefreshing(false);
             }
@@ -232,30 +216,6 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
         });
 
     }
-
-//    private void loadData(){
-//        /** modify later**/
-//        if(recipeList == null || recipeList.size()==0) {
-//            recipeList = Utils.randomSearch();
-//            Log.d("checkNUm1",recipeList.size()+"");
-//        } else {
-//            ArrayList<Recipe> newRecipes = Utils.randomSearch();
-//            Log.d("checkNUm4",newRecipes.size()+"");
-//            for (int i=0; i<newRecipes.size();i++) {
-//                Log.d("checkNUm3",recipeList.size()+"");
-//                recipeList.add(0,newRecipes.get(i));
-//            }
-//        }
-//
-//        Log.d("checkNUm2",recipeList.size()+"");
-//    }
-
-//    @Override
-//    public void onClick(View v, int position) {
-//        /** to do **/
-//        Toast.makeText(getActivity(), "item " + position + " clicked", Toast.LENGTH_SHORT).show();
-//        Log.d(TAG, "item " + position + " clicked");
-//    }
 
     @Override
     public void onRefresh() {
@@ -278,22 +238,6 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
                 Toast.makeText(getContext(),"There was error retrieving data", Toast.LENGTH_LONG).show();
             }
         });
-
-//        Log.d("checkNUm9","REFRESH");
-// //       new Handler().postDelayed(new Runnable() {
-//
-// //           @Override public void run() {
-//                Log.d(TAG,"onRefresh happened");
-//                loadData();
-//                cAdaptor.notifyDataSetChanged();
-//            //    cAdaptor = new CustomAdaptor(recipeList,getActivity(),fragView);
-//            //    recyclerView.setAdapter(cAdaptor);
-//                refreshLayout.setRefreshing(false);
-//
-// //           }
-//
-//  //      }, 500);
-
 
     }
 }

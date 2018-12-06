@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.chenrui.easycook.CreateRecipes.CreateActivity;
+import com.example.chenrui.easycook.CreateActivity;
 
 import java.util.ArrayList;
 

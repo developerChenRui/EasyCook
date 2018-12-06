@@ -6,15 +6,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,9 +27,17 @@ import android.widget.Toast;
 
 import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.w3c.dom.Text;
 
-public class StepByStepActivity extends AppCompatActivity {
+import edu.washington.cs.touchfreelibrary.sensors.CameraGestureSensor;
+import edu.washington.cs.touchfreelibrary.sensors.ClickSensor;
+import edu.washington.cs.touchfreelibrary.utilities.LocalOpenCV;
+import edu.washington.cs.touchfreelibrary.utilities.PermissionUtility;
+
+
+public class StepByStepActivity extends AppCompatActivity implements CameraGestureSensor.Listener, ClickSensor.Listener{
 
     // register a broadcast to make service call the method from this activity
     public static final String RECEIVER_INTENT = "RECEIVER_INTENT";
@@ -32,6 +45,7 @@ public class StepByStepActivity extends AppCompatActivity {
     BroadcastReceiver mBroadcastReceiver;
 
     private boolean voiceControlOn = false;
+    private boolean gestureControlOn = false;
 
 
     TextView stepCount;
@@ -49,11 +63,14 @@ public class StepByStepActivity extends AppCompatActivity {
     FloatingActionButton gestureControl;
     FloatingActionButton setClock;
 
-    ArrayList<String> des = new ArrayList<>();
+    JSONArray des = new JSONArray();
 
     // command
     String leftCommand;
     String rightCommand;
+
+    // invert for hand gestures
+    Boolean invert = false;
 
 
     // fake image and description
@@ -65,21 +82,29 @@ public class StepByStepActivity extends AppCompatActivity {
     int numOfImage;
 
     public void performLeft(){
+        if (cur == 0) {
+            return;
+        }
         cur--;
-        step_description.setText(des.get(cur));
+        try{
+            step_description.setText(des.getJSONObject(cur).getString("step").toString());
+        } catch (JSONException e) {
+
+        }
         stepImage.setImageResource(imageRes[cur]);
-        stepCount.setText("Step " + (cur+1) + " Of " + des.size());
+        stepCount.setText("Step " + (cur+1) + " Of " + des.length());
+
 
         // when it comes to the first step or last step , hide left button or right button
 
         if(cur ==0 && cur==numOfImage-1) {
-            left.setVisibility(View.GONE);
-            right.setVisibility(View.GONE);
+            left.setVisibility(View.INVISIBLE);
+            right.setVisibility(View.INVISIBLE);
         } else if(cur==numOfImage-1) {
             left.setVisibility(View.VISIBLE);
-            right.setVisibility(View.GONE);
+            right.setVisibility(View.INVISIBLE);
         } else if(cur ==0) {
-            left.setVisibility(View.GONE);
+            left.setVisibility(View.INVISIBLE);
             right.setVisibility(View.VISIBLE);
         } else {
             left.setVisibility(View.VISIBLE);
@@ -88,20 +113,27 @@ public class StepByStepActivity extends AppCompatActivity {
     }
 
     public void performRight() {
+        if (cur == des.length()-1){
+            return;
+        }
         cur++;
-        step_description.setText(des.get(cur));
+        try{
+            step_description.setText(des.getJSONObject(cur).getString("step").toString());
+        } catch (JSONException e) {
+
+        }
         stepImage.setImageResource(imageRes[cur]);
-        stepCount.setText("Step " + (cur+1) + " Of " + des.size());
+        stepCount.setText("Step " + (cur+1) + " Of " + des.length());
 
         // when it comes to the first step or last step , hide left button or right button
         if(cur ==0 && cur==numOfImage-1) {
-            left.setVisibility(View.GONE);
-            right.setVisibility(View.GONE);
+            left.setVisibility(View.INVISIBLE);
+            right.setVisibility(View.INVISIBLE);
         } else if(cur==numOfImage-1) {
             left.setVisibility(View.VISIBLE);
-            right.setVisibility(View.GONE);
+            right.setVisibility(View.INVISIBLE);
         } else if(cur ==0) {
-            left.setVisibility(View.GONE);
+            left.setVisibility(View.INVISIBLE);
             right.setVisibility(View.VISIBLE);
         } else {
             left.setVisibility(View.VISIBLE);
@@ -120,8 +152,13 @@ public class StepByStepActivity extends AppCompatActivity {
 
 
         // get the instructions
-        des = getIntent().getStringArrayListExtra("stepBystepInstructions");
-        numOfImage = des.size();
+        try {
+            des = new JSONArray(getIntent().getStringExtra("stepBystepInstructions"));
+            System.out.format("Got step by step instructions %s%n", des.toString());
+        } catch (JSONException e) {
+            System.err.format("Error getting step descriptions: %s%n",e);
+        }
+        numOfImage = des.length();
         imageRes = new int[numOfImage];
 
         for(int i=0; i<numOfImage; i++) {
@@ -140,14 +177,10 @@ public class StepByStepActivity extends AppCompatActivity {
 //                    mesSet.add(c);
 //                }
 
-
-              //  Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
                 if(message.equals(leftCommand) && cur>0) {
-                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
                     performLeft();
                 }
-                if(message.equals(rightCommand) && cur<des.size()) {
-                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                if(message.equals(rightCommand) && cur<des.length()) {
                     performRight();
                 }
             }
@@ -177,9 +210,13 @@ public class StepByStepActivity extends AppCompatActivity {
 
         left.setVisibility(View.GONE);
 
-        step_description.setText(des.get(cur));
+        try{
+            step_description.setText(des.getJSONObject(cur).getString("step").toString());
+        } catch (JSONException e) {
+            step_description.setText("Failure");
+        }
         stepImage.setImageResource(imageRes[cur]);
-        stepCount.setText("Step " + (cur+1) + " Of " + des.size());
+        stepCount.setText("Step " + (cur+1) + " Of " + des.length());
 
 
 
@@ -244,7 +281,7 @@ public class StepByStepActivity extends AppCompatActivity {
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
                                             && !notificationManager.isNotificationPolicyAccessGranted()) {
                                         Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                                        getApplicationContext().startActivity(intent);
+                                        StepByStepActivity.this.startActivity(intent);
                                         return;
                                     }
                                     startService(new Intent(StepByStepActivity.this, VoiceControlService.class));
@@ -258,6 +295,64 @@ public class StepByStepActivity extends AppCompatActivity {
             }
         });
 
+        gestureControl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (gestureControlOn) {
+                    gestureControlOn = false;
+                    Toast.makeText(StepByStepActivity.this,"Hand gestures disabled",Toast.LENGTH_SHORT).show();
+
+                } else {
+                    AlertDialog.Builder customizeDialog = new AlertDialog.Builder(StepByStepActivity.this);
+                    final View dialogView = LayoutInflater.from(StepByStepActivity.this)
+                            .inflate(R.layout.gesture_setting_dialog, null);
+                    TextView title = new TextView(StepByStepActivity.this);
+                    title.setTextSize(25);
+                    title.setPadding(0, 30, 0, 30);
+
+                    title.setText("Hand Gesture Setting");
+                    title.setGravity(Gravity.CENTER);
+                    customizeDialog.setCustomTitle(title);
+
+                    customizeDialog.setView(dialogView);
+                    customizeDialog.setPositiveButton("Yes",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // TODO start the voice control here
+                                    gestureControlOn = true;
+
+                                    invert = ((CheckBox)dialogView.findViewById(R.id.checkInvert)).isChecked();
+                                    if (invert) {
+                                        ((TextView)dialogView.findViewById(R.id.txtRight)).setText("Swipe Right: Next");
+                                        ((TextView)dialogView.findViewById(R.id.txtLeft)).setText("Swipe Left: Previous");
+                                    } else {
+                                        ((TextView)dialogView.findViewById(R.id.txtRight)).setText("Swipe Right: Previous");
+                                        ((TextView)dialogView.findViewById(R.id.txtLeft)).setText("Swipe Left: Next");
+                                    }
+                                    // add the mute permission here
+                                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                                            && !notificationManager.isNotificationPolicyAccessGranted()) {
+                                        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                                        StepByStepActivity.this.startActivity(intent);
+                                        return;
+                                    }
+                                    if (PermissionUtility.checkCameraPermission(StepByStepActivity.this)) {
+                                        //The third passing in represents a separate click sensor which is not required if you just want the hand motions
+                                        LocalOpenCV loader = new LocalOpenCV(StepByStepActivity.this, StepByStepActivity.this, StepByStepActivity.this);
+                                    }
+                                    Toast.makeText(getApplicationContext(), "Start Hand Gesture Control", Toast.LENGTH_SHORT).show();
+//                                    FloatingActionButton voiceControl = findViewById(R.id.voiceControl);
+//                                    voiceControl.setFabIcon(getResources().getDrawable(R.drawable.quiet));
+                                }
+                            });
+                    customizeDialog.show();
+
+
+                }
+            }
+        });
 
 
 
@@ -277,4 +372,93 @@ public class StepByStepActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    @Override
+    public void onGestureUp(CameraGestureSensor caller, long gestureLength) {
+        if(gestureControlOn) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (invert) {
+                        performRight();
+                    } else {
+                        performLeft();
+                    }
+                    Toast.makeText(StepByStepActivity.this, "Up", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } else {
+            caller.stop();
+        }
+    }
+
+    @Override
+    public void onGestureDown(CameraGestureSensor caller, long gestureLength) {
+        if(gestureControlOn){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (invert) {
+                        performLeft();
+                    } else {
+                        performRight();
+                    }
+                        Toast.makeText(StepByStepActivity.this,"Down",Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+        } else {
+            caller.stop();
+        }
+    }
+
+    @Override
+    public void onGestureLeft(CameraGestureSensor caller, long gestureLength) {
+        if(gestureControlOn){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (invert) {
+                        performRight();
+                    } else {
+                        performLeft();
+                    }
+                        Toast.makeText(StepByStepActivity.this,"Left",Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+        } else {
+            caller.stop();
+        }
+
+    }
+
+    @Override
+    public void onGestureRight(CameraGestureSensor caller, long gestureLength) {
+        if(gestureControlOn) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (invert) {
+                        performLeft();
+                    } else {
+                        performRight();
+                    }
+                        Toast.makeText(StepByStepActivity.this,"Right",Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+        } else {
+            caller.stop();
+        }
+
+    }
+
+    @Override
+    public void onSensorClick(ClickSensor caller) {
+
+    }
 }

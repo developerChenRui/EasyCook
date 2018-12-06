@@ -8,12 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class IngRecycleAdapter extends RecyclerView.Adapter<IngRecycleAdapter.MyViewHolder> {
 
     private Context context;
-    private List<Integer> list;
+    private List<Integer> list = new ArrayList<Integer>();
 
     public IngRecycleAdapter(Context context, List<Integer> list) {
         this.context = context;

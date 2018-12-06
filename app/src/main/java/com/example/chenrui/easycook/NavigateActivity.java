@@ -1,6 +1,8 @@
 package com.example.chenrui.easycook;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,8 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class NavigateActivity extends AppCompatActivity implements UserProfile.UserProfileListener,TabRecipes.OnFragmentInteractionListener{
 
+
+    // for the shopping list ingredients
+    public static int GETINGREDIENTS = 1;
+    ArrayList<String> shoppinglist= new ArrayList<>();
     //TODO fragments initialization
     // search recipe fragment
     private DiscoveryFragment dFrag;
@@ -24,6 +32,18 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
 
     // my favorite fragment
     public RecipesFragment favoriteFragment;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        shoppinglist.clear();
+        if(requestCode == GETINGREDIENTS && resultCode == Activity.RESULT_OK) {
+            // get the ingredients from the dishitemActivity
+            for(String s:data.getStringArrayListExtra("shoppingList")) {
+                shoppinglist.add(s);
+            }
+            shoppingListFragment.initItems(shoppinglist);
+        }
+    }
 
 
     @Override
@@ -77,34 +97,19 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
                         item.setChecked(true);
                         switch (item.getItemId()) {
                             case R.id.search:
-                                //TODO
-                                if(dFrag == null) {
-                                    dFrag = new DiscoveryFragment();
-                                }
                                 fTransaction = fManager.beginTransaction();
                                 fTransaction.replace(R.id.FragLayout,dFrag);
                                 fTransaction.commit();
-                              //  Toast.makeText(NavigateActivity.this,"Search Fragment",Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.shoppingList:
-                                //TODO
-                                if(shoppingListFragment == null) {
-                                    shoppingListFragment = new ShoppingListFragment();
-                                }
                                 fTransaction = fManager.beginTransaction();
                                 fTransaction.replace(R.id.FragLayout,shoppingListFragment);
                                 fTransaction.commit();
-                               // Toast.makeText(NavigateActivity.this,"shoppinglist Fragment",Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.favorite:
-                                //TODO
-                                if(favoriteFragment == null) {
-                                    favoriteFragment = new RecipesFragment();
-                                }
                                 fTransaction = fManager.beginTransaction();
                                 fTransaction.replace(R.id.FragLayout,favoriteFragment);
                                 fTransaction.commit();
-                                Toast.makeText(NavigateActivity.this,"favorite Fragment",Toast.LENGTH_SHORT).show();
                                 break;
 
                         }

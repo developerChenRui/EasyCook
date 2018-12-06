@@ -28,7 +28,7 @@ import java.util.List;
 public class ShoppingListFragment extends Fragment {
 
     ImageButton btnDelete_shoplist;
-    List<Item> items;
+    List<Item> items= new ArrayList<Item>();
     ListView listView;
     ItemsListAdapter myItemsListAdapter;
 
@@ -53,8 +53,6 @@ public class ShoppingListFragment extends Fragment {
         listView = (ListView)view.findViewById(R.id.listview);
         btnDelete_shoplist = (ImageButton)view.findViewById(R.id.btnDelete_shoplist);
         btnSupermarket = (ImageButton)view.findViewById(R.id.btnStore);
-
-        initItems();
         myItemsListAdapter = new ItemsListAdapter(getActivity(), items);
         listView.setAdapter(myItemsListAdapter);
 
@@ -80,9 +78,6 @@ public class ShoppingListFragment extends Fragment {
                     }
                     myItemsListAdapter.notifyDataSetChanged();
                 }
-
-               // Toast.makeText(MainActivity.this, str, Toast.LENGTH_LONG).show();
-
             }
         });
 
@@ -98,25 +93,13 @@ public class ShoppingListFragment extends Fragment {
         return view;
     }
 
-//    public static void addItemtoShoppingList(String item) {
-//        items.add(new Item(item,true));
-//    }
-
-    private void initItems(){
-        items = new ArrayList<Item>();
-
-        // TypedArray arrayDrawable = getResources().obtainTypedArray(R.array.resicon);
-        TypedArray arrayText = getResources().obtainTypedArray(R.array.restext);
-
-        for(int i=0; i<arrayText.length(); i++){
-            String s = arrayText.getString(i);
-            boolean b = false;
-            Item item = new Item(s, b);
-            items.add(item);
+    public void initItems(ArrayList<String> shoppinglist){
+        if(items == null) {
+            items = new ArrayList<Item>();
         }
-
-        //arrayDrawable.recycle();
-        arrayText.recycle();
+        for(String s:shoppinglist) {
+            items.add(new Item(s,false));
+        }
     }
 
     public class Item {
@@ -189,9 +172,6 @@ public class ShoppingListFragment extends Fragment {
                 public void onClick(View view) {
                     boolean newState = !list.get(position).isChecked();
                     list.get(position).checked = newState;
-//                    Toast.makeText(getApplicationContext(),
-//                            itemStr + "setOnClickListener\nchecked: " + newState,
-//                            Toast.LENGTH_LONG).show();
                 }
             });
 

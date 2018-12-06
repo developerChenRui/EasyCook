@@ -1,9 +1,9 @@
 package com.example.chenrui.easycook;
 
-import android.graphics.Bitmap;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Recipe {
     private String recipeName;
@@ -12,10 +12,11 @@ public class Recipe {
     private String recipeImageURL;
     private String profileURL;
     private String makerName;
-    private String cookTime;
+    private int cookTime;
     private int numOfReviewer;
-    private ArrayList<String> ingredients;
-    private ArrayList<String> instructions;
+    private JSONArray ingredients;
+    private JSONArray instructions;
+    private JSONArray tags;
 
     private String recipeId;
 
@@ -44,7 +45,7 @@ public class Recipe {
     }
 
 
-    public Recipe(String recipeName,ArrayList<String> ingredients,String recipeImageURL,float rating ,String recipeId) {
+    public Recipe(String recipeName,JSONArray ingredients,String recipeImageURL,float rating ,String recipeId) {
         this.recipeName = recipeName;
         this.ingredients = ingredients;
         this.rating = rating;
@@ -55,8 +56,8 @@ public class Recipe {
 
     }
 
-    public Recipe(String recipeName, String briefDescription, float rating, String recipeImageURL, String makerName,
-                  String cookTime, int numOfReviewer, ArrayList<String> ingredients, ArrayList<String> instructions, String recipeId) {
+    public Recipe(String recipeName, String briefDescription, float rating, String recipeImageURL, String profileURL, String makerName,
+                  int cookTime, int numOfReviewer, JSONArray ingredients, JSONArray instructions, JSONArray tags, String recipeId) {
         this.recipeName = recipeName;
         this.briefDescription = briefDescription;
         this.rating = rating;
@@ -67,6 +68,7 @@ public class Recipe {
         this.numOfReviewer = numOfReviewer;
         this.ingredients = ingredients;
         this.instructions = instructions;
+        this.tags = tags;
         this.recipeId = recipeId;
     }
 
@@ -80,11 +82,11 @@ public class Recipe {
     }
 
 
-    public String getCookTime() {
+    public int getCookTime() {
         return cookTime;
     }
 
-    public void setCookTime(String cookTime) {
+    public void setCookTime(int cookTime) {
         this.cookTime = cookTime;
     }
 
@@ -122,20 +124,55 @@ public class Recipe {
         this.makerName = makerName;
     }
 
-    public ArrayList<String> getIngredients() {
+    public JSONArray getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(ArrayList<String> ingredients) {
+    public void setIngredients(JSONArray ingredients) {
         this.ingredients = ingredients;
     }
 
-    public ArrayList<String> getInstructions() {
+    public JSONArray getInstructions() {
         return instructions;
     }
 
-    public void setInstructions(ArrayList<String> instructions) {
+    public void setInstructions(JSONArray instructions) {
         this.instructions = instructions;
     }
 
+    public void setTags(JSONArray tags) {
+        this.tags = tags;
+    }
+
+    public JSONArray getTags() {
+        return this.tags;
+    }
+
+    public String getFlatTags() {
+        StringBuilder sTags = new StringBuilder("");
+        for (int i = 0; i < this.tags.length(); i++) {
+            try {
+                sTags.append(this.tags.getString(i));
+                if (i < this.tags.length() - 1) {
+                    sTags.append(", ");
+                }
+
+            } catch (JSONException e) {
+                System.err.format("Tags not formatted properly: %s%n", e);
+            }
+        }
+        return sTags.toString();
+    }
+
+    public void addIngredients(String ingredient, float amount, String measure) {
+        try{
+            JSONObject ing = new JSONObject();
+            ing.put("name",ingredient);
+            ing.put("amount",amount);
+            ing.put("measure",measure);
+            this.ingredients.put(ing);
+        } catch (JSONException e) {
+            //ERROR
+        }
+    }
 }

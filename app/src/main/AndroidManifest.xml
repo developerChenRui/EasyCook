@@ -26,27 +26,33 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true"
         android:theme="@style/CustomActionBarTheme"
         tools:replace="android:theme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCj0uSuC1QJiarxdkYlAL2RxO2r0mYU0ck" />
-        <activity android:name=".CreateRecipes.CreateActivity"
-            android:theme="@style/MXAppTheme">
+        <activity android:name=".CreateActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".WelcomeScreenActivity"
             android:theme="@style/WelcomeScreenTheme" />
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/SplashTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
 
         </activity>
         <activity android:name=".RegisterActivity" />
