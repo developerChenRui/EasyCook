@@ -13,12 +13,17 @@ import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -82,6 +87,7 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
     int numOfImage;
 
     public void performLeft(){
+        Animation fadeIn = new AlphaAnimation(0, 1);
         if (cur == 0) {
             return;
         }
@@ -91,7 +97,16 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
         } catch (JSONException e) {
 
         }
+        step_description.startAnimation(fadeIn);
+        step_description.setMovementMethod(new ScrollingMovementMethod());
         stepImage.setImageResource(imageRes[cur]);
+
+        fadeIn.setInterpolator(new DecelerateInterpolator()); // add this
+        fadeIn.setDuration(1500);
+        AnimationSet animation = new AnimationSet(false); // change to false
+        animation.addAnimation(fadeIn);
+        animation.setRepeatCount(1);
+        stepImage.setAnimation(animation);
         stepCount.setText("Step " + (cur+1) + " Of " + des.length());
 
 
@@ -122,7 +137,16 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
         } catch (JSONException e) {
 
         }
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        step_description.setMovementMethod(new ScrollingMovementMethod());
+        step_description.startAnimation(fadeIn);
         stepImage.setImageResource(imageRes[cur]);
+        fadeIn.setInterpolator(new DecelerateInterpolator()); // add this
+        fadeIn.setDuration(1500);
+        AnimationSet animation = new AnimationSet(false); // change to false
+        animation.addAnimation(fadeIn);
+        animation.setRepeatCount(1);
+        stepImage.setAnimation(animation);
         stepCount.setText("Step " + (cur+1) + " Of " + des.length());
 
         // when it comes to the first step or last step , hide left button or right button

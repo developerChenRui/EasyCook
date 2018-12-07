@@ -1,54 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/cardview_light_background"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="15dp"
+    android:layout_margin="10dp"
+    android:foreground="?android:attr/selectableItemBackground">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StepByStepActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/linear">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/stepToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/stepToolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="?attr/colorPrimary"-->
+        <!--android:elevation="4dp"-->
+        <!--android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
+        <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light">-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ImageButton
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="5dp"
                 android:id="@+id/btnClose"
                 android:layout_width="50dp"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:src="@drawable/close"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:scaleType="fitXY"
                 />
+            <TextView
+                android:id="@+id/stepCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:textStyle="italic" />
         </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/stepCount"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textSize="30dp"
-        android:textStyle="bold" />
-
-    <ImageView
+    <com.elyeproj.loaderviewlibrary.LoaderImageView
         android:orientation="vertical"
         android:id="@+id/stepImage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
-        android:scaleType="fitXY">
+        android:scaleType="fitXY"
+        app:use_gradient="true">
 
-    </ImageView>
+    </com.elyeproj.loaderviewlibrary.LoaderImageView>
 
     <RelativeLayout
         android:orientation="horizontal"
@@ -58,37 +69,38 @@
         android:layout_weight="6">
         <ImageView
             android:id="@+id/left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:paddingLeft="15dp"
+            android:clickable="true"
             android:src="@drawable/left"/>
 
-        <TextView
+        <com.elyeproj.loaderviewlibrary.LoaderTextView
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="30dp"
-            android:textSize="20dp"
+            android:paddingTop="20dp"
+            android:textSize="18dp"
+            app:use_gradient="true"
+            app:height_weight="0.8"
             android:textStyle="italic"
+            android:gravity="center_vertical"
             android:id="@+id/step_description"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/left"
-            android:layout_toLeftOf="@id/right"/>
+            android:layout_marginHorizontal="40dp"
+            android:layout_width="700dp"
+            android:layout_height="wrap_content" />
 
         <ImageView
             android:id="@+id/right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
             android:gravity="right"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:paddingRight="15dp"
+            android:clickable="true"
             android:src="@drawable/right"/>
 
     </RelativeLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -106,10 +118,11 @@
                 android:id="@+id/step_by_step_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:elevation="5dp"
                 android:textStyle="bold"
-                app:fabColor="@color/yellow"
+                app:fabColor="#a8dba8"
                 app:fabIconPosition="start"
-                app:fabRippleColor="@color/black"
+                app:fabRippleColor="@color/grey_600"
                 app:fabSizes="normal"
                 app:fabIcon="@drawable/tools"
                 app:fabTextColor="@color/white"
@@ -120,9 +133,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textStyle="bold"
-                app:fabColor="@color/red"
+                app:elevation="5dp"
+                app:fabColor="#f9cdad"
                 app:fabIconPosition="start"
-                app:fabRippleColor="@color/black"
+                app:fabRippleColor="@color/grey_600"
                 app:fabSizes="normal"
                 app:fabIcon="@drawable/voice_control"
                 app:fabTextColor="@color/white"
@@ -132,9 +146,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textStyle="bold"
-                app:fabColor="@color/blue"
+                app:elevation="5dp"
+                app:fabColor="#fc9d9a"
                 app:fabIconPosition="start"
-                app:fabRippleColor="@color/black"
+                app:fabRippleColor="@color/grey_600"
                 app:fabSizes="normal"
                 app:fabIcon="@drawable/gesture_control"
                 app:fabTextColor="@color/white"
@@ -145,9 +160,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textStyle="bold"
-                app:fabColor="@color/yellow_light"
+                app:elevation="5dp"
+                app:fabColor="#f68657"
                 app:fabIconPosition="start"
-                app:fabRippleColor="@color/black"
+                app:fabRippleColor="@color/grey_600"
                 app:fabSizes="normal"
                 app:fabIcon="@drawable/set_clock"
                 app:fabTextColor="@color/white"
@@ -157,3 +173,4 @@
     </RelativeLayout>
 
 </LinearLayout>
+</android.support.v7.widget.CardView>

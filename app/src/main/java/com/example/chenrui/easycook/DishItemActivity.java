@@ -2,6 +2,11 @@ package com.example.chenrui.easycook;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,15 +21,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 import com.willy.ratingbar.RotationRatingBar;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 public class DishItemActivity extends AppCompatActivity {
 
@@ -42,10 +51,13 @@ public class DishItemActivity extends AppCompatActivity {
     ImageView profile;
     TextView makerName;
     TextView cookTime;
+    Recipe recipe;
 
     //shopping list
     ArrayList<String> shoppinglist = new ArrayList<>();
 
+    // get instructions
+    ArrayList<String> instructions = new ArrayList<>();
 
     // fake data
     static List<Integer> profiles = new ArrayList<>();
@@ -64,7 +76,7 @@ public class DishItemActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
            // covert bundle to recipe object
-        Recipe recipe = Utils.Bundle2Recipe(bundle);
+        recipe = Utils.Bundle2Recipe(bundle);
 
 
 
@@ -84,35 +96,55 @@ public class DishItemActivity extends AppCompatActivity {
         ratingStar.setRating(recipe.getRating());
 //        numOfReviewer.setText(recipe.getNumOfReviewer());
         makerName.setText(recipe.getMakerName());
-        cookTime.setText(String.valueOf(recipe.getCookTime()));
+        cookTime.setText(String.valueOf(recipe.getCookTime()) + " min");
           // dynamic add the ingredient checkbox
         int numOfIngredients = recipe.getIngredients().length();
               // find the place we put the checkbox
         LinearLayout ingredientLayout = findViewById(R.id.IngredientCheckbox);
-        LinearLayout.LayoutParams paramsCheckBox = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100);
+        LinearLayout.LayoutParams paramsCheckBox = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150);
         LinearLayout.LayoutParams paramsView = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
 
-        paramsCheckBox.leftMargin = 25;
+        paramsCheckBox.leftMargin = 30;
 
         for(int i=0; i<numOfIngredients; i++) {
+            StateListDrawable stateList = new StateListDrawable();
+            int statePressed = android.R.attr.state_pressed;
+            int stateChecked = android.R.attr.state_checked;
+            stateList.addState(new int[] {-stateChecked}, new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.addshoppinglist)));
+            stateList.addState(new int[] {stateChecked}, new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.successadd)));
+            stateList.addState(new int[] {statePressed}, new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.addshoppinglist)));
             CheckBox ingredient = new CheckBox(this);
+            ingredient.setButtonDrawable(stateList);
+
             try {
-                ingredient.setText("    " + recipe.getIngredients().getJSONObject(i).getString("name"));
-            } catch (JSONException e) {
+                String name = recipe.getIngredients().getJSONObject(i).getString("name");
+                ingredient.setText("    " +recipe.getIngredients().getJSONObject(i).getDouble("amount")+" " +
+                        recipe.getIngredients().getJSONObject(i).getString("unit") + " " +
+                        recipe.getIngredients().getJSONObject(i).getString("name"));
 
-            }
-            ingredient.setTextSize(20);
+//            try {
+//                ingredient.setText("    " + recipe.getIngredients().get(i));
+//            } catch(Exception e) {
+//
+//            }
+            ingredient.setTextSize(16);
+            ingredient.setTypeface(Typeface.SANS_SERIF);
+            ingredient.setTextColor(Color.parseColor("#616161"));
             ingredient.setLayoutParams(paramsCheckBox);
-
+            ingredient.setPadding(20, 20, 20, 30);
             ingredient.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(ingredient.isChecked()){
                         //add to the shopping list
-                        shoppinglist.add(ingredient.getText().toString());
+                        Toasty.success(getBaseContext(), "Successfully add it to the shopping list!", Toast.LENGTH_LONG, true).show();
+                        shoppinglist.add(name);
                     }
                 }
             });
+        } catch (JSONException e) {
+
+        }
 
             View v = new View(this);
             v.setBackground(getResources().getDrawable(R.color.separateLine));
@@ -129,14 +161,17 @@ public class DishItemActivity extends AppCompatActivity {
         for(int i=0; i<numOfInstructions; i++) {
             TextView instruction = new TextView(this);
             try {
-                instruction.setText("   " + (i+1) + ". " +recipe.getInstructions().getJSONObject(i).getString("step"));
+                instructions.add(recipe.getInstructions().getJSONObject(i).getString("step"));
+                instruction.setText((i+1) + "   " +recipe.getInstructions().getJSONObject(i).getString("step"));
             } catch (JSONException e) {
 
             }
-            instruction.setTextSize(20);
-            instruction.setTextColor(getResources().getColor(R.color.black));
-            instruction.setPadding(0,16,0,0);
+
+            instruction.setTextSize(16);
+            instruction.setPadding(50, 20, 50, 20);
+            instruction.setTextColor(Color.parseColor("#616161"));
             instructionLayout.addView(instruction);
+
 
         }
 
@@ -228,8 +263,18 @@ public class DishItemActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
         case R.id.share:
-            //add the function to perform here
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String sharedMeg = "";
+           // JSONArray insArr = recipe.getInstructions().getJSONArray();
+            for (int i = 0; i < instructions.size(); i++){
+                    sharedMeg += "Step "+ (i+1) + ": " + instructions.get(i) + "\n";
+            }
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "EasyCook Recipe of"+"  "+ recipe.getRecipeName());
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, sharedMeg);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
             return(true);
+
         case R.id.heart:
             //add the function to perform here
             return(true);
