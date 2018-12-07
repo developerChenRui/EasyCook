@@ -55,6 +55,8 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
 
     private View fragView;
 
+    private boolean firstLogin = true;
+
 
     private String TAG = "YANG";
     private ArrayList<Recipe> RecylerRecipeList = new ArrayList<>();
@@ -163,7 +165,16 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        loadData();
+
+        if(firstLogin) {
+            loadData();
+            firstLogin = false;
+        } else {
+            cAdaptor = new CustomAdaptor(RecylerRecipeList, getActivity(), fragView);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+//                recyclerView.addItemDecoration(new Decoration(getActivity()));
+            recyclerView.setAdapter(cAdaptor);
+        }
 
         recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
             @Override

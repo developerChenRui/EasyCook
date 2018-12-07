@@ -326,7 +326,12 @@ public class Utils {
                             for (int i = 0; i < realStepsArr.length(); i++){
                                 JSONObject step = (JSONObject)realStepsArr.get(i);
                                 JSONObject inst = new JSONObject();
-                                inst.put("step",step.getString("step"));
+                                String stepString = step.getString("step");
+                                try{
+                                    Integer.parseInt(stepString);
+                                } catch(Exception e) {
+                                    inst.put("step",stepString);
+                                }
                                 stepList.put(inst);
                             }
                             Log.d(TAG,"Got instructions");
