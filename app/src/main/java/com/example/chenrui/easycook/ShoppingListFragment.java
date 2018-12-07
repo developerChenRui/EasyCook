@@ -8,6 +8,9 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -48,6 +51,7 @@ public class ShoppingListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shopping_list, container, false);
         listView = (ListView)view.findViewById(R.id.listview);
@@ -65,31 +69,6 @@ public class ShoppingListFragment extends Fragment {
 //                        ((Item)(parent.getItemAtPosition(position))).ItemString,
 //                        Toast.LENGTH_LONG).show();
             }});
-
-        btnDelete_shoplist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String str = "Check items:\n";
-
-                for (int i=0; i<items.size(); i++){
-                    if (items.get(i).isChecked()){
-                        items.remove(i);
-                    }
-                    myItemsListAdapter.notifyDataSetChanged();
-                }
-            }
-        });
-
-        btnSupermarket.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent appInfo = new Intent(getActivity(), MapsActivity.class);
-                startActivity(appInfo);
-
-            }
-        });
         return view;
     }
 
@@ -179,6 +158,38 @@ public class ShoppingListFragment extends Fragment {
 
             return rowView;
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.shopping_list_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.btnDelete_shoplist:
+
+                /** implement later**/
+                String str = "Check items:\n";
+                for (int i=0; i<items.size(); i++){
+                    if (items.get(i).isChecked()){
+                        items.remove(i);
+                    }
+                    myItemsListAdapter.notifyDataSetChanged();
+                }
+                return true;
+
+            case R.id.btnStore:
+                Intent appInfo = new Intent(getActivity(), MapsActivity.class);
+                startActivity(appInfo);
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

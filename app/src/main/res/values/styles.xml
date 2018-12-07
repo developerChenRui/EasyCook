@@ -19,10 +19,7 @@
     </style>
 
     <style name="CustomActionBarTheme" parent="Theme.AppCompat.Light">
-        <!--<item name="android:actionBarStyle">@style/MyActionBar</item>-->
 
-        <!--&lt;!&ndash; Support library compatibility &ndash;&gt;-->
-        <!--<item name="actionBarStyle">@style/MyActionBar</item>-->
     </style>
 
     <style name="CustomActionBarStyle" parent="@android:style/Widget.DeviceDefault.Light.ActionBar">

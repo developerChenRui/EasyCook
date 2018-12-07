@@ -10,6 +10,33 @@
     android:orientation="vertical"
     tools:context=".MyRecipes">
 
+<!--
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/myRecipeToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageButton
+                android:layout_alignParentRight="true"
+                android:id="@+id/setting"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/setting"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_alignParentStart="true"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+-->
+
+
     <!-- TODO: Update blank fragment layout -->
 
     <android.support.constraint.ConstraintLayout

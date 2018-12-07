@@ -33,6 +33,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCj0uSuC1QJiarxdkYlAL2RxO2r0mYU0ck" />
+
         <activity android:name=".CreateActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

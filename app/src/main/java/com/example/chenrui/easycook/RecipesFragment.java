@@ -1,23 +1,31 @@
 package com.example.chenrui.easycook;
 
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class RecipesFragment extends Fragment implements UserProfile.UserProfileListener {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     // TODO: Rename and change types of parameters
     private ImageView imgUser;
     private TextView txtUser;
@@ -31,6 +39,7 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
 
     public RecipesFragment() {
         // Required empty public constructor
+        setHasOptionsMenu(true);
     }
 
 
@@ -44,11 +53,8 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_recipes, container, false);
-//        menuMyRecipes = (NavigationView) view.findViewById(R.id.menuMyRecipes);
-
-//        menuMyRecipes.setNavigationItemSelectedListener(this);
+        setHasOptionsMenu(true);
 
         return view;
     }
@@ -56,34 +62,7 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        fm = getChildFragmentManager();
-//        myRecipes = new MyRecipes();
-//        favorites = new Favorites();
-//        FragmentTransaction ft = fm.beginTransaction();
-////        ft.add(R.id.recipesLayout,favorites,"tag1");
-//        ft.addToBackStack("add favorites");
-//        ft.commit();
-
     }
-//
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//        menuItem.setChecked(true);
-//        FragmentTransaction ft = fm.beginTransaction();
-//        switch (menuItem.getItemId()){
-//            case R.id.myrecipes:
-//                ft.detach(favorites);
-//                ft.attach(myRecipes);
-//                ft.commit();
-//                break;
-//            case R.id.favorites:
-//                ft.detach(myRecipes);
-//                ft.attach(favorites);
-//                ft.commit();
-//                break;
-//        }
-//        return false;
-//    }
 
     @Override
     public void pickRecipeList(int i) {
@@ -108,4 +87,25 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
                 break;
         }
     }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.my_recipes_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.setting:
+                /** implement later**/
+                return false;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

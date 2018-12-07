@@ -11,7 +11,7 @@
 
     tools:context=".ShoppingListFragment">
 
-    <ImageButton
+<!--    <ImageButton
         android:id="@+id/btnDelete_shoplist"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -30,7 +30,7 @@
         android:layout_marginTop="0dp"
         android:clickable="true"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:background="@drawable/supermarket" />
+        android:background="@drawable/supermarket" />-->
 
     <ImageView
         android:id="@+id/shopping_list"
