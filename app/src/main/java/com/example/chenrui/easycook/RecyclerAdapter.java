@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.willy.ratingbar.BaseRatingBar;
 
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>  {
-    List<Integer> profiles;
+    List<String> profiles;
     List<String> names;
     List<String> mdate;
     List<Float> starNum;
@@ -42,7 +43,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     }
 
-    public RecyclerAdapter(Context aContext, List<Integer> profiles, List<String> names, List<String> date, List<Float> starNum, List<String> review) {
+    public RecyclerAdapter(Context aContext, List<String> profiles, List<String> names, List<String> date, List<Float> starNum, List<String> review) {
         this.profiles = profiles;
         this.names = names;
         this.mdate = date;
@@ -61,6 +62,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+        if(profiles.get(i)=="") {
+            holder.ReviewProfile.setImageResource(R.drawable.profile);
+        } else {
+            Picasso.get().load(profiles.get(i)).into(holder.ReviewProfile);
+        }
         holder.oneReview.setText(review.get(i));
         holder.RatingStarInReview.setRating(starNum.get(i));
         holder.postDate.setText(""+mdate.get(i));

@@ -1,9 +1,11 @@
 package com.example.chenrui.easycook;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -23,13 +25,16 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import cz.msebera.android.httpclient.Header;
+import java.sql.Timestamp;
 
 
 public class Utils {
+    public static User user=null;
     public static String username= null;
     public static String md5Encryption(final String input){
         String result = "";
@@ -117,7 +122,7 @@ public class Utils {
         bundle.putString("briefDescription",recipe.getBriefDescription());
         bundle.putFloat("rating",recipe.getRating());
         bundle.putString("recipeImage",recipe.getRecipeImageURL());
-    //    bundle.putString("profile",recipe.getProfileURL());
+        //    bundle.putString("profile",recipe.getProfileURL());
         bundle.putString("makerName",recipe.getMakerName());
         bundle.putString("ingredients",recipe.getIngredients().toString());
         bundle.putString("instructions",recipe.getInstructions().toString());
@@ -132,7 +137,7 @@ public class Utils {
         recipe.setBriefDescription(bundle.getString("briefDescription"));
         recipe.setRating(bundle.getFloat("rating"));
         recipe.setRecipeImageURL(bundle.getString("recipeImage"));
-    //    recipe.setProfileURL(bundle.getString("profile"));
+        //    recipe.setProfileURL(bundle.getString("profile"));
         recipe.setMakerName(bundle.getString("makerName",recipe.getMakerName()));
         try{
             recipe.setIngredients(new JSONArray(bundle.getString("ingredients")));
@@ -237,8 +242,68 @@ public class Utils {
     }
 
 
+    public synchronized static void generalKeyWordSearch(String keyWord, FinalSync callback){
+        ArrayList<Recipe> recipeList = new ArrayList<>();
+        if (keyWord != null && keyWord.length() != 0){
+            keyWord.replace(" ","+");
+            AsyncHttpRequest.get("recipes/search?number=30&offset=0&query=" + keyWord, null, new JsonHttpResponseHandler(){
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        Recipe newRecipe;
+                        JSONArray recipes = response.getJSONArray("results");
+                        for (int i = 0 ; i < recipes.length(); i++){
+                            JSONObject recipe = recipes.getJSONObject(i);
+                            String title = recipe.getString("title");
+                            Log.d(TAG, "onSuccess: title " + title);
+                            String id = recipe.getString("id");
+                            Log.d(TAG, "onSuccess: id " + id);
+                            String imageURL = recipe.getString("image");
+                            Log.d(TAG, "onSuccess: image " + imageURL);
+                            String[] urlArr = imageURL.split("-");
+                            String[] imageIdArr = urlArr[urlArr.length - 1].split("\\.");
+                            String imageId = imageIdArr[0];
+                            String imageFormat = imageIdArr[1];
+                            String realImageURL = "https://spoonacular.com/recipeImages/" + imageId + "-556x370." + imageFormat;
+                            JSONArray ingredients = new JSONArray();
+                            newRecipe = new Recipe(title,ingredients,realImageURL,0.0f,id);
+                            recipeList.add(newRecipe);
+                        }
+                        RecipeSaver recipeSaver = new RecipeSaver();
+                        recipeSaver.searchRecipes(keyWord, new RecipeCallback() {
+                            @Override
+                            public void onCallBack(JSONArray value) {
+                                Log.d(TAG, "onCallBack: " + value.toString());
+                                try {
+                                    for (int i = 0; i < value.length(); i++){
+                                        recipeList.add((Recipe) value.get(i));
+                                    }
+                                    callback.onData(recipeList);
+                                }catch (Exception e){
+                                    callback.onError(e.getMessage());
+                                    e.printStackTrace();
+                                    Log.d(TAG, "onCallBack: " + e.getMessage());
+                                }
+                            }
+                        });
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        callback.onError(e.getMessage());
+                    }
+
+                }
 
 
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    Log.d(TAG, "onFailure: " + responseString);
+                    callback.onError(responseString);
+                }
+            });
+
+        }
+
+    }
 
 
     public static void keyWordSearch(String keyWord, final AsyncData callback){
@@ -391,6 +456,25 @@ public class Utils {
         }
 
 
+    }
+
+    public static String getRelativeTime(Timestamp timestamp) {
+        long relative = System.currentTimeMillis() - timestamp.getTime();
+        if (relative >= (long)1000*60*60*24*365) {
+            return (int) (relative / 1000 * 60 * 60 * 24 * 30) + " years";
+        } else if (relative >= (long)1000*60*60*24*30) {
+            return (int) (relative / 1000 * 60 * 60 * 24 * 30) + " months";
+        } else if (relative >= (long)1000*60*60*24*7) {
+            return (int)(relative/1000*60*60*24*7) + " weeks";
+        } else if (relative >= (long)1000*60*60*24) {
+            return (int)(relative/1000*60*60*24) + " days";
+        } else if (relative >= (long)1000*60*60) {
+            return (int)(relative/1000*60*60) + " hours";
+        } else if (relative >= (long)1000*60) {
+            return (int)(relative/1000*60) + " minutes";
+        } else {
+            return "Just now";
+        }
     }
 
 

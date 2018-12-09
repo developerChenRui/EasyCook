@@ -66,8 +66,16 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
         // search recipe fragment
         fManager = getSupportFragmentManager();
         fTransaction = fManager.beginTransaction();
+
+        // Added by Justin for My RecipesFragment tab
+
         dFrag = new DiscoveryFragment();
         fTransaction.add(R.id.FragLayout,dFrag,"Discovery");
+
+
+        favoriteFragment = new RecipesFragment();
+        fTransaction.add(R.id.FragLayout,favoriteFragment,"favoriteRecipes");
+
 
 
         // shopping list fragment
@@ -76,9 +84,12 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
 
 
 
-        // Added by Justin for My RecipesFragment tab
-        favoriteFragment = new RecipesFragment();
-        fTransaction.add(R.id.FragLayout,favoriteFragment,"favoriteRecipes");
+    //    fTransaction.add(R.id.FragLayout,dFrag,"Discovery");
+
+
+        fTransaction = fManager.beginTransaction();
+        fTransaction.replace(R.id.FragLayout,dFrag);
+
 
         fTransaction.commit();
 

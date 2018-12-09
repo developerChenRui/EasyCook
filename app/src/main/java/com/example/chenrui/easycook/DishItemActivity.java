@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +30,9 @@ import com.willy.ratingbar.RotationRatingBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,19 +42,22 @@ public class DishItemActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     ImageButton btnBack;
-    static RecyclerView reviews;
+    RecyclerView reviews;
     FloatingActionButton stepBystepGuide;
     ImageView btnAdd;
-
+    TextView numOfReviewers;
     ImageView dishImage;
     TextView dishTitle;
     TextView dishDescription;
     RotationRatingBar ratingStar;
-    TextView numOfReviewer;
     ImageView profile;
     TextView makerName;
     TextView cookTime;
     Recipe recipe;
+
+    static int GETREVIEW = 1;
+
+
 
     //shopping list
     ArrayList<String> shoppinglist = new ArrayList<>();
@@ -59,17 +65,21 @@ public class DishItemActivity extends AppCompatActivity {
     // get instructions
     ArrayList<String> instructions = new ArrayList<>();
 
-    // fake data
-    static List<Integer> profiles = new ArrayList<>();
-    static List<String> reviewerNames = new ArrayList<>();
-    static List<Float> starNum = new ArrayList<>();
-    static List<String> reviewers = new ArrayList<>();
-    static  List<String> dates = new ArrayList<>();
+    // retrieve data from database
+     List<String> profiles = new ArrayList<>();
+     List<String> reviewerNames = new ArrayList<>();
+     List<Float> starNum = new ArrayList<>();
+     List<String> reviewers = new ArrayList<>();
+     List<String> dates = new ArrayList<>();
+
+    ReviewSaver reviewSaver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish_item);
+
+
 
         // get data from the previous activity
             // get the bundle from the DiscoveryFragment
@@ -77,6 +87,7 @@ public class DishItemActivity extends AppCompatActivity {
 
            // covert bundle to recipe object
         recipe = Utils.Bundle2Recipe(bundle);
+        Log.d("CHECKK2",recipe.getRecipeId());
 
 
 
@@ -84,17 +95,31 @@ public class DishItemActivity extends AppCompatActivity {
         dishImage = findViewById(R.id.dishImage);
         dishTitle = findViewById(R.id.dishTitle);
         dishDescription = findViewById(R.id.dishDescription);
+        numOfReviewers = findViewById(R.id.numOfReviewer);
         ratingStar = findViewById(R.id.RatingStar);
-        numOfReviewer = findViewById(R.id.numOfReviewer);
+
         makerName = findViewById(R.id.makerName);
         cookTime = findViewById(R.id.cookTime);
+
+        reviews = findViewById(R.id.recyclerReview);
            // set the components
         // TODO !!!!!!!!!
         Picasso.get().load(recipe.getRecipeImageURL()).into(dishImage);
         dishTitle.setText(recipe.getRecipeName());
         dishDescription.setText(recipe.getBriefDescription());
-        ratingStar.setRating(recipe.getRating());
-//        numOfReviewer.setText(recipe.getNumOfReviewer());
+
+
+        // if the recipe is provided by spoonacular, retrieve the rating and # from database
+        reviewSaver = new ReviewSaver();
+        reviewSaver.setRecipe(recipe);
+
+       reviewSaver.setReviewStats(recipe.getRecipeId(), new ReviewCallback() {
+           @Override
+           public void onCallBack() {
+               ratingStar.setRating(reviewSaver.getAverageReview());
+               numOfReviewers.setText("" + reviewSaver.getNumReviewers());
+           }
+       });
         makerName.setText(recipe.getMakerName());
         cookTime.setText(String.valueOf(recipe.getCookTime()) + " min");
           // dynamic add the ingredient checkbox
@@ -177,30 +202,36 @@ public class DishItemActivity extends AppCompatActivity {
 
         //TODO recycler view review part --------------------------------------------------------------------------
 
-        // initialize fake data
-        profiles.add(R.drawable.profile);
-        profiles.add(R.drawable.profile);
+        reviewSaver.fetchReviews(recipe.getRecipeId(), new ReviewCallback() {
+            @Override
+            public void onCallBack() {
+                JSONArray reviewJsonArray = reviewSaver.getReviews();
+                for(int i=0; i<reviewJsonArray.length(); i++) {
+                    Review review = new Review();
+                    try {
+                        review.fromJSON(reviewJsonArray.getJSONObject(i));
 
-        reviewerNames.add("chen");
-        reviewerNames.add("rui");
+                        profiles.add(review.getProfileImgURL());
 
-        starNum.add((float)1.0);
-        starNum.add((float)4.0);
+                        reviewerNames.add(review.getUsername());
+                        starNum.add(review.getRating());
+                        reviewers.add(review.getText());
+                        dates.add(review.getRelativeTime());
 
-        reviewers.add("gooooooooooooooooooooooookokokkkokokokokokkd");
-        reviewers.add("baaaaaaaaad");
 
-        dates.add("1 min ago");
-        dates.add("1 day ago");
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                        reviews.setLayoutManager(layoutManager);
+                        RecyclerAdapter adapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,dates,starNum,reviewers);
+                        reviews.setNestedScrollingEnabled(false);
+                        reviews.setAdapter(adapter);
 
-        // review part - recycler view
+                    }catch (Exception e) {
 
-        reviews = findViewById(R.id.recyclerReview);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        reviews.setLayoutManager(layoutManager);
-        RecyclerAdapter adapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,dates,starNum,reviewers);
-        reviews.setNestedScrollingEnabled(false);
-        reviews.setAdapter(adapter);
+                    }
+                }
+            }
+        });
+
 
         // add review to the reviews
         btnAdd = findViewById(R.id.add);
@@ -208,7 +239,7 @@ public class DishItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(DishItemActivity.this, WriteReviewActivity.class);
-                startActivity(i);
+                startActivityForResult(i,GETREVIEW);
             }
         });
 
@@ -250,6 +281,39 @@ public class DishItemActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == GETREVIEW && resultCode == Activity.RESULT_OK) {
+            // get review text and rating
+            String returnReview = data.getStringExtra("review text");
+            float raing = data.getFloatExtra("review rating",0);
+
+            // Upload to the database
+            Review reviewToDatabase = new Review(Utils.username,
+                    "", returnReview, raing, new Timestamp(System.currentTimeMillis()));
+
+            Log.d("CHECKK3",recipe.getRecipeId());
+            reviewSaver.addReview(recipe.getRecipeId(),reviewToDatabase.toJSON(),getBaseContext().getFilesDir());
+
+
+            profiles.add("");
+            reviewerNames.add(Utils.username);
+            starNum.add(raing);
+            reviewers.add(returnReview);
+            dates.add(Utils.getRelativeTime(new Timestamp(System.currentTimeMillis())));
+
+
+
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            reviews.setLayoutManager(layoutManager);
+            RecyclerAdapter adapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,dates,starNum,reviewers);
+            reviews.setNestedScrollingEnabled(false);
+            reviews.setAdapter(adapter);
+        }
 
     }
 

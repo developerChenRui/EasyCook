@@ -236,6 +236,10 @@ public class RecipeSaver {
 
                     // Reset the recipeList so that previous queries don't interfere
                     recipeList = new JSONArray();
+                    if (result.length() == 0){
+                        callback.onCallBack(recipeList);
+                        return;
+                    }
 
                     // Get each recipe with the callback and send own callback once all recipes have been received
                     for (int i = 0; i < result.length(); i++) {

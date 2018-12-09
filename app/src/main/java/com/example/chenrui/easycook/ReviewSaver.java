@@ -2,6 +2,7 @@ package com.example.chenrui.easycook;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,6 +27,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class ReviewSaver {
 
@@ -61,7 +63,14 @@ public class ReviewSaver {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     try {
-                        JSONObject data = (JSONObject) dataSnapshot.getValue();
+                         Object stuff = dataSnapshot.getValue();
+                         if (stuff == null){
+                             return;
+                         }
+                        JSONObject data = new JSONObject((HashMap)stuff);
+                        if (data == null){
+                            return;
+                        }
                         averageReview = (float)data.getDouble("averageReview");
                         numReviewers = data.getInt("numReviewers");
                         recipe.setNumOfReviewer(numReviewers);
@@ -103,17 +112,19 @@ public class ReviewSaver {
             numReviewers++;
 
             // Add data to realtime database
+            System.out.format("ADDREVIEW: recipeID: %s%n",recipe.getRecipeId());
             DatabaseReference rRef = database.getReference("reviews/"+recipe.getRecipeId());
             rRef.child("averageReview").setValue(averageReview);
             rRef.child("numReviewers").setValue(numReviewers);
 
             // Update reviews in cloud storage
-            final StorageReference reviewRef = FirebaseStorage.getInstance().getReference().child("recipes/" + recipe.getRecipeId());
+            final StorageReference reviewRef = FirebaseStorage.getInstance().getReference().child("reviews/" + recipe.getRecipeId());
             try {
-                final File localFile = File.createTempFile("recipes", "json");
+                final File localFile = File.createTempFile("reviews", "json");
                 final Task<File> out = reviewRef.getFile(localFile).continueWith(new Continuation<FileDownloadTask.TaskSnapshot, File>() {
                     @Override
                     public File then(@NonNull Task<FileDownloadTask.TaskSnapshot> task) throws Exception {
+                        Log.d("ADDREVIEW","Got task");
                         return localFile;
                     }
                 });
@@ -123,38 +134,65 @@ public class ReviewSaver {
                     // File successfully downloaded
                     @Override
                     public void onSuccess(File file) {
+                        Log.d("ADDREVIEW","Found file");
                         // read in file
                         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                            String line;
-                            while ((line = reader.readLine()) != null ) {
-                                try {
-                                    // Add review to the JSONArray of reviews
-                                    reviews = new JSONArray(line);
-                                    reviews.put(review);
+                            String line = reader.readLine();
+                            if (line == null) {
+                                // Make new file
+                                File reviewFile = new File(path,recipe.getRecipeId());
+
+                                // Write reviews to file
+                                FileWriter writer = new FileWriter(reviewFile,false);
+                                JSONArray reviews = new JSONArray();
+                                reviews.put(review);
+                                writer.write(reviews.toString());
+                                writer.close();
+
+                                // Push file to cloud
+                                Uri recipeURI = Uri.fromFile(reviewFile);
+                                reviewRef.putFile(recipeURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        System.out.format("Successfully uploaded new review for %s%n",recipe.getRecipeId());
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        System.out.format("Failed to upload review");
+                                    }
+                                });
+                            } else {
+                                do {
                                     try {
-                                        // Write stored reviews to file and push back to cloud
-                                        FileWriter writer = new FileWriter(file,false);
-                                        writer.write(reviews.toString());
-                                        writer.close();
-                                        Uri recipeURI = Uri.fromFile(file);
-                                        reviewRef.putFile(recipeURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                            @Override
-                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                System.out.format("Successfully reuploaded review for %s%n",recipe.getRecipeName());
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
+                                        // Add review to the JSONArray of reviews
+                                        reviews = new JSONArray(line);
+                                        reviews.put(review);
+                                        try {
+                                            // Write stored reviews to file and push back to cloud
+                                            FileWriter writer = new FileWriter(file, false);
+                                            writer.write(reviews.toString());
+                                            writer.close();
+                                            Uri recipeURI = Uri.fromFile(file);
+                                            reviewRef.putFile(recipeURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                    System.out.format("Successfully reuploaded review for %s%n", recipe.getRecipeId());
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
 
-                                            }
-                                        });
+                                                }
+                                            });
 
-                                    } catch (IOException e) {
+                                        } catch (IOException e) {
+
+                                        }
+                                    } catch (JSONException e) {
 
                                     }
-                                } catch (JSONException e) {
-
-                                }
+                                } while ((line = reader.readLine()) != null);
                             }
                         } catch (IOException e) {
 
@@ -162,9 +200,12 @@ public class ReviewSaver {
                     }
                 }).addOnFailureListener(new OnFailureListener() {
 
+
                     // File doesn't exist so create a new one
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        System.out.println("REVIEWSAVER: File does not exist yet");
+
                         try {
 
                             // Make new file
@@ -207,13 +248,19 @@ public class ReviewSaver {
         }
     }
 
+    public void addReview(String recipeID, final JSONObject review, final File path) {
+        recipe = new Recipe();
+        recipe.setRecipeId(recipeID);
+        addReview(review,path);
+    }
+
     // Store reviews from the cloud
     public void fetchReviews(final ReviewCallback callback) {
-        final StorageReference reviewRef = FirebaseStorage.getInstance().getReference().child("recipes/" + recipe.getRecipeId());
+        final StorageReference reviewRef = FirebaseStorage.getInstance().getReference().child("reviews/" + recipe.getRecipeId());
         try {
 
             // Get file from cloud
-            final File localFile = File.createTempFile("recipes", "json");
+            final File localFile = File.createTempFile("reviews", "json");
             final Task<File> out = reviewRef.getFile(localFile).continueWith(new Continuation<FileDownloadTask.TaskSnapshot, File>() {
                 @Override
                 public File then(@NonNull Task<FileDownloadTask.TaskSnapshot> task) throws Exception {

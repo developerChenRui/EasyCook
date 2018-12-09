@@ -44,7 +44,11 @@ class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             contentHolder cHolder = (contentHolder) holder;
 //            cHolder.dishRB.setRating(3); /** 3 hard coding **/
 //            cHolder.dishImage.setImageResource(this.ImageList.get(position).intValue());
-            Picasso.get().load(this.recipesList.get(position).getRecipeImageURL()).into(cHolder.dishImage);
+            if (this.recipesList.get(position).getRecipeImageURL().equals("")) {
+                cHolder.dishImage.setImageResource(R.drawable.hamburger);
+            } else {
+                Picasso.get().load(this.recipesList.get(position).getRecipeImageURL()).into(cHolder.dishImage);
+            }
             Log.d("ImageCheck",this.recipesList.get(position).getRecipeImageURL());
             cHolder.dishNameLabel.setText(this.recipesList.get(position).getRecipeName());
             cHolder.likeNumLabel.setText(String.valueOf(this.recipesList.get(position).getNumOfReviewer())); /** 0 hard coding**/
@@ -70,6 +74,7 @@ class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         @Override
                         public void onData(ArrayList<Recipe> recipeList) {
                             Recipe recipe = recipeList.get(0);
+                            Log.d("CHECKK1",recipe.getRecipeId());
                             i.putExtras(Utils.Recipe2Bundle(recipe));
                             ((Activity)context).startActivityForResult(i,NavigateActivity.GETINGREDIENTS);
                         }

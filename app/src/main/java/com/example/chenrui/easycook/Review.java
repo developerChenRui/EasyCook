@@ -15,6 +15,19 @@ public class Review {
     private JSONArray userLikes = new JSONArray();
     private Timestamp timestamp;
 
+    Review(String username, String profileImgURL, String text, float rating, Timestamp timestamp) {
+        this.username = username;
+        this.profileImgURL = profileImgURL;
+        this.text = text;
+        this.rating = rating;
+        this.timestamp = timestamp;
+
+    }
+
+    Review() {
+
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }

@@ -1,5 +1,6 @@
 package com.example.chenrui.easycook;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -87,6 +88,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             Log.i( " Your log", "You successfully login");
                             Intent myIntent = new Intent(LoginActivity.this, NavigateActivity.class);
                             Utils.username = username;
+                            Utils.user = new User(username,"", password, System.currentTimeMillis());
                             startActivity(myIntent);
                         // it not
                         } else {
@@ -173,7 +175,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     protected void onActivityResult(int requestCode,int resultCode,Intent data){
         super.onActivityResult(requestCode,resultCode,data);
 
-        if(requestCode==REQ_CODE){
+        if(requestCode==REQ_CODE && resultCode == Activity.RESULT_OK){
 
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleResult(result);

@@ -55,8 +55,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onClick(View v) {
                 final String username = mUsernameEditText.getText().toString();
                 final String email = mEmailEditText.getText().toString();
-                final String password = mPasswordEditText.getText().toString();
-                final String password2 = mPasswordEditText2.getText().toString();
+                final String password = Utils.md5Encryption(mPasswordEditText.getText().toString());
+                final String password2 = Utils.md5Encryption(mPasswordEditText2.getText().toString());
                 final User user = new User(username,email, password, System.currentTimeMillis());
                 boolean isEmailValid = ValidateUserInfo.isEmailValid(getApplicationContext(),email);
                 boolean isNameValid = ValidateUserInfo.isNameValid(getApplicationContext(),username);
@@ -93,8 +93,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.txt_login:
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
+                finish();
         }
     }
 

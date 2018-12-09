@@ -45,6 +45,7 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
 
     }
@@ -54,6 +55,7 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipes, container, false);
+
         setHasOptionsMenu(true);
 
         return view;

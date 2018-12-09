@@ -1,5 +1,7 @@
 package com.example.chenrui.easycook;
 
+import org.json.JSONArray;
+
 /**
  * Created by chenrui on 2018/8/8.
  */
@@ -11,6 +13,12 @@ public class User {
     private String email;
     private String password;
     private long time;
+
+    private String profileImgURL;
+    private JSONArray shoppingList;
+    private JSONArray publicRecipes;
+    private JSONArray favoriteRecipes;
+
 
     public String getUsername() {
         return username;
@@ -51,6 +59,17 @@ public class User {
         this.password = password;
         this.time = timeStamp;
     }
+
+    public User(String username, String email, String password, String profileImgURL, JSONArray shoppingList, JSONArray publicRecipes, JSONArray favoriteRecipes) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.profileImgURL = profileImgURL;
+        this.shoppingList = shoppingList;
+        this.publicRecipes = publicRecipes;
+        this.favoriteRecipes = favoriteRecipes;
+    }
+
 }
 
 
