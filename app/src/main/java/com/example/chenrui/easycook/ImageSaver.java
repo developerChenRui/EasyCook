@@ -16,12 +16,38 @@ import java.io.IOException;
 
 public class ImageSaver {
 
-    private static StorageReference imageRef;
-    private static String imageName;
-    private static Bitmap image;
-    private static String imageURL;
+    private StorageReference imageRef;
+    private String imageName;
+    private Bitmap image;
+    private String imageURL;
 
-//    public static void fetchImage(String imgURL, final ImageCallback callback) {
+    /***
+     * 
+     * Constructors
+     *
+     ***/
+    public ImageSaver(){ }
+
+    public ImageSaver(String imageName, Bitmap image) {
+        this.imageName = imageName;
+        this.image = image;
+    }
+
+
+    /***
+     *
+     * Name: setImage
+     * @param imageName  String  Filename of image
+     * @param image      Bitmap  Image object
+     *
+     * Description: Sets the image name and image
+     */
+    public void setImage(String imageName, Bitmap image) {
+        this.imageName = imageName;
+        this.image = image;
+    }
+
+//    public void fetchImage(String imgURL, final ImageCallback callback) {
 //        Target image;
 //        image = new Target() {
 //
@@ -44,7 +70,17 @@ public class ImageSaver {
 //
 //    }
 
-    public static void pushImage(File path, final ImageCallback callback){
+
+    /***
+     *
+     * Name: pushImage
+     * @param path         File           getBaseContext().getFilesDir()
+     * @param callback     ImageCallback  callback to get the image URL from firebase
+     *
+     * Description: Pushes the stored image to cloud storage. Gets back URL string from callback
+     ***/
+
+    public void pushImage(File path, final ImageCallback callback){
         StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
         if (image == null) {
             return;
@@ -84,6 +120,20 @@ public class ImageSaver {
 
         }
 
+    }
+
+    /***
+     *
+     * Name: pushImage
+     * @param imageName    String         Filename of the image
+     * @param image        Bitmap         image object
+     * @param path         File           getBaseContext().getFilesDir()
+     * @param callback     ImageCallback  callback to get the image URL from firebase
+     */
+    public void pushImage(String imageName, Bitmap image, File path, final ImageCallback callback) {
+        this.imageName = imageName;
+        this.image = image;
+        pushImage(path,callback);
     }
 
 }
