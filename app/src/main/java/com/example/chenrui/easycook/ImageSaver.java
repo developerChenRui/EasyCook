@@ -22,7 +22,7 @@ public class ImageSaver {
     private String imageURL;
 
     /***
-     * 
+     *
      * Constructors
      *
      ***/
