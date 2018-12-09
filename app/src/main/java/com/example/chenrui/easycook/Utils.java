@@ -118,6 +118,7 @@ public class Utils {
 
     public static Bundle Recipe2Bundle(Recipe recipe) {
         Bundle bundle = new Bundle();
+        bundle.putString("recipeID",recipe.getRecipeId());
         bundle.putString("recipeName",recipe.getRecipeName());
         bundle.putString("briefDescription",recipe.getBriefDescription());
         bundle.putFloat("rating",recipe.getRating());
@@ -133,6 +134,7 @@ public class Utils {
 
     public static Recipe Bundle2Recipe(Bundle bundle) {
         Recipe recipe = new Recipe();
+        recipe.setRecipeId(bundle.getString("recipeID"));
         recipe.setRecipeName(bundle.getString("recipeName"));
         recipe.setBriefDescription(bundle.getString("briefDescription"));
         recipe.setRating(bundle.getFloat("rating"));
