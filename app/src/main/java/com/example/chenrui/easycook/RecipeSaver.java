@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,9 +41,14 @@ public class RecipeSaver {
     private JSONArray recipeList;
 
 
-
-
-    // Get the recipe file from cloud storage and put in JSONArray
+    /***
+     * Name: fetchRecipe
+     *
+     * @param filename     String          Filename
+     * @param callback     RecipeCallback  Callback to get the list of recipe objects
+     *
+     * Description: Get back a single file from database from the callback
+     ***/
     public void fetchRecipe(String filename, final RecipeCallback callback){
         System.out.format("Getting %s%n",filename);
         this.recipeRef = FirebaseStorage.getInstance().getReference().child("recipes/" + filename);
@@ -140,6 +146,14 @@ public class RecipeSaver {
         }
     }
 
+
+    /***
+     * Name: pushRecipe
+     *
+     * @param path     File  Always getBaseContext().getFilesDir()
+     *
+     * Description: Pushes the stored recipe to cloud storage
+     ***/
     // Push recipes into cloud storage
     public void pushRecipe(File path) {
         StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -182,7 +196,25 @@ public class RecipeSaver {
 
     }
 
-    // Create a new recipe and store as both Recipe object and JSONObject
+
+    /***
+     * Name: makeRecipe
+     *
+     * @param recipeName           String     Name of recipe
+     * @param briefDescription     String     Brief description of this recipe
+     * @param rating               float      User rating of this recipe
+     * @param recipeImageURL       String     URL to recipe image
+     * @param profileURL           String     URL to user's profile
+     * @param makerName            String     Name of creator of this recipe
+     * @param cookTime             int        Number of minutes it takes to cook this recipe
+     * @param numOfReviewer        int        Number of reviewers of this recipe
+     * @param ingredients          JSONArray  List of JSONObjects that contain names, amounts, and units of each ingredient
+     * @param instructions         JSONArray  List of JSONObjects that contain steps and images for each instruction
+     * @param tags                 JSONArray  List of Strings of tag identifiers of the recipe
+     * @param recipeId             String     Identifying string of recipes. Usermade recipes are recipeName-userName
+     *
+     * Description: Create a new recipe and store as both Recipe object and JSONObject
+     ***/
     public void makeRecipe(String recipeName, String briefDescription, float rating, String recipeImageURL, String profileURL, String makerName,
                            int cookTime, int numOfReviewer, JSONArray ingredients, JSONArray instructions, JSONArray tags, String recipeId) {
         this.recipe = new Recipe(recipeName,briefDescription,rating,recipeImageURL,profileURL,makerName,cookTime,numOfReviewer,ingredients,instructions,tags,recipeId);
@@ -210,7 +242,21 @@ public class RecipeSaver {
         return recipe.getRecipeName().replace(' ','_') + "-" + recipe.getMakerName().replace(' ','_') + "-" + recipe.getRecipeId().replace(' ','_');
     }
 
+    public String getFileName(Recipe recipe) {
+        this.recipe = recipe;
+        return getFileName();
+    }
+
     // Search for recipes with search terms. Get JSONArray of Recipe objects through the callback
+
+    /***
+     * Name: searchRecipes
+     *
+     * @param search     String          search query
+     * @param callback   RecipeCallback  Callback to get the JSONArray of recipes
+     *
+     * Description: Inputs the search query into the firebase functions to get recipes from cloud storage.
+     ***/
     public void searchRecipes(String search, final RecipeCallback callback) {
 
         // Call Firebase Function to get filenames of recipes that match the search query
@@ -275,6 +321,52 @@ public class RecipeSaver {
             }
         });
 
+    }
+
+    /***
+     * Name: fetchRecipes
+     *
+     * @param recipeNames     JSONArray       list of recipe filenames
+     * @param callback        RecipeCallback  Callback to get a JSONArray of recipe objects
+     *
+     * Description: Gets multiple requested recipes from cloud storage
+     ***/
+    public void fetchRecipes(JSONArray recipeNames, RecipeCallback callback) {
+        for (int i = 0; i < recipeNames.length();i++){
+            try {
+                fetchRecipe(recipeNames.getString(i), new RecipeCallback() {
+                    @Override
+                    public void onCallBack(JSONArray value) {
+                        try {
+                            recipeList.put(value.get(0));
+                            System.out.format("Added %s%n", value.get(0).toString());
+
+                            // Make sure all recipes have been received
+                            // DANGEROUS CONCURRENCY
+                            if (recipeList.length() == recipeNames.length()) {
+                                callback.onCallBack(recipeList);
+                            }
+                        }catch(JSONException e) {
+
+                        }
+                    }
+                });
+            } catch (JSONException e){
+
+            }
+        }
+    }
+
+    /***
+     * Name: fetchRecipes
+     *
+     * @param recipeNames     ArrayList<String>  List of recipe filenames
+     * @param callback        RecipeCallback     Callback to get a JSONArray of recipe objects
+     *
+     * Description: Gets multiple requested recipes from cloud storage
+     ***/
+    public void fetchRecipes(ArrayList<String> recipeNames, RecipeCallback callback) {
+        fetchRecipes(new JSONArray(recipeNames),callback);
     }
 
 
