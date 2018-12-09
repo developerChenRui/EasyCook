@@ -22,11 +22,13 @@ import java.util.List;
 class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private List<Recipe> recipesList;
     private Context context;
+    private View v;
 
 
-    public CustomAdaptor(List<Recipe> recipesList, Context context){
+    public CustomAdaptor(List<Recipe> recipesList, Context context, View v){
         this.recipesList = recipesList;
         this.context = context;
+        this.v = v;
     }
 
     @Override
@@ -52,40 +54,40 @@ class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             cHolder.likeNumLabel.setText(String.valueOf(this.recipesList.get(position).getNumOfReviewer())); /** 0 hard coding**/
 //            cHolder.commentLabel.setText(this.recipesList.get(position).getBriefDescription());
             cHolder.favBar.setChecked(true);
-//            cHolder.favBar.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    /** modify later**/
-//                    if (cHolder.favBar.isChecked()) Toast.makeText(context,
-//                            "User likes recipe " + position, Toast.LENGTH_SHORT).show();
-//                    else Toast.makeText(context,
-//                            "User unlikes recipe " + position, Toast.LENGTH_SHORT).show();
-//                }
-//            });
+            cHolder.favBar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    /** modify later**/
+                    if (cHolder.favBar.isChecked()) Toast.makeText(context,
+                            "User likes recipe " + position, Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(context,
+                            "User unlikes recipe " + position, Toast.LENGTH_SHORT).show();
+                }
+            });
             /** may have problem**/
             cHolder.userImage.setImageResource(R.drawable.profile);
-//            cHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent i = new Intent(context,DishItemActivity.class);
-//                    Utils.recipeIdSearch(recipesList.get(position).getRecipeId(), new AsyncData() {
-//                        @Override
-//                        public void onData(ArrayList<Recipe> recipeList) {
-//                            Recipe recipe = recipeList.get(0);
-//                            Log.d("CHECKK1",recipe.getRecipeId());
-//                            i.putExtras(Utils.Recipe2Bundle(recipe));
-//                            ((Activity)context).startActivityForResult(i,NavigateActivity.GETINGREDIENTS);
-//                        }
-//
-//                        @Override
-//                        public void onError(String errorMessage) {
-//                            Toast.makeText(context,"There is an error retrieving data", Toast.LENGTH_LONG).show();
-//                        }
-//                    });
-//
-//
-//                }
-//            });
+            cHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context,DishItemActivity.class);
+                    Utils.recipeIdSearch(recipesList.get(position).getRecipeId(), new AsyncData() {
+                        @Override
+                        public void onData(ArrayList<Recipe> recipeList) {
+                            Recipe recipe = recipeList.get(0);
+                            Log.d("CHECKK1",recipe.getRecipeId());
+                            i.putExtras(Utils.Recipe2Bundle(recipe));
+                            ((Activity)context).startActivityForResult(i,NavigateActivity.GETINGREDIENTS);
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+                            Toast.makeText(context,"There is an error retrieving data", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+
+                }
+            });
         }
 
     }
@@ -104,13 +106,14 @@ class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         return recipesList.size();
     }
 
-    class contentHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class contentHolder extends RecyclerView.ViewHolder{
         protected TextView dishNameLabel;
         protected ImageView dishImage;
         protected ScaleRatingBar dishRB;
         private TextView likeNumLabel;
         private CheckBox favBar;
         private RoundImageView userImage;
+        private TextView commentLabel;
 
         contentHolder(View itemView){
             super(itemView);
@@ -120,40 +123,9 @@ class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             likeNumLabel = itemView.findViewById(R.id.likeNumLabel);
             favBar = itemView.findViewById(R.id.userFavourite);
             userImage = itemView.findViewById(R.id.userImage);
-            favBar.setOnClickListener(this);
-            itemView.setOnClickListener(this);
-
+ //           commentLabel = itemView.findViewById(R.id.comment);
         }
 
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.userFavourite:
-                    if (favBar.isChecked()) Toast.makeText(context,
-                            "User likes recipe " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                    else Toast.makeText(context,
-                            "User unlikes recipe " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                    break;
-
-                default:
-                    Intent i = new Intent(context,DishItemActivity.class);
-                    Utils.recipeIdSearch(recipesList.get(getAdapterPosition()).getRecipeId(), new AsyncData() {
-                        @Override
-                        public void onData(ArrayList<Recipe> recipeList) {
-                            Recipe recipe = recipeList.get(0);
-                            Log.d("CHECKK1",recipe.getRecipeId());
-                            i.putExtras(Utils.Recipe2Bundle(recipe));
-                            ((Activity)context).startActivityForResult(i,NavigateActivity.GETINGREDIENTS);
-                        }
-
-                        @Override
-                        public void onError(String errorMessage) {
-                            Toast.makeText(context,"There is an error retrieving data", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                    break;
-            }
-        }
     }
 
 
