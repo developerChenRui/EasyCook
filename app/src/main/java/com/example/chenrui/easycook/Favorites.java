@@ -1,17 +1,26 @@
 package com.example.chenrui.easycook;
 
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -19,9 +28,11 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Favorites extends Fragment implements RecyclerViewClickListener {
+public class Favorites extends Fragment {
     private RecyclerView lstFavorites;
     private FavoritesAdapter rvAdapter;
+    private ArrayList<Recipe> recipeList;
+    private RecipeSaver recipeSaver;
 
     public Favorites() {
         // Required empty public constructor
@@ -34,75 +45,118 @@ public class Favorites extends Fragment implements RecyclerViewClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
         lstFavorites = view.findViewById(R.id.lstFavorites);
-        ArrayList<Integer> recipeImages = new ArrayList<Integer>();
-        recipeImages.add(R.drawable.menulist);
-        String[] recipeNames = new String[1];
-        recipeNames[0] = "Test";
-        rvAdapter = new FavoritesAdapter(recipeNames, recipeImages);
-        rvAdapter.setClickListener(this);
+        recipeSaver = new RecipeSaver();
+        recipeList = new ArrayList<>();
+        /** hook up database **/
+        /**Utils.user.getFavoriteRecipes()**/
+        Toast.makeText(getContext(), "loading data, please wait", Toast.LENGTH_LONG).show();
+        JSONArray idArr = Utils.user.getFavoriteRecipes();
+        if (idArr == null) idArr = new JSONArray();
+        try{
+            for (int i = 0; i < idArr.length(); i++){
+                String id = idArr.getString(i);
+                /** dangerous concurrency !!!!!!!!!! **/
+                if (isDigit(id)){
+                    Utils.recipeIdSearch(id, new AsyncData() {
+                        @Override
+                        public void onData(ArrayList<Recipe> recipeList) {
+                            Favorites.this.recipeList.add(recipeList.get(0));
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+                            Toast.makeText(getContext(),"There is an error during loading data", Toast.LENGTH_SHORT).show();
+                            Log.d("YANG", "onError: " + errorMessage);
+                        }
+                    });
+                }else {
+                        Favorites.this.recipeSaver.fetchRecipe(id, new RecipeCallback() {
+                            @Override
+                            public void onCallBack(JSONArray value) {
+                                try {
+                                    Favorites.this.recipeList.add((Recipe) value.get(0));
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        rvAdapter = new FavoritesAdapter(recipeList, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         lstFavorites.setLayoutManager(mLayoutManager);
         lstFavorites.setItemAnimator(new DefaultItemAnimator());
         lstFavorites.setAdapter(rvAdapter);
-
         return view;
     }
 
-    @Override
-    public void onClick(View view, int position) {
-
+    private boolean isDigit(String id){
+        try{
+            Double.parseDouble(id);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
+
 }
 
+
+
 class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.MyViewHolder> {
-    private RecyclerViewClickListener clickListener;
-    private String[] recipeNames;
-    private ArrayList<Integer> recipeImages;
+    private ArrayList<Recipe> recipeList;
+    private Context context;
 
-    public FavoritesAdapter(String[] recipeNames, ArrayList<Integer> recipeImages){
-        this.recipeNames= recipeNames;
-        this.recipeImages = recipeImages;
-
+    public FavoritesAdapter(ArrayList<Recipe> recipeList, Context context){
+        this.recipeList = recipeList;
+        this.context = context;
     }
 
-    public void setClickListener(RecyclerViewClickListener clickListener) {
-        this.clickListener = clickListener;
-    }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recipe_row,viewGroup,false);
-
-        return new MyViewHolder(itemView);
+        return new MyViewHolder(itemView, context);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
-        myViewHolder.txtRecipe.setText(this.recipeNames[position]);
-        myViewHolder.imgRecipe.setImageResource(recipeImages.get(position).intValue());
+        myViewHolder.txtRecipe.setText(this.recipeList.get(position).getRecipeName());
+        try{
+            Picasso.get().load(this.recipeList.get(position).getRecipeImageURL()).into(myViewHolder.imgRecipe);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return this.recipeNames.length;
+        return this.recipeList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView imgRecipe;
-        public TextView txtRecipe;
+        private ImageView imgRecipe;
+        private TextView txtRecipe;
+        private Context context;
 
-        public MyViewHolder(View itemView){
+        public MyViewHolder(View itemView, Context context){
             super(itemView);
             imgRecipe = itemView.findViewById(R.id.imgRecipe);
             txtRecipe = itemView.findViewById(R.id.txtRecipe);
             itemView.setOnClickListener(this);
+            this.context = context;
         }
 
         @Override
         public void onClick(View v) {
-            clickListener.onClick(v, getAdapterPosition());
-
+            Intent i = new Intent(context,DishItemActivity.class);
+            i.putExtras(Utils.Recipe2Bundle(recipeList.get(getAdapterPosition())));
+            ((Activity)context).startActivityForResult(i,NavigateActivity.GETINGREDIENTS);
         }
     }
 }

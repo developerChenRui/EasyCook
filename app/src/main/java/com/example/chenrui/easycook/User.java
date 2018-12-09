@@ -19,7 +19,7 @@ public class User {
     private JSONArray shoppingList = new JSONArray();
     private JSONArray publicRecipes = new JSONArray();
     private JSONArray favoriteRecipes = new JSONArray();
-
+    private JSONArray privateRecipes = new JSONArray();
 
     public String getUsername() {
         return username;
@@ -45,6 +45,17 @@ public class User {
         this.password = password;
     }
 
+    public JSONArray getFavoriteRecipes() {
+        return favoriteRecipes;
+    }
+
+    public JSONArray getPrivateRecipes() {
+        return privateRecipes;
+    }
+
+    public JSONArray getPublicRecipes() {
+        return publicRecipes;
+    }
 
     public User() {}
 

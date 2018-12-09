@@ -101,6 +101,35 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
+//        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                final String username = mUsernameEditText.getText().toString();
+//                final String password = Utils.md5Encryption(mPasswordEditText.getText().toString());
+//                mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        // login successfully
+//                        if (dataSnapshot.hasChild(username) && (password.equals(dataSnapshot.child(username).child("password").getValue()))) {
+//                            Log.i( " Your log", "You successfully login");
+//                            Intent myIntent = new Intent(LoginActivity.this, NavigateActivity.class);
+//                            Utils.username = username;
+//                            Utils.user = new User(username,"", password, System.currentTimeMillis());
+//                            startActivity(myIntent);
+//                        // it not
+//                        } else {
+//                            Toast.makeText(getBaseContext(),"Please login again", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+//            }
+//        });
+
 
 
     }

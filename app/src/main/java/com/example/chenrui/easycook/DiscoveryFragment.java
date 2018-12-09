@@ -157,7 +157,7 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
             loadData();
             firstLogin = false;
         } else {
-            cAdaptor = new CustomAdaptor(RecylerRecipeList, getActivity(), fragView);
+            cAdaptor = new CustomAdaptor(RecylerRecipeList, getActivity());
             recyclerView.setItemAnimator(new DefaultItemAnimator());
             recyclerView.setAdapter(cAdaptor);
         }
@@ -202,7 +202,7 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
                 for(Recipe r : recipeList){
                     RecylerRecipeList.add(r);
                 }
-                cAdaptor = new CustomAdaptor(RecylerRecipeList, getActivity(), fragView);
+                cAdaptor = new CustomAdaptor(RecylerRecipeList, getActivity());
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                 recyclerView.setAdapter(cAdaptor);
                 refreshLayout.setRefreshing(false);
