@@ -36,11 +36,16 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
 
     public void setList(List<LocalMedia> selectList) {
         medialist = selectList;
-        //show pic
 
-        if(!medialist.isEmpty()) {
+    }
+
+    public void setSelectMax(int i) {
+        this.selectMax = i;
+    }
+
+    public void photo(LocalMedia media) {
+//        if(!medialist.isEmpty()) {
 //            InsViewHolder.delImg.setVisibility(View.INVISIBLE);
-            LocalMedia media = medialist.get(medialist.size() - 1);
             String path = "";
             if (media.isCut() && !media.isCompressed()) {
                 path = media.getCutPath();
@@ -70,11 +75,7 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
                     .into(InsViewHolder.upload);
 
             delImg.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void setSelectMax(int i) {
-        this.selectMax = i;
+  //      }
     }
 
 
@@ -114,12 +115,16 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
             public void onClick(View view) {
                 mOnAddPicClickListener.onAddPicClick();
             }
+
         });
+
 
         myViewHolder.delImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                medialist.remove(medialist.size() - 1);
+                if(!medialist.isEmpty()) {
+                    medialist.remove(0);
+                }
                 myViewHolder.upload.setImageResource(R.drawable.addimg_1x);
                 delImg.setVisibility(View.INVISIBLE);
             }
@@ -134,8 +139,13 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
                 if (list.size() == 1) {
                     Snackbar.make(view, "can't be deleted", Snackbar.LENGTH_SHORT).show();
                 } else {
+                    if(!medialist.isEmpty()) {
+                        medialist.remove(0);
+                    }
+                    myViewHolder.upload.setImageResource(R.drawable.addimg_1x);
+                    delImg.setVisibility(View.INVISIBLE);
                     removeData(i);
-                    medialist.remove(medialist.size() - 1);
+
                 }
             }
         });
@@ -146,6 +156,7 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
         list.add(position, R.layout.instruction_layout);
         Toast.makeText(context, "Data added" + list.size(), Toast.LENGTH_SHORT).show();
         notifyItemInserted(position);
+//        upload.setImageResource(R.drawable.addimg_1x);
         notifyItemRangeChanged(position,list.size() - position);
     }
 

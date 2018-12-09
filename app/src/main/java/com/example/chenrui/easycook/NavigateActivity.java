@@ -128,4 +128,23 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
                     }
                 });
     }
+
+    @Override
+    public void onResume() {
+        Intent i = getIntent();
+        int id = i.getIntExtra("id", 0);
+
+        if(id == 1) {
+            FragmentManager fmanger = getSupportFragmentManager();
+            FragmentTransaction transaction = fmanger.beginTransaction();
+
+            Intent intent=new Intent();
+            intent.setClass(NavigateActivity.this, RecipesFragment.class);
+            intent.putExtra("id",1);
+            transaction.replace(R.id.FragLayout, favoriteFragment);
+            transaction.commit();
+        }
+
+        super.onResume();
+    }
 }
