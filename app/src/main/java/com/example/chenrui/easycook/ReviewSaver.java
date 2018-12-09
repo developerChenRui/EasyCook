@@ -272,26 +272,30 @@ public class ReviewSaver {
                 // Successfully downloaded review file
                 @Override
                 public void onSuccess(File file) {
-
+                    System.out.println("Fetched review file");
                     // Read in reviews and store
                     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                         String line;
                         while ((line = reader.readLine()) != null) {
                             try {
-                                reviews.put(new JSONObject(line));
+                                reviews = new JSONArray(line);
+
+                                System.out.format("Got reviews: %s%n", reviews);
                                 callback.onCallBack();
                             } catch (JSONException e) {
 
                             }
                         }
                     } catch (IOException e) {
-
+                        System.out.println("Failed to read reviews file");
+                        callback.onCallBack();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 // No review file made yet
                 @Override
                 public void onFailure(@NonNull Exception e) {
+                    System.out.println("Failed to get reviews file");
                     callback.onCallBack();
                 }
             });

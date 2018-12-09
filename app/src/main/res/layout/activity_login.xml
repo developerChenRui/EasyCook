@@ -41,7 +41,7 @@
                     android:id="@+id/editTextLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter your email or username"
+                    android:hint="Enter your email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:padding="8dp"

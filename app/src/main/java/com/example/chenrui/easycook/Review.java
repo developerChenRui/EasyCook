@@ -4,7 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 
 public class Review {
@@ -114,7 +116,14 @@ public class Review {
             this.text = reviewJSON.getString("text");
             this.userLikes = reviewJSON.getJSONArray("userLikes");
             this.rating = (float)reviewJSON.getDouble("rating");
-            this.timestamp = (Timestamp)reviewJSON.get("timestamp");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+            try {
+                Date parsedDate = dateFormat.parse(reviewJSON.getString("timestamp"));
+                this.timestamp = new Timestamp((parsedDate.getTime()));
+            } catch (Exception e) {
+
+            }
+
         } catch (JSONException e) {
 
         }

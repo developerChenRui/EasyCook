@@ -75,34 +75,60 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
         // once submit check the information in the database
+
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String username = mUsernameEditText.getText().toString();
+                final String email = mUsernameEditText.getText().toString();
                 final String password = Utils.md5Encryption(mPasswordEditText.getText().toString());
-                mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                User profile = new User("",email,password);
+                ProfileSaver profileSaver = new ProfileSaver();
+                profileSaver.setProfile(profile);
+                profileSaver.checkProfile(getBaseContext().getFilesDir(), new ProfileCallback() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // login successfully
-                        if (dataSnapshot.hasChild(username) && (password.equals(dataSnapshot.child(username).child("password").getValue()))) {
+                    public void onCallback(User profile) {
+                        if (profile.getEmail().equals(email) && profile.getPassword().equals(password)&&!password.equals("")) {
                             Log.i( " Your log", "You successfully login");
                             Intent myIntent = new Intent(LoginActivity.this, NavigateActivity.class);
-                            Utils.username = username;
-                            Utils.user = new User(username,"", password, System.currentTimeMillis());
+                            Utils.username = profile.getUsername();
+                            Utils.user = profile;
                             startActivity(myIntent);
-                        // it not
                         } else {
                             Toast.makeText(getBaseContext(),"Please login again", Toast.LENGTH_SHORT).show();
                         }
                     }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
                 });
             }
         });
+
+//        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                final String username = mUsernameEditText.getText().toString();
+//                final String password = Utils.md5Encryption(mPasswordEditText.getText().toString());
+//                mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        // login successfully
+//                        if (dataSnapshot.hasChild(username) && (password.equals(dataSnapshot.child(username).child("password").getValue()))) {
+//                            Log.i( " Your log", "You successfully login");
+//                            Intent myIntent = new Intent(LoginActivity.this, NavigateActivity.class);
+//                            Utils.username = username;
+//                            Utils.user = new User(username,"", password, System.currentTimeMillis());
+//                            startActivity(myIntent);
+//                        // it not
+//                        } else {
+//                            Toast.makeText(getBaseContext(),"Please login again", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+//            }
+//        });
 
 
 
@@ -140,7 +166,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 break;
         }
 
+
     }
+
+
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
@@ -165,6 +194,20 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             String name = account.getDisplayName();
             String email = account.getEmail();
             Uri personPhotoUrl = account.getPhotoUrl();
+            System.out.format("Login profile url: %s %s%n",name,email);
+            User profile = new User();
+            profile.setUsername(name);
+            profile.setEmail(email);
+            profile.setPassword("");
+            ProfileSaver profileSaver = new ProfileSaver();
+            profileSaver.setProfile(profile);
+            profileSaver.checkProfile(getBaseContext().getFilesDir(), new ProfileCallback() {
+                @Override
+                public void onCallback(User profile) {
+
+                }
+            });
+
         }
         else{
         }

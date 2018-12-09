@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.willy.ratingbar.BaseRatingBar;
 import com.willy.ratingbar.ScaleRatingBar;
 
 import java.io.IOException;
@@ -81,7 +82,7 @@ public class WriteReviewActivity extends AppCompatActivity {
         btnSaveReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                float numOfStar = RatingStarInReview.getNumStars();
+                float numOfStar = RatingStarInReview.getRating();
 //                String review = editReview.getText().toString();
                 // add the review to bundle
                 Intent intent = new Intent();

@@ -55,6 +55,9 @@ public class DishItemActivity extends AppCompatActivity {
     TextView cookTime;
     Recipe recipe;
 
+    TextView reviewNum;
+    int NumOfreview = 0;
+
     static int GETREVIEW = 1;
 
 
@@ -102,6 +105,8 @@ public class DishItemActivity extends AppCompatActivity {
         cookTime = findViewById(R.id.cookTime);
 
         reviews = findViewById(R.id.recyclerReview);
+        reviewNum = findViewById(R.id.reviewNum);
+
            // set the components
         // TODO !!!!!!!!!
         Picasso.get().load(recipe.getRecipeImageURL()).into(dishImage);
@@ -206,29 +211,30 @@ public class DishItemActivity extends AppCompatActivity {
             @Override
             public void onCallBack() {
                 JSONArray reviewJsonArray = reviewSaver.getReviews();
-                for(int i=0; i<reviewJsonArray.length(); i++) {
+                System.out.format("Getting reviews: %s%n", reviewJsonArray);
+                NumOfreview = reviewJsonArray.length();
+                for(int i=0; i<NumOfreview; i++) {
                     Review review = new Review();
                     try {
                         review.fromJSON(reviewJsonArray.getJSONObject(i));
 
-                        profiles.add(review.getProfileImgURL());
-
-                        reviewerNames.add(review.getUsername());
-                        starNum.add(review.getRating());
-                        reviewers.add(review.getText());
-                        dates.add(review.getRelativeTime());
-
-
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                        reviews.setLayoutManager(layoutManager);
-                        RecyclerAdapter adapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,dates,starNum,reviewers);
-                        reviews.setNestedScrollingEnabled(false);
-                        reviews.setAdapter(adapter);
-
                     }catch (Exception e) {
 
                     }
+                    profiles.add(review.getProfileImgURL());
+                    reviewNum.setText("Reviews ("+NumOfreview+")");
+                    reviewerNames.add(review.getUsername());
+                    starNum.add(review.getRating());
+                    reviewers.add(review.getText());
+                    dates.add(review.getRelativeTime());
                 }
+
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                reviews.setLayoutManager(layoutManager);
+                RecyclerAdapter adapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,dates,starNum,reviewers);
+                reviews.setNestedScrollingEnabled(false);
+                reviews.setAdapter(adapter);
+
             }
         });
 
@@ -308,6 +314,15 @@ public class DishItemActivity extends AppCompatActivity {
 
 
 
+            // change the review part
+            reviewSaver.setReviewStats(recipe.getRecipeId(), new ReviewCallback() {
+                @Override
+                public void onCallBack() {
+                    ratingStar.setRating(reviewSaver.getAverageReview());
+                    numOfReviewers.setText("" + reviewSaver.getNumReviewers());
+                    reviewNum.setText("Reviews ("+reviewSaver.getNumReviewers()+")");
+                }
+            });
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
             reviews.setLayoutManager(layoutManager);
             RecyclerAdapter adapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,dates,starNum,reviewers);

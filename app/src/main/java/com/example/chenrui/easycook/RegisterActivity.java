@@ -48,7 +48,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         txt_login = (TextView)findViewById(R.id.txt_login);
         txt_login.setOnClickListener(this);
-
         // save user - password into database
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,30 +56,65 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 final String email = mEmailEditText.getText().toString();
                 final String password = Utils.md5Encryption(mPasswordEditText.getText().toString());
                 final String password2 = Utils.md5Encryption(mPasswordEditText2.getText().toString());
-                final User user = new User(username,email, password, System.currentTimeMillis());
+//                final User user = new User(username,email, password);
                 boolean isEmailValid = ValidateUserInfo.isEmailValid(getApplicationContext(),email);
                 boolean isNameValid = ValidateUserInfo.isNameValid(getApplicationContext(),username);
                 boolean isPasswordValid = ValidateUserInfo.isPasswordValid(getApplicationContext(),password,password2);
+
                 if (!isEmailValid || !isNameValid || !isPasswordValid ) return;
-                mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                User profile = new User(username, email, password);
+                ProfileSaver profileSaver = new ProfileSaver();
+                profileSaver.setProfile(profile);
+                profileSaver.checkProfile(getBaseContext().getFilesDir(), new ProfileCallback() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild(username)&& !username.equals("")) {
-                            Toast.makeText(getBaseContext(),"username is already registered, please change one", Toast.LENGTH_SHORT).show();
+                    public void onCallback(User profile) {
+                        if (profile.getEmail().equals(email)) {
+                            Toast.makeText(getBaseContext(),"Email is already registered", Toast.LENGTH_SHORT).show();
+
                         } else {
-                            // put username as key to set value
-                            mDatabase.child("users").child(user.getUsername()).setValue(user);
                             Toast.makeText(getBaseContext(),"Successfully registered", Toast.LENGTH_SHORT).show();
+                            finish();
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
                     }
                 });
             }
         });
+
+//        // save user - password into database
+//        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                final String username = mUsernameEditText.getText().toString();
+//                final String email = mEmailEditText.getText().toString();
+//                final String password = Utils.md5Encryption(mPasswordEditText.getText().toString());
+//                final String password2 = Utils.md5Encryption(mPasswordEditText2.getText().toString());
+//                final User user = new User(username,email, password);
+//                boolean isEmailValid = ValidateUserInfo.isEmailValid(getApplicationContext(),email);
+//                boolean isNameValid = ValidateUserInfo.isNameValid(getApplicationContext(),username);
+//                boolean isPasswordValid = ValidateUserInfo.isPasswordValid(getApplicationContext(),password,password2);
+//                if (!isEmailValid || !isNameValid || !isPasswordValid ) return;
+//                mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        if (dataSnapshot.hasChild(username)&& !username.equals("")) {
+//                            Toast.makeText(getBaseContext(),"username is already registered, please change one", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            // put username as key to set value
+//                            mDatabase.child("users").child(user.getUsername()).setValue(user);
+//                            Toast.makeText(getBaseContext(),"Successfully registered", Toast.LENGTH_SHORT).show();
+//                            finish();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+//            }
+//        });
+
+
 
 
     }

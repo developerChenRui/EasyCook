@@ -62,7 +62,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        if(profiles.get(i)=="") {
+        if(profiles.get(i).isEmpty()) {
             holder.ReviewProfile.setImageResource(R.drawable.profile);
         } else {
             Picasso.get().load(profiles.get(i)).into(holder.ReviewProfile);

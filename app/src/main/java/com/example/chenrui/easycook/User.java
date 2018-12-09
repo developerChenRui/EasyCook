@@ -1,6 +1,8 @@
 package com.example.chenrui.easycook;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by chenrui on 2018/8/8.
@@ -9,15 +11,14 @@ import org.json.JSONArray;
 
 
 public class User {
-    private String username;
-    private String email;
-    private String password;
-    private long time;
+    private String username = "";
+    private String email = "";
+    private String password = "";
 
-    private String profileImgURL;
-    private JSONArray shoppingList;
-    private JSONArray publicRecipes;
-    private JSONArray favoriteRecipes;
+    private String profileImgURL = "";
+    private JSONArray shoppingList = new JSONArray();
+    private JSONArray publicRecipes = new JSONArray();
+    private JSONArray favoriteRecipes = new JSONArray();
 
 
     public String getUsername() {
@@ -44,21 +45,31 @@ public class User {
         this.password = password;
     }
 
-    public long getTime() {
-        return time;
+
+    public User() {}
+
+//    public User(final String email, final String password) {
+//        this.email = email;
+//        this.password = password;
+//    }
+
+    public User(final String username, final String email) {
+        this.username = username;
+        this.email = email;
     }
 
-    public void setTime(long time) {
-        this.time = time;
-    }
-
-    public User(final String username, final String email, final String password, final long timeStamp) {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    public User(final String username, final String email, final String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.time = timeStamp;
     }
+
+//    public User(final String username, final String email, final String password) {
+//        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+//        this.username = username;
+//        this.email = email;
+//        this.password = password;
+//    }
 
     public User(String username, String email, String password, String profileImgURL, JSONArray shoppingList, JSONArray publicRecipes, JSONArray favoriteRecipes) {
         this.username = username;
@@ -70,6 +81,35 @@ public class User {
         this.favoriteRecipes = favoriteRecipes;
     }
 
+    public JSONObject toJSON() {
+        JSONObject out = new JSONObject();
+        try {
+            out.put("username",this.username);
+            out.put("email",this.email);
+            out.put("password",this.password);
+            out.put("profileImgURL",this.profileImgURL);
+            out.put("shoppingList",this.shoppingList);
+            out.put("publicRecipes",this.publicRecipes);
+            out.put("favoriteRecipes",this.favoriteRecipes);
+        } catch (JSONException e) {
+
+        }
+        return out;
+    }
+
+    public void fromJSON(JSONObject profile) {
+        try {
+            this.username = profile.getString("username");
+            this.email = profile.getString("email");
+            this.password = profile.getString("password");
+            this.profileImgURL = profile.getString("profileImgURL");
+            this.shoppingList = profile.getJSONArray("shoppingList");
+            this.publicRecipes = profile.getJSONArray("publicRecipes");
+            this.favoriteRecipes = profile.getJSONArray("favoriteRecipes");
+        } catch (JSONException e) {
+
+        }
+    }
 }
 
 
