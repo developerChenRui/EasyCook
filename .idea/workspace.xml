@@ -16,410 +16,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4c44e54-2822-43b3-ad67-c18311b29bf3" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EasyCook 3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EasyCook 3.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EasyCook-master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EasyCook-master.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EasyCook.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EasyCook.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/app/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/google-services.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/app/proguard-rules.pro" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/chenrui/easycook/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/example/chenrui/easycook/ExampleInstrumentedTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/AsyncData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/AsyncData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/AsyncHttpRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/AsyncHttpRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/CreateActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/CreateActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/CustomAdaptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/CustomAdaptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DataParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DataParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DiscoveryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DiscoveryFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DishItemActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DishItemActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DownloadURL.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/DownloadURL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/EndLessOnScrollListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/EndLessOnScrollListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Favorites.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Favorites.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/FinalSync.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/FinalSync.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ForgotPasswordActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ForgotPasswordActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/FullyGridLayoutManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/FullyGridLayoutManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/GetNearbyPlacesData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/GetNearbyPlacesData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/GridImageAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/GridImageAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ImageCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ImageCallback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ImageSaver.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ImageSaver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/IngRecycleAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/IngRecycleAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/InsRecycleAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/InsRecycleAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/MapsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/MapsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/MyRecipes.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/MyRecipes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/NavigateActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/NavigateActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/OnBindCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/OnBindCallback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/PagerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/PagerAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ProfileCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ProfileCallback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ProfileSaver.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ProfileSaver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Recipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RecipeCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RecipeCallback.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RecipeSaver.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RecipeSaver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RecipesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RecipesFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RecyclerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RecyclerAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RecyclerViewClickListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RecyclerViewClickListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RegisterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RegisterActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Review.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ReviewCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ReviewCallback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ReviewSaver.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ReviewSaver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RoundImageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RoundImageView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ShoppingListFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ShoppingListFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/SplashScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/SplashScreenActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/StepByStepActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/StepByStepActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/TabRecipes.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/TabRecipes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/UserProfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/UserProfile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ValidateUserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ValidateUserInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/VoiceControlService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/VoiceControlService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/WelcomeScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/WelcomeScreenActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/WriteReviewActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/WriteReviewActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/login_buttons.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/login_buttons.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/logov24.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/logov24.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/menulist.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/menulist.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/search.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/search.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/selector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/selector.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ad.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ad.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/add_image.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/add_image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/addhere.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/addhere.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/addimg_1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/addimg_1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/addphoto.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/addphoto.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/addshoppinglist.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/addshoppinglist.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ado.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ado.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/back.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/back.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/back2.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/back2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/backgroundstate.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/backgroundstate.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/btn_bottom_confirm_bg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_bottom_confirm_bg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/checkbox_style.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/checkbox_style.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/clock.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/clock.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/close.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/close.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/cut_egg.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cut_egg.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/defaultstep.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/defaultstep.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/delet_zhaopian_1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/delet_zhaopian_1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/delete_image.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/delete_image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/delete_sl.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/delete_sl.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/empty_normal_star.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/empty_normal_star.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/filled_blue_star.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/filled_blue_star.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/gesture_control.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/gesture_control.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/gloves.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/gloves.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/goback.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/goback.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/hamburger.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hamburger.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/heart.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/heart.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/heart_empty.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/heart_empty.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/heart_filled.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/heart_filled.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_add.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_add.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/launch_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/launch_screen.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/left.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/left.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/like.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/like.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/like_fill.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/like_fill.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/login_btn.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/login_btn.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/login_btn_pressed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/login_btn_pressed.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/logotransparent.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/logotransparent.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/milk.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/milk.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/next_right.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/next_right.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/noaccount_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/noaccount_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/orange_arrow_down.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/orange_arrow_down.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/orange_arrow_up.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/orange_arrow_up.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/order_edt_note_bg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/order_edt_note_bg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/pizza.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/pizza.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/portrait_photo.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/portrait_photo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/profile.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/profile.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/publish.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/publish.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/quiet.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/quiet.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/rect.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rect.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/review_edit_area.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/review_edit_area.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/right.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/right.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/salad.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/salad.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/save.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/save.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/savetolocal.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/savetolocal.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/set_clock.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/set_clock.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/setting.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/setting.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/shopping_list.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/shopping_list.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/store.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/store.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/successadd.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/successadd.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/superman.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/superman.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/supermarket.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/supermarket.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/thumb_empty.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/thumb_empty.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/thumb_filled.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/thumb_filled.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/tools.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/tools.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/trash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/trash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/up.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/up.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/voice_control.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/voice_control.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/warning.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/warning.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_create.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_create.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_dish_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_dish_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_forgot_pass.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_forgot_pass.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_navigate.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_navigate.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_step_by_step.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_step_by_step.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_write_review.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_write_review.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/add_shoppinglist_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/add_shoppinglist_dialog.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dish_panel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dish_panel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_discovery.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_discovery.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_favorites.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_favorites.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_my_recipes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_my_recipes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_recipes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_recipes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_shopping_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_shopping_list.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_tab_recipes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_tab_recipes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_user_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_user_profile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/gesture_setting_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/gesture_setting_dialog.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/gv_filter_image.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/gv_filter_image.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/instruction_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/instruction_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/recipe_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/recipe_row.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/review_item_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/review_item_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/shopping_list_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/shopping_list_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/voice_setting_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/voice_setting_dialog.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/warning_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/warning_dialog.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/dish_item_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/dish_item_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/event_navigation_items.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/event_navigation_items.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/my_recipes_items.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/my_recipes_items.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/my_recipes_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/my_recipes_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/search_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/search_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/shopping_list_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/shopping_list_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/example/chenrui/easycook/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/com/example/chenrui/easycook/ExampleUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/credentials.json" beforeDir="false" afterPath="$PROJECT_DIR$/credentials.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/newhandwaveapp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/newhandwaveapp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/proguard-rules.pro" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/androidTest/java/ca/useful/newhandwave/ApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/androidTest/java/ca/useful/newhandwave/ApplicationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/sensors/AccelerometerClickSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/sensors/AccelerometerClickSensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/sensors/CameraGestureSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/sensors/CameraGestureSensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/sensors/ClickSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/sensors/ClickSensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/sensors/MicrophoneClickSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/sensors/MicrophoneClickSensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/sensors/MotionDetectionReturnValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/sensors/MotionDetectionReturnValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/sensors/PermissionCodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/sensors/PermissionCodes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/touchemulation/GestureCursorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/touchemulation/GestureCursorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/touchemulation/GestureScroller.java" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/touchemulation/GestureScroller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/utilities/BackendGestureCamera.java" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/utilities/BackendGestureCamera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/utilities/LocalOpenCV.java" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/utilities/LocalOpenCV.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/utilities/PermissionUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/java/edu/washington/cs/touchfreelibrary/utilities/PermissionUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/Android.mk" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/Android.mk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/Application.mk" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/Application.mk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_calib3d.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_calib3d.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_core.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_core.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_features2d.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_features2d.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_flann.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_flann.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_highgui.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_highgui.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_imgcodecs.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_imgcodecs.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_imgproc.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_imgproc.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_java3.so" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_java3.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_ml.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_ml.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_objdetect.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_objdetect.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_photo.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_photo.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_shape.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_shape.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_stitching.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_stitching.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_superres.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_superres.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_ts.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_ts.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_video.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_video.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_videoio.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_videoio.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_videostab.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libopencv_videostab.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libtouch_free_library.so" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi-v7a/libtouch_free_library.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_calib3d.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_calib3d.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_core.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_core.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_features2d.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_features2d.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_flann.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_flann.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_highgui.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_highgui.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_imgcodecs.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_imgcodecs.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_imgproc.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_imgproc.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_java3.so" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_java3.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_ml.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_ml.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_objdetect.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_objdetect.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_photo.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_photo.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_shape.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_shape.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_stitching.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_stitching.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_superres.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_superres.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_video.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_video.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_videoio.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_videoio.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_videostab.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libopencv_videostab.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libtouch_free_library.so" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/armeabi/libtouch_free_library.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_calib3d.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_calib3d.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_core.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_core.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_features2d.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_features2d.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_flann.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_flann.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_highgui.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_highgui.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_imgcodecs.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_imgcodecs.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_imgproc.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_imgproc.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_java3.so" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_java3.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_ml.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_ml.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_objdetect.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_objdetect.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_photo.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_photo.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_shape.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_shape.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_stitching.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_stitching.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_superres.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_superres.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_video.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_video.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_videoio.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_videoio.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_videostab.a" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libopencv_videostab.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libtouch_free_library.so" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/mips/libtouch_free_library.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/motion_averager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/jniLibs/motion_averager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/layout/content_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/layout/content_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/layout/item_java_camera_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/layout/item_java_camera_view.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/layout/item_relativelayoutinvisi.xml" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/layout/item_relativelayoutinvisi.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/menu/menu_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/menu/menu_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/values-v21/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/values-v21/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/values-w820dp/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/values-w820dp/dimens.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/values/dimens.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newhandwaveapp/src/test/java/ca/useful/newhandwave/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/newhandwaveapp/src/test/java/ca/useful/newhandwave/ExampleUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/build/generated/source/aidl/debug/org/opencv/engine/OpenCVEngineInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/build/generated/source/aidl/debug/org/opencv/engine/OpenCVEngineInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/incremental/compileDebugAidl/dependency.store" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/incremental/compileDebugAidl/dependency.store" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/incremental/debug-mergeJniLibs/merge-state" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/incremental/debug-mergeJniLibs/merge-state" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/incremental/packageDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/incremental/packageDebugAssets/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/incremental/packageDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/incremental/packageDebugResources/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/transforms/stripDebugSymbol/debug/__content__.json" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/build/intermediates/transforms/stripDebugSymbol/debug/__content__.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/build/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/build/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/lint.xml" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/lint.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/openCVLibrary310.iml" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/openCVLibrary310.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/aidl/org/opencv/engine/OpenCVEngineInterface.aidl" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/aidl/org/opencv/engine/OpenCVEngineInterface.aidl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/AsyncServiceHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/AsyncServiceHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/BaseLoaderCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/BaseLoaderCallback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/Camera2Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/Camera2Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/CameraBridgeViewBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/CameraBridgeViewBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/CameraGLRendererBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/CameraGLRendererBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/CameraGLSurfaceView.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/CameraGLSurfaceView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/CameraRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/CameraRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/FpsMeter.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/FpsMeter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/InstallCallbackInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/InstallCallbackInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/JavaCameraView.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/JavaCameraView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/LoaderCallbackInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/LoaderCallbackInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/OpenCVLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/OpenCVLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/StaticHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/StaticHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/android/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/calib3d/Calib3d.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/calib3d/Calib3d.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/calib3d/StereoBM.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/calib3d/StereoBM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/calib3d/StereoMatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/calib3d/StereoMatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/calib3d/StereoSGBM.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/calib3d/StereoSGBM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Algorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Algorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Core.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Core.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/CvException.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/CvException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/CvType.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/CvType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/DMatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/DMatch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/KeyPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/KeyPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Mat.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Mat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfByte.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfByte.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfDMatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfDMatch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfDouble.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfDouble.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfFloat.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfFloat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfFloat4.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfFloat4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfFloat6.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfFloat6.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfInt.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfInt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfInt4.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfInt4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfKeyPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfKeyPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfPoint2f.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfPoint2f.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfPoint3.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfPoint3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfPoint3f.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfPoint3f.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfRect.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/MatOfRect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Point.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Point3.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Point3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Range.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Range.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Rect.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Rect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/RotatedRect.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/RotatedRect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Scalar.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Scalar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Size.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/Size.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/TermCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/core/TermCriteria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/features2d/DescriptorExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/features2d/DescriptorExtractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/features2d/DescriptorMatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/features2d/DescriptorMatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/features2d/FeatureDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/features2d/FeatureDetector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/features2d/Features2d.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/features2d/Features2d.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/imgcodecs/Imgcodecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/imgcodecs/Imgcodecs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/imgproc/CLAHE.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/imgproc/CLAHE.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/imgproc/Imgproc.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/imgproc/Imgproc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/imgproc/LineSegmentDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/imgproc/LineSegmentDetector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/imgproc/Moments.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/imgproc/Moments.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/imgproc/Subdiv2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/imgproc/Subdiv2D.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/ANN_MLP.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/ANN_MLP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/Boost.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/Boost.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/DTrees.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/DTrees.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/EM.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/EM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/KNearest.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/KNearest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/LogisticRegression.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/LogisticRegression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/Ml.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/Ml.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/NormalBayesClassifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/NormalBayesClassifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/RTrees.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/RTrees.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/SVM.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/SVM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/StatModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/StatModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/TrainData.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/ml/TrainData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/objdetect/BaseCascadeClassifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/objdetect/BaseCascadeClassifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/objdetect/CascadeClassifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/objdetect/CascadeClassifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/objdetect/HOGDescriptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/objdetect/HOGDescriptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/objdetect/Objdetect.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/objdetect/Objdetect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/AlignExposures.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/AlignExposures.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/AlignMTB.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/AlignMTB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/CalibrateCRF.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/CalibrateCRF.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/CalibrateDebevec.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/CalibrateDebevec.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/CalibrateRobertson.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/CalibrateRobertson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/MergeDebevec.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/MergeDebevec.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/MergeExposures.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/MergeExposures.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/MergeMertens.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/MergeMertens.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/MergeRobertson.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/MergeRobertson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/Photo.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/Photo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/Tonemap.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/Tonemap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/TonemapDrago.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/TonemapDrago.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/TonemapDurand.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/TonemapDurand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/TonemapMantiuk.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/TonemapMantiuk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/TonemapReinhard.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/photo/TonemapReinhard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/utils/Converters.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/utils/Converters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/video/BackgroundSubtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/video/BackgroundSubtractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/video/BackgroundSubtractorKNN.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/video/BackgroundSubtractorKNN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/video/BackgroundSubtractorMOG2.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/video/BackgroundSubtractorMOG2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/video/DenseOpticalFlow.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/video/DenseOpticalFlow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/video/DualTVL1OpticalFlow.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/video/DualTVL1OpticalFlow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/video/KalmanFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/video/KalmanFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/video/Video.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/video/Video.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/videoio/VideoCapture.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/videoio/VideoCapture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/videoio/VideoWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/videoio/VideoWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/videoio/Videoio.java" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/java/org/opencv/videoio/Videoio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openCVLibrary310/src/main/res/values/attrs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/openCVLibrary310/src/main/res/values/attrs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -442,18 +46,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state />
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="825">
+            <state relative-caret-position="55">
               <caret line="83" column="41" selection-start-line="83" selection-start-column="41" selection-end-line="83" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RecipeSaver.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RecipeSaver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="416">
+              <caret line="208" column="33" selection-start-line="208" selection-start-column="33" selection-end-line="208" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -526,15 +132,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1665">
               <caret line="130" selection-start-line="130" selection-end-line="130" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RecipeSaver.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RecipeSaver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2640">
-              <caret line="208" column="33" selection-start-line="208" selection-start-column="33" selection-end-line="208" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -5092,8 +4689,8 @@
       <window_info id="Captures" order="7" weight="0.25" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="4" visible="true" weight="0.22132471" />
-      <window_info active="true" anchor="bottom" id="Build" order="4" visible="true" weight="0.32905984" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.22132471" />
+      <window_info anchor="bottom" id="Build" order="4" visible="true" weight="0.32905984" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="1" side_tool="true" />
@@ -5444,13 +5041,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="83" column="41" selection-start-line="83" selection-start-column="41" selection-end-line="83" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/ImageSaver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -5483,13 +5073,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1665">
           <caret line="130" selection-start-line="130" selection-end-line="130" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RecipeSaver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2640">
-          <caret line="208" column="33" selection-start-line="208" selection-start-column="33" selection-end-line="208" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -5526,6 +5109,20 @@
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="83" column="41" selection-start-line="83" selection-start-column="41" selection-end-line="83" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/chenrui/easycook/RecipeSaver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="208" column="33" selection-start-line="208" selection-start-column="33" selection-end-line="208" selection-end-column="33" />
+        </state>
       </provider>
     </entry>
   </component>
