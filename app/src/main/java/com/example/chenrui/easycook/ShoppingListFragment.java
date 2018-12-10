@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -106,51 +107,51 @@ public class ShoppingListFragment extends Fragment {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                  animateFab(btnAdd, false, 200);
-                    AlertDialog.Builder customizeDialog =
-                            new AlertDialog.Builder(getContext());
-                    final View dialogView = LayoutInflater.from(getActivity())
-                            .inflate(R.layout.add_shoppinglist_dialog, null);
+                animateFab(btnAdd, false, 200);
+                AlertDialog.Builder customizeDialog =
+                        new AlertDialog.Builder(getContext());
+                final View dialogView = LayoutInflater.from(getActivity())
+                        .inflate(R.layout.add_shoppinglist_dialog, null);
 
-                    TextInputLayout addIngredient = (TextInputLayout)dialogView.findViewById(R.id.layout_ing);
-                    TextView addIngredients = (TextView) dialogView.findViewById(R.id.addingredient);
-                    TextView title = new TextView(getActivity());
-                    title.setTextSize(20);
-                    title.setPadding(0, 20, 0, 20);
+                TextInputLayout addIngredient = (TextInputLayout)dialogView.findViewById(R.id.layout_ing);
+                TextView addIngredients = (TextView) dialogView.findViewById(R.id.addingredient);
+                TextView title = new TextView(getActivity());
+                title.setTextSize(20);
+                title.setPadding(0, 20, 0, 20);
 
-                    title.setText("Add Ingredients");
-                    title.setGravity(Gravity.CENTER);
-                    customizeDialog.setCustomTitle(title);
+                title.setText("Add Ingredients");
+                title.setGravity(Gravity.CENTER);
+                customizeDialog.setCustomTitle(title);
 
-                    customizeDialog.setView(dialogView);
-                    customizeDialog.setPositiveButton("Yes",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                customizeDialog.setView(dialogView);
+                customizeDialog.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                                    if(addIngredients.getText().toString().trim().length() == 0){
+                                if(addIngredients.getText().toString().trim().length() == 0){
 //                                        addIngredient.setErrorEnabled(true);
 //                                        addIngredient.setError("No");
-                                       Toasty.error(getContext(),"Please enter valid input",Toast.LENGTH_SHORT, true).show();
-                                    }
-                                    else {
-                                        items.add(new Item(((TextView) dialogView.findViewById(R.id.addingredient)).getText().toString(), false));
-                                        myItemsListAdapter.notifyDataSetChanged();
-                                        animateFab(btnAdd, true, 200);
+                                    Toasty.error(getContext(),"Please enter valid input",Toast.LENGTH_SHORT, true).show();
+                                }
+                                else {
+                                    items.add(new Item(((TextView) dialogView.findViewById(R.id.addingredient)).getText().toString(), false));
+                                    myItemsListAdapter.notifyDataSetChanged();
+                                    animateFab(btnAdd, true, 200);
 //                                    leftCommand = ((TextView)dialogView.findViewById(R.id.lastCommand)).getText().toString();
 //                                    ((TextView)dialogView.findViewById(R.id.nextCommand)).getText().toString();
-                                    }
                                 }
-                            });
+                            }
+                        });
                 customizeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(final DialogInterface arg0) {
                         animateFab(btnAdd, true, 200);
                     }
                 });
-                    customizeDialog.show();
+                customizeDialog.show();
 
-                }
+            }
 
         });
 
@@ -158,7 +159,7 @@ public class ShoppingListFragment extends Fragment {
 
 
 
-      //  listView.addHeaderView(textView);
+        //  listView.addHeaderView(textView);
 
 //        if (myItemsListAdapter.getCount() == 0)
 //        {
@@ -191,10 +192,10 @@ public class ShoppingListFragment extends Fragment {
                 long viewId = view.getId();
                 if (viewId == R.id.rowCheckBox) {
                     if(items.get(position).isChecked()){
-                    ((TextView)view).setText("GOT!") ;
-                    ((TextView)view).setTextColor(getResources().getColor(R.color.welcome_screen_4));}
+                        ((TextView)view).setText("GOT!") ;
+                        ((TextView)view).setTextColor(getResources().getColor(R.color.welcome_screen_4));}
                     else{
-                    ((TextView)view).setText("");}
+                        ((TextView)view).setText("");}
                     myItemsListAdapter.notifyDataSetChanged();
                 }
             }
@@ -238,7 +239,8 @@ public class ShoppingListFragment extends Fragment {
 
         private Context context;
         private List<Item> list;
-        ViewHolder viewHolder;
+
+        HashMap<Integer, View> lmap = new HashMap<Integer, View>();
 
 
 
@@ -268,20 +270,25 @@ public class ShoppingListFragment extends Fragment {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            View rowView = convertView;
 
-            viewHolder = new ViewHolder();
-            if (rowView == null) {
-                LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-                rowView = inflater.inflate(R.layout.shopping_list_item, null);
+            ViewHolder viewHolder;
 
-                viewHolder.checkBox = (CheckBox) rowView.findViewById(R.id.rowCheckBox);
-                viewHolder.text = (TextView) rowView.findViewById(R.id.rowTextView);
-                viewHolder.btndelete = (ImageButton)rowView.findViewById(R.id.rowdeletebtn);
-                rowView.setTag(viewHolder);
+            if (lmap.get(position) == null) {
+                convertView = LayoutInflater.from(context).inflate(R.layout.shopping_list_item, null);
+                viewHolder = new ViewHolder();
+                convertView.setTag(viewHolder);
+//                viewHolder.checkBox = (CheckBox) rowView.findViewById(R.id.rowCheckBox);
+//                viewHolder.text = (TextView) rowView.findViewById(R.id.rowTextView);
+//                viewHolder.btndelete = (ImageButton)rowView.findViewById(R.id.rowdeletebtn);
+                lmap.put(position,convertView);
             } else {
-                viewHolder = (ViewHolder) rowView.getTag();
+                convertView = lmap.get(position);
+                viewHolder = (ViewHolder) convertView.getTag();
             }
+
+            viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.rowCheckBox);
+            viewHolder.text = (TextView) convertView.findViewById(R.id.rowTextView);
+            viewHolder.btndelete = (ImageButton)convertView.findViewById(R.id.rowdeletebtn);
 
             viewHolder.checkBox.setChecked(list.get(position).checked);
 
@@ -306,15 +313,6 @@ public class ShoppingListFragment extends Fragment {
                     boolean newState = !list.get(position).isChecked();
                     list.get(position).checked = newState;
                     ((ListView) parent).performItemClick(view, position, 0);
-//                    if (newState) {
-//                        viewHolder.text.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-//                    }
-//                    else {
-//                        viewHolder.text.setPaintFlags(~ Paint.STRIKE_THRU_TEXT_FLAG);
-//                    }
-//                    Toast.makeText(getContext(),
-//                            items.get(position).toString() + "setOnClickListener\nchecked: " + newState,
-//                            Toast.LENGTH_LONG).show();
                 }
             });
             viewHolder.btndelete.setOnClickListener(new View.OnClickListener() {
@@ -330,7 +328,7 @@ public class ShoppingListFragment extends Fragment {
             });
 
 
-            return rowView;
+            return convertView;
         }
     }
 
@@ -344,17 +342,6 @@ public class ShoppingListFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-//            case R.id.btnDelete_shoplist:
-//
-//                /** implement later**/
-//                String str = "Check items:\n";
-//                for (int i=0; i<items.size(); i++){
-//                    if (items.get(i).isChecked()){
-//                        items.remove(i);
-//                    }
-//                    myItemsListAdapter.notifyDataSetChanged();
-//                }
-//                return true;
 
             case R.id.btnStore:
                 Intent appInfo = new Intent(getActivity(), MapsActivity.class);

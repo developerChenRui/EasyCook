@@ -77,11 +77,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        app:useCompatPadding="true"
-        android:layout_margin="8sp"
+        android:layout_marginStart="8sp"
+        android:layout_marginTop="8sp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginBottom="8sp"
         android:src="@drawable/creat_recipe"
         app:backgroundTint="@color/check_color"
         app:elevation="6dp"
-        app:fabSize="normal"/>
+        app:fabSize="normal"
+        app:useCompatPadding="true" />
 
 </RelativeLayout>

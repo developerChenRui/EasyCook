@@ -1,6 +1,7 @@
 package com.example.chenrui.easycook;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,7 +15,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.luck.picture.lib.permissions.RxPermissions;
+import com.luck.picture.lib.tools.PictureFileUtils;
+
 import java.util.ArrayList;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 public class NavigateActivity extends AppCompatActivity implements UserProfile.UserProfileListener,TabRecipes.OnFragmentInteractionListener{
 
@@ -36,6 +43,7 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         shoppinglist.clear();
         if(requestCode == GETINGREDIENTS && resultCode == Activity.RESULT_OK) {
             // get the ingredients from the dishitemActivity
@@ -136,6 +144,31 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
                         return false;
                     }
                 });
+
+        RxPermissions permissions = new RxPermissions(this);
+        permissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Observer<Boolean>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+            }
+
+            @Override
+            public void onNext(Boolean aBoolean) {
+                if (aBoolean) {
+                    PictureFileUtils.deleteCacheDirFile(NavigateActivity.this);
+                } else {
+                    Toast.makeText(NavigateActivity.this,
+                            getString(R.string.picture_jurisdiction), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onComplete() {
+            }
+        });
     }
 
     @Override
