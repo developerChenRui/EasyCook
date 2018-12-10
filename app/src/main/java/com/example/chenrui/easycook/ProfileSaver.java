@@ -91,7 +91,7 @@ public class ProfileSaver {
             return;
         }
 
-        String email = this.profile.getEmail().replace('@','_').replace('.','_');
+        String email = this.profile.getCleanEmail();
         File profileFile = new File(path,email);
         try {
             FileWriter writer = new FileWriter(profileFile);
@@ -119,7 +119,7 @@ public class ProfileSaver {
     }
 
     public void checkProfile(File path, ProfileCallback callback) {
-        String email = this.profile.getEmail().replace('.','_').replace('@','_');
+        String email = this.profile.getCleanEmail();
         this.profileRef = FirebaseStorage.getInstance().getReference().child("users/"+email);
         try {
             final File localFile = File.createTempFile("users","json");
@@ -141,7 +141,7 @@ public class ProfileSaver {
                                 return;
                             }
 
-                            String email = profile.getEmail().replace('@','_').replace('.','_');
+                            String email = profile.getCleanEmail();
                             File profileFile = new File(path,email);
                             try {
                                 FileWriter writer = new FileWriter(profileFile);
@@ -202,5 +202,75 @@ public class ProfileSaver {
         this.profile = profile;
         this.profileJSON = profile.toJSON();
         pushProfile(path);
+    }
+
+    public void updateProfile(User profile, File path) {
+        final StorageReference profileRef = FirebaseStorage.getInstance().getReference().child("users/"+profile.getCleanEmail());
+        try {
+            final File localFile = File.createTempFile("profile","json");
+            final Task<File> out = profileRef.getFile(localFile).continueWith(new Continuation<FileDownloadTask.TaskSnapshot, File>() {
+                @Override
+                public File then(@NonNull Task<FileDownloadTask.TaskSnapshot> task) throws Exception {
+                    return localFile;
+                }
+            });
+
+            out.addOnSuccessListener(new OnSuccessListener<File>() {
+              @Override
+              public void onSuccess(File file) {
+                  try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                      String line = reader.readLine();
+
+                      // Profile doesn't exist? Should never get here
+                      if (line == null) {
+                          // Make new file
+                          File profileFile = new File(path, profile.getCleanEmail());
+
+                          FileWriter fileWriter = new FileWriter(profileFile);
+                          fileWriter.write(profile.toJSON().toString());
+                          fileWriter.close();
+
+                          Uri profileURI = Uri.fromFile(profileFile);
+                          profileRef.putFile(profileURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                              @Override
+                              public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                                  System.out.format("Successfully uploaded new review for %s%n", recipe.getRecipeId());
+                              }
+                          }).addOnFailureListener(new OnFailureListener() {
+                              @Override
+                              public void onFailure(@NonNull Exception e) {
+//                                  System.out.format("Failed to upload review");
+                              }
+                          });
+
+                      // Profile exists
+                      } else {
+                          FileWriter writer = new FileWriter(file, false);
+                          writer.write(profile.toJSON().toString());
+                          writer.close();
+
+                          Uri profileURI = Uri.fromFile(file);
+                          profileRef.putFile(profileURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                              @Override
+                              public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                              }
+                          }).addOnFailureListener(new OnFailureListener() {
+                              @Override
+                              public void onFailure(@NonNull Exception e) {
+
+                              }
+                          });
+
+                      }
+                  } catch (IOException e) {
+
+                  }
+              }
+            });
+
+        } catch (Exception e) {
+
+        }
     }
 }

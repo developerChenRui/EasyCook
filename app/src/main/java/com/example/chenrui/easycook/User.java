@@ -57,6 +57,14 @@ public class User {
         return publicRecipes;
     }
 
+    public String getProfileImgURL() {
+        return profileImgURL;
+    }
+
+    public String getCleanEmail() {
+        return email.replace('@','_').replace('.','_');
+    }
+
     public User() {}
 
 //    public User(final String email, final String password) {

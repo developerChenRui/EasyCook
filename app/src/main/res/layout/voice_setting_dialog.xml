@@ -45,7 +45,7 @@
             android:layout_marginRight="10dp"
             />
     </LinearLayout>
-
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,6 +64,6 @@
             android:hint="   default : 1 min"
             android:layout_marginRight="10dp"
             />
-    </LinearLayout>
+    </LinearLayout>-->
 
 </LinearLayout>

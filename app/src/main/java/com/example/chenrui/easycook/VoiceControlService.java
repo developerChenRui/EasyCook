@@ -97,7 +97,7 @@ public class  VoiceControlService extends Service implements SpeechDelegate, Spe
     public void onSpeechResult(String result) {
         Log.d("Result", result+"");
         if (!TextUtils.isEmpty(result)) {
-            Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+ //           Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(StepByStepActivity.RECEIVER_INTENT);
             intent.putExtra(StepByStepActivity.RECEIVER_MESSAGE, result);
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);

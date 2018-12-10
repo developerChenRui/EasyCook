@@ -14,9 +14,11 @@
 
     <string-array name="units">
 
-        　　　　　　<item>g</item>
+        　　　　　　
+        <item>g</item>
 
-        　　　　　　<item>ml</item>
+        　　　　　　
+        <item>ml</item>
 
     </string-array>
 </resources>
