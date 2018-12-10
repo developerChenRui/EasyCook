@@ -11,14 +11,16 @@
     <string name="permission_required">Please grant the permission to use the microphone</string>
 
     <string name="recipe_name">Recipe Name:</string>
+    <string name="swipe_right_next">Swipe Right: Next</string>
+    <string name="swipe_right_prev">Swipe Right: Previous</string>
+    <string name="swipe_left_prev">Swipe Left: Previous</string>
+    <string name="swipe_left_next">Swipe Left: Next</string>
 
     <string-array name="units">
 
-        　　　　　　
-        <item>g</item>
+        　　　　　　<item>g</item>
 
-        　　　　　　
-        <item>ml</item>
+        　　　　　　<item>ml</item>
 
     </string-array>
 </resources>

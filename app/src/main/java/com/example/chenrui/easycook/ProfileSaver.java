@@ -118,7 +118,7 @@ public class ProfileSaver {
         }
     }
 
-    public void checkProfile(File path, ProfileCallback callback) {
+    public void checkProfile(File path, ProfileCallback callback, Boolean makeNew) {
         String email = this.profile.getCleanEmail();
         this.profileRef = FirebaseStorage.getInstance().getReference().child("users/"+email);
         try {
@@ -132,11 +132,18 @@ public class ProfileSaver {
             out.addOnSuccessListener(new OnSuccessListener<File>() {
                 @Override
                 public void onSuccess(File file) {
+                    System.out.format("Got profile file for %s%n", profile.getEmail());
                     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                         String line = reader.readLine();
+
+
                         if (line == null) {
+                            System.out.format("Profile doesn't exist for %s%n",profile.getEmail());
                             StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
                             callback.onCallback(new User());
+                            if (!makeNew) {
+                                return;
+                            }
                             if (profileJSON == null){
                                 return;
                             }
@@ -193,9 +200,10 @@ public class ProfileSaver {
         }
     }
 
-    public void checkProfile(User profile, File path, ProfileCallback callback) {
+    public void checkProfile(User profile, File path, ProfileCallback callback, Boolean makeNew) {
         this.profile = profile;
-        checkProfile(path, callback);
+        this.profileJSON = profile.toJSON();
+        checkProfile(path, callback, makeNew);
     }
 
     public void pushProfile(User profile, File path) {

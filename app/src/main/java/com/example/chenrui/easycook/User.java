@@ -33,7 +33,7 @@ public class User {
         return email;
     }
 
-    public void setEmail(String username) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -67,10 +67,6 @@ public class User {
 
     public User() {}
 
-//    public User(final String email, final String password) {
-//        this.email = email;
-//        this.password = password;
-//    }
 
     public User(final String username, final String email) {
         this.username = username;
@@ -110,6 +106,7 @@ public class User {
             out.put("shoppingList",this.shoppingList);
             out.put("publicRecipes",this.publicRecipes);
             out.put("favoriteRecipes",this.favoriteRecipes);
+            out.put("privateRecipes",this.privateRecipes);
         } catch (JSONException e) {
 
         }
@@ -125,6 +122,7 @@ public class User {
             this.shoppingList = profile.getJSONArray("shoppingList");
             this.publicRecipes = profile.getJSONArray("publicRecipes");
             this.favoriteRecipes = profile.getJSONArray("favoriteRecipes");
+            this.privateRecipes = profile.getJSONArray("privateRecipes");
         } catch (JSONException e) {
 
         }

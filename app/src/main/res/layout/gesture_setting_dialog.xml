@@ -2,26 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10sp">
 
     <CheckBox
         android:id="@+id/checkInvert"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="Inverted" />
+        android:text="Inverted"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/txtRight"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="@string/swipe_right_next"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/txtLeft"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="@string/swipe_left_prev"
+        android:textSize="18sp" />
 </LinearLayout>

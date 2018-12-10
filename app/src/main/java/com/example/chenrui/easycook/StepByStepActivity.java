@@ -25,6 +25,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -77,6 +78,12 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
     // invert for hand gestures
     Boolean invert = false;
 
+
+    // fake image and description
+//    String[] des = {"the first step is to put the oil in the hot pot","the second step is to put the onion into oil and fryyyyyy" +
+//            "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy" +
+//            "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy" +
+//            "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy","hhhahahahahaahahah"};
     int[] imageRes; //= {R.drawable.cut_egg,R.drawable.salad,R.drawable.hamburger};
     int numOfImage;
 
@@ -333,6 +340,22 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
                     customizeDialog.setCustomTitle(title);
 
                     customizeDialog.setView(dialogView);
+                    CheckBox inverter = (CheckBox)dialogView.findViewById(R.id.checkInvert);
+                    System.out.format("Got inverter %s%n",inverter);
+                    inverter.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            System.out.format("Invert checked: %s%n", isChecked);
+                            invert = isChecked;
+                            if (isChecked) {
+                                ((TextView)dialogView.findViewById(R.id.txtRight)).setText(R.string.swipe_right_prev);
+                                ((TextView)dialogView.findViewById(R.id.txtLeft)).setText(R.string.swipe_left_next);
+                            } else {
+                                ((TextView)dialogView.findViewById(R.id.txtRight)).setText(R.string.swipe_right_next);
+                                ((TextView)dialogView.findViewById(R.id.txtLeft)).setText(R.string.swipe_left_prev);
+                            }
+                        }
+                    });
                     customizeDialog.setPositiveButton("Yes",
                             new DialogInterface.OnClickListener() {
                                 @Override
@@ -340,14 +363,20 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
                                     // TODO start the voice control here
                                     gestureControlOn = true;
 
-                                    invert = ((CheckBox)dialogView.findViewById(R.id.checkInvert)).isChecked();
-                                    if (invert) {
-                                        ((TextView)dialogView.findViewById(R.id.txtRight)).setText("Swipe Right: Next");
-                                        ((TextView)dialogView.findViewById(R.id.txtLeft)).setText("Swipe Left: Previous");
-                                    } else {
-                                        ((TextView)dialogView.findViewById(R.id.txtRight)).setText("Swipe Right: Previous");
-                                        ((TextView)dialogView.findViewById(R.id.txtLeft)).setText("Swipe Left: Next");
-                                    }
+//                                    inverter.setOnClickListener(new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View v) {
+//                                            invert = ((CheckBox)dialogView.findViewById(R.id.checkInvert)).isChecked();
+//                                            if (invert) {
+//                                                ((TextView)dialogView.findViewById(R.id.txtRight)).setText(R.string.swipe_right_prev);
+//                                                ((TextView)dialogView.findViewById(R.id.txtLeft)).setText(R.string.swipe_left_next);
+//                                            } else {
+//                                                ((TextView)dialogView.findViewById(R.id.txtRight)).setText(R.string.swipe_right_next);
+//                                                ((TextView)dialogView.findViewById(R.id.txtLeft)).setText(R.string.swipe_left_prev);
+//                                            }
+//                                        }
+//                                    });
+
                                     // add the mute permission here
                                     NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N

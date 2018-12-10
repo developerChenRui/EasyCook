@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             Toast.makeText(getBaseContext(),"Please login again", Toast.LENGTH_SHORT).show();
                         }
                     }
-                });
+                },false);
             }
         });
 
@@ -194,19 +194,19 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             String name = account.getDisplayName();
             String email = account.getEmail();
             Uri personPhotoUrl = account.getPhotoUrl();
-            System.out.format("Login profile url: %s %s%n",name,email);
             User profile = new User();
             profile.setUsername(name);
             profile.setEmail(email);
             profile.setPassword("");
+            System.out.format("Login profile url: %s %s%n",profile.getUsername(),profile.getEmail());
             ProfileSaver profileSaver = new ProfileSaver();
             profileSaver.setProfile(profile);
             profileSaver.checkProfile(getBaseContext().getFilesDir(), new ProfileCallback() {
                 @Override
                 public void onCallback(User profile) {
-
+                    Utils.user = profile;
                 }
-            });
+            }, true);
 
         }
         else{
