@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.willy.ratingbar.ScaleRatingBar;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,7 @@ class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     public CustomAdaptor(List<Recipe> recipesList, Context context){
         this.recipesList = recipesList;
         this.context = context;
+
     }
 
     @Override
@@ -108,10 +111,32 @@ class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.userFavourite:
-                    if (favBar.isChecked()) Toast.makeText(context,
-                            "User likes recipe " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                    if (favBar.isChecked()){
+                        Toast.makeText(context,
+                                "User likes recipe " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                        try{
+                            Utils.user.setFavoriteRecipes(Utils.user.getFavoriteRecipes()
+                                    .put(recipesList.get(getAdapterPosition()).getRecipeId()));
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                    }
                     else Toast.makeText(context,
                             "User unlikes recipe " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                    JSONArray idArr = Utils.user.getFavoriteRecipes();
+                    for (int i = 0; i < idArr.length(); i++){
+                        try{
+                            if (idArr.getString(i).equals(recipesList.get(getAdapterPosition()).getRecipeId())){
+                                idArr.remove(i);
+                                break;
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        Utils.user.setFavoriteRecipes(idArr);
+                    }
+
                     break;
 
                 default:

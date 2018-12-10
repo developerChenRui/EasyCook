@@ -48,7 +48,6 @@ public class Favorites extends Fragment {
         recipeSaver = new RecipeSaver();
         recipeList = new ArrayList<>();
         /** hook up database **/
-        /**Utils.user.getFavoriteRecipes()**/
         Toast.makeText(getContext(), "loading data, please wait", Toast.LENGTH_LONG).show();
         JSONArray idArr = Utils.user.getFavoriteRecipes();
         if (idArr == null) idArr = new JSONArray();

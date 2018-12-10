@@ -49,6 +49,10 @@ public class User {
         return favoriteRecipes;
     }
 
+    public void setFavoriteRecipes(JSONArray favoriteRecipes) {
+        this.favoriteRecipes = favoriteRecipes;
+    }
+
     public JSONArray getPrivateRecipes() {
         return privateRecipes;
     }
@@ -60,6 +64,15 @@ public class User {
     public String getProfileImgURL() {
         return profileImgURL;
     }
+
+    public JSONArray getShoppingList() {
+        return shoppingList;
+    }
+
+    public void setShoppingList(JSONArray shoppingList) {
+        this.shoppingList = shoppingList;
+    }
+
 
     public String getCleanEmail() {
         return email.replace('@','_').replace('.','_');

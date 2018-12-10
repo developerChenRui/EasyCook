@@ -267,6 +267,15 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
         gestureControl = findViewById(R.id.gestureControl);
         setClock = findViewById(R.id.setClock);
 
+        // set timer
+        setClock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(StepByStepActivity.this, TimerActivity.class);
+                startActivity(i);
+            }
+        });
+
         // tools listener
         voiceControl.setOnClickListener(new View.OnClickListener() {
             @Override

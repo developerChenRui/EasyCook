@@ -1,6 +1,9 @@
 package com.example.chenrui.easycook;
 
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,63 +12,66 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 
 class MyRecipesAdapter extends RecyclerView.Adapter<MyRecipesAdapter.MyViewHolder> {
-    private RecyclerViewClickListener clickListener;
-    private String[] recipeNames;
-    private ArrayList<Integer> recipeImages;
+    private ArrayList<Recipe> recipeList;
+    private Context context;
 
 
-    public MyRecipesAdapter(String[] recipeNames, ArrayList<Integer> recipeImages){
-        this.recipeNames= recipeNames;
-        this.recipeImages = recipeImages;
+    public MyRecipesAdapter(ArrayList<Recipe> recipeList, Context context){
+        this.context= context;
+        this.recipeList = recipeList;
 
     }
 
-    public void setClickListener(RecyclerViewClickListener clickListener) {
-        this.clickListener = clickListener;
-    }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recipe_row,viewGroup,false);
 
-        return new MyViewHolder(itemView);
+        return new MyViewHolder(itemView, context);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
 
-        myViewHolder.txtRecipe.setText(this.recipeNames[position]);
-        myViewHolder.imgRecipe.setImageResource(recipeImages.get(position).intValue());
+        myViewHolder.txtRecipe.setText(this.recipeList.get(position).getRecipeName());
+        /** if its image itself, should modify**/
+//        myViewHolder.imgRecipe.setImageResource(this.recipeList.get(position).intValue());
+        Picasso.get().load(this.recipeList.get(position).getRecipeImageURL()).into(myViewHolder.imgRecipe);
 
     }
 
     @Override
     public int getItemCount() {
-        return this.recipeNames.length;
+        return this.recipeList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView imgRecipe;
-        public TextView txtRecipe;
+        private ImageView imgRecipe;
+        private TextView txtRecipe;
+        private Context context;
 
-        public MyViewHolder(View itemView){
+
+        public MyViewHolder(View itemView, Context context){
             super(itemView);
             imgRecipe = itemView.findViewById(R.id.imgRecipe);
             txtRecipe = itemView.findViewById(R.id.txtRecipe);
-
+            this.context = context;
             itemView.setOnClickListener(this);
-
         }
 
         @Override
         public void onClick(View v) {
-            clickListener.onClick(v, getAdapterPosition());
-
+            Intent i = new Intent(context,DishItemActivity.class);
+            i.putExtras(Utils.Recipe2Bundle(recipeList.get(getAdapterPosition())));
+            ((Activity)context).startActivityForResult(i,NavigateActivity.GETINGREDIENTS);
         }
     }
 }

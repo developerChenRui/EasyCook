@@ -15,9 +15,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.storage.FirebaseStorage;
 import com.luck.picture.lib.permissions.RxPermissions;
 import com.luck.picture.lib.tools.PictureFileUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import io.reactivex.Observer;
@@ -34,6 +36,7 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
     private DiscoveryFragment dFrag;
     private FragmentManager fManager;
     private FragmentTransaction fTransaction;
+    private ProfileSaver profileSaver;
 
     //shopping list fragment
     private ShoppingListFragment shoppingListFragment;
@@ -51,8 +54,6 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
                 shoppinglist.add(s);
             }
             shoppingListFragment.initItems(shoppinglist);
-
-
             // for the returned Rating and returned # of reviewers
             float returnRating = data.getFloatExtra("returnRating",0);
             int  returnNumOfReviewers = data.getIntExtra("returnNumOfReviewers",0);
@@ -77,6 +78,7 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigate);
+        profileSaver = new ProfileSaver();
         // hide the title of actionbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -120,7 +122,6 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
-
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         item.setChecked(true);
                         switch (item.getItemId()) {
@@ -128,22 +129,27 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
                                 fTransaction = fManager.beginTransaction();
                                 fTransaction.replace(R.id.FragLayout,dFrag);
                                 fTransaction.commit();
+                                pushUserData();
                                 break;
                             case R.id.shoppingList:
                                 fTransaction = fManager.beginTransaction();
                                 fTransaction.replace(R.id.FragLayout,shoppingListFragment);
                                 fTransaction.commit();
+                                pushUserData();
                                 break;
                             case R.id.favorite:
                                 fTransaction = fManager.beginTransaction();
                                 fTransaction.replace(R.id.FragLayout,favoriteFragment);
                                 fTransaction.commit();
+                                pushUserData();
                                 break;
 
                         }
                         return false;
                     }
                 });
+
+
 
         RxPermissions permissions = new RxPermissions(this);
         permissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Observer<Boolean>() {
@@ -169,6 +175,10 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
             public void onComplete() {
             }
         });
+    }
+
+    private void pushUserData(){
+        profileSaver.updateProfile(Utils.user,getFilesDir());
     }
 
     @Override

@@ -28,6 +28,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,18 +44,15 @@ public class ShoppingListFragment extends Fragment {
 
 
 
-    ImageButton btnDelete_shoplist;
     List<Item> items= new ArrayList<Item>();
     ListView listView;
+    JSONArray ingArr;
 
-    TextInputLayout layoutIngredient;
-    TextView addIngredients;
 
     ItemsListAdapter myItemsListAdapter;
     private FloatingActionButton btnAdd;
 
     ImageButton btnSupermarket;
-    TextView nolist;
 
 
     public ShoppingListFragment() {
@@ -82,26 +81,15 @@ public class ShoppingListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shopping_list, container, false);
         listView = (ListView)view.findViewById(R.id.listview);
-//        btnDelete_shoplist = (ImageButton)view.findViewById(R.id.btnDelete_shoplist);
         btnSupermarket = (ImageButton)view.findViewById(R.id.btnStore);
         myItemsListAdapter = new ItemsListAdapter(getActivity(), items);
         btnAdd = (FloatingActionButton) view.findViewById(R.id.btnAdd);
-//        nolist = (TextView)view.findViewById(R.id.nolist);
         TextInputLayout addIngredient = (TextInputLayout)view.findViewById(R.id.layout_ing);
         listView.setAdapter(myItemsListAdapter);
         TextView text = (TextView)view.findViewById(R.id.rowTextView);
         TextView addIngredients = (TextView) view.findViewById(R.id.addingredient);
 
-//        TextView textView = new TextView(getContext());
-//        textView.setText("THINGS TO BUY");
-//        textView.setTextSize(15);
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                items.add(new Item("123",false));
-                myItemsListAdapter.notifyDataSetChanged();
-            }
-        });
 
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -130,16 +118,13 @@ public class ShoppingListFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 if(addIngredients.getText().toString().trim().length() == 0){
-//                                        addIngredient.setErrorEnabled(true);
-//                                        addIngredient.setError("No");
                                     Toasty.error(getContext(),"Please enter valid input",Toast.LENGTH_SHORT, true).show();
                                 }
                                 else {
                                     items.add(new Item(((TextView) dialogView.findViewById(R.id.addingredient)).getText().toString(), false));
+
                                     myItemsListAdapter.notifyDataSetChanged();
                                     animateFab(btnAdd, true, 200);
-//                                    leftCommand = ((TextView)dialogView.findViewById(R.id.lastCommand)).getText().toString();
-//                                    ((TextView)dialogView.findViewById(R.id.nextCommand)).getText().toString();
                                 }
                             }
                         });
@@ -156,36 +141,6 @@ public class ShoppingListFragment extends Fragment {
         });
 
 
-
-
-
-        //  listView.addHeaderView(textView);
-
-//        if (myItemsListAdapter.getCount() == 0)
-//        {
-//            nolist.setText("  Go to discovery page and add the missing ingredients you need!");
-//            nolist.setGravity(Gravity.CENTER);
-//            listView.setVisibility(View.GONE);
-//            myItemsListAdapter.notifyDataSetChanged();
-//        }
-//        else{
-//            TextView textView = new TextView(getContext());
-//            textView.setText("NEED TO BUY");
-//            textView.setTextSize(15);
-//
-//
-//            listView.addHeaderView(textView);
-//            nolist.setVisibility(View.GONE);
-//            myItemsListAdapter.notifyDataSetChanged();
-//        }
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//
-//
-//            }});
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -207,9 +162,23 @@ public class ShoppingListFragment extends Fragment {
         if(items == null) {
             items = new ArrayList<Item>();
         }
-        for(String s:shoppinglist) {
-            items.add(new Item(s,false));
+        ingArr = Utils.user.getShoppingList();
+        if (ingArr == null) ingArr = new JSONArray();
+        try{
+            for (int i = 0; i < ingArr.length(); i++){
+                items.add((Item)ingArr.get(i));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+        for(String s:shoppinglist) {
+            Item item = new Item(s,false);
+            items.add(item);
+            ingArr.put(item);
+        }
+        Utils.user.setShoppingList(ingArr);
+
+
     }
 
     public void animateFab(View fab, boolean scaleFabUp, int duration){
@@ -277,9 +246,6 @@ public class ShoppingListFragment extends Fragment {
                 convertView = LayoutInflater.from(context).inflate(R.layout.shopping_list_item, null);
                 viewHolder = new ViewHolder();
                 convertView.setTag(viewHolder);
-//                viewHolder.checkBox = (CheckBox) rowView.findViewById(R.id.rowCheckBox);
-//                viewHolder.text = (TextView) rowView.findViewById(R.id.rowTextView);
-//                viewHolder.btndelete = (ImageButton)rowView.findViewById(R.id.rowdeletebtn);
                 lmap.put(position,convertView);
             } else {
                 convertView = lmap.get(position);
@@ -310,19 +276,20 @@ public class ShoppingListFragment extends Fragment {
             viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    boolean newState = !list.get(position).isChecked();
-                    list.get(position).checked = newState;
+                    list.get(position).checked = !list.get(position).isChecked();
                     ((ListView) parent).performItemClick(view, position, 0);
                 }
             });
             viewHolder.btndelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    Animation anim = AnimationUtils.loadAnimation(getContext(), android.R.anim.slide_out_right);
-//                    anim.setDuration(500);
-//                    listView.startAnimation(anim );
                     items.remove(position);
                     myItemsListAdapter.notifyDataSetChanged();
+                    JSONArray newIngArr = new JSONArray();
+                    for (Item i : items){
+                        newIngArr.put(i);
+                    }
+                    Utils.user.setShoppingList(newIngArr);
                 }
 
             });

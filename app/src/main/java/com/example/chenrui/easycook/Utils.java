@@ -398,8 +398,9 @@ public class Utils {
                                     Integer.parseInt(stepString);
                                 } catch(Exception e) {
                                     inst.put("step",stepString);
+                                    stepList.put(inst);
                                 }
-                                stepList.put(inst);
+
                             }
                             Log.d(TAG,"Got instructions");
 

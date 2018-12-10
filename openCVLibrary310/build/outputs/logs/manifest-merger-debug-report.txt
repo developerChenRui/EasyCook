@@ -1,37 +1,37 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml:2:1-8:12
-INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml:2:1-8:12
-INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml:2:1-8:12
-INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml:2:1-8:12
-INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml:2:1-8:12
-INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml:2:1-8:12
-INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml:2:1-8:12
+ADDED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml:2:1-8:12
+INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml:2:1-8:12
+INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml:2:1-8:12
+INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml:2:1-8:12
+INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml:2:1-8:12
+INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml:2:1-8:12
+INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml:2:1-8:12
 	package
-		ADDED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml:3:7-27
-		INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
-		INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
+		ADDED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml:3:7-27
+		INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
+		INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
 	android:versionName
-		ADDED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml:5:7-34
-		INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
-		INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
+		ADDED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml:5:7-34
+		INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
+		INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml:2:11-69
+		ADDED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml:2:11-69
 	android:versionCode
-		ADDED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml:4:7-33
-		INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
-		INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
+		ADDED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml:4:7-33
+		INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
+		INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
 uses-sdk
-INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
-INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
-INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
-INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
+INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
+INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
+INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
+INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
-		ADDED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
-		INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
+		INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
+		ADDED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
+		INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
-		ADDED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
-		INJECTED from /Users/wangmengxi/Documents/mercy/18FALL/CS591 E2/project/1210/EasyCook-master 4/openCVLibrary310/src/main/AndroidManifest.xml
+		INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
+		ADDED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
+		INJECTED from /Users/chenrui/Desktop/EasyCook/EasyCook/openCVLibrary310/src/main/AndroidManifest.xml
