@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
@@ -25,9 +26,12 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 
 /**
@@ -40,6 +44,9 @@ public class ShoppingListFragment extends Fragment {
     ImageButton btnDelete_shoplist;
     List<Item> items= new ArrayList<Item>();
     ListView listView;
+
+    TextInputLayout layoutIngredient;
+    TextView addIngredients;
 
     ItemsListAdapter myItemsListAdapter;
     private FloatingActionButton btnAdd;
@@ -79,8 +86,10 @@ public class ShoppingListFragment extends Fragment {
         myItemsListAdapter = new ItemsListAdapter(getActivity(), items);
         btnAdd = (FloatingActionButton) view.findViewById(R.id.btnAdd);
 //        nolist = (TextView)view.findViewById(R.id.nolist);
+        TextInputLayout addIngredient = (TextInputLayout)view.findViewById(R.id.layout_ing);
         listView.setAdapter(myItemsListAdapter);
         TextView text = (TextView)view.findViewById(R.id.rowTextView);
+        TextView addIngredients = (TextView) view.findViewById(R.id.addingredient);
 
 //        TextView textView = new TextView(getContext());
 //        textView.setText("THINGS TO BUY");
@@ -102,7 +111,9 @@ public class ShoppingListFragment extends Fragment {
                             new AlertDialog.Builder(getContext());
                     final View dialogView = LayoutInflater.from(getActivity())
                             .inflate(R.layout.add_shoppinglist_dialog, null);
-//
+
+                    TextInputLayout addIngredient = (TextInputLayout)dialogView.findViewById(R.id.layout_ing);
+                    TextView addIngredients = (TextView) dialogView.findViewById(R.id.addingredient);
                     TextView title = new TextView(getActivity());
                     title.setTextSize(20);
                     title.setPadding(0, 20, 0, 20);
@@ -117,11 +128,18 @@ public class ShoppingListFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
-                                    items.add(new Item(((TextView)dialogView.findViewById(R.id.addingredient)).getText().toString(),false));
-                                    myItemsListAdapter.notifyDataSetChanged();
-                                    animateFab(btnAdd, true, 200);
+                                    if(addIngredients.getText().toString().trim().length() == 0){
+//                                        addIngredient.setErrorEnabled(true);
+//                                        addIngredient.setError("No");
+                                       Toasty.error(getContext(),"Please enter valid input",Toast.LENGTH_SHORT, true).show();
+                                    }
+                                    else {
+                                        items.add(new Item(((TextView) dialogView.findViewById(R.id.addingredient)).getText().toString(), false));
+                                        myItemsListAdapter.notifyDataSetChanged();
+                                        animateFab(btnAdd, true, 200);
 //                                    leftCommand = ((TextView)dialogView.findViewById(R.id.lastCommand)).getText().toString();
 //                                    ((TextView)dialogView.findViewById(R.id.nextCommand)).getText().toString();
+                                    }
                                 }
                             });
                 customizeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -140,7 +158,7 @@ public class ShoppingListFragment extends Fragment {
 
 
 
-       // listView.addHeaderView(textView);
+      //  listView.addHeaderView(textView);
 
 //        if (myItemsListAdapter.getCount() == 0)
 //        {

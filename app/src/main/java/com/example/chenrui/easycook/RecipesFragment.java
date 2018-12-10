@@ -1,15 +1,13 @@
 package com.example.chenrui.easycook;
 
 
-import android.app.SearchManager;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,9 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 public class RecipesFragment extends Fragment implements UserProfile.UserProfileListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,6 +29,8 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
     private Favorites favorites;
 //    private UserProfile userProfile;
     private FragmentManager fm;
+    private FloatingActionButton addRecipe;
+
 
 
 
@@ -56,6 +53,14 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipes, container, false);
 
+        FloatingActionButton addRecipe = (FloatingActionButton) view.findViewById(R.id.addRecipe);
+        addRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(),CreateActivity.class);
+                startActivity(i);
+            }
+        });
         setHasOptionsMenu(true);
 
         return view;

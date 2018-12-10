@@ -8,5 +8,6 @@
     <dimen name="actionbar_hight">44dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="design_fab_image_size" tools:override="true">40dp</dimen>
+    <dimen name="design_fab_image_size" tools:override="true">30dp</dimen>
+
 </resources>

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".TabRecipes">
 
     <!-- TODO: Update blank fragment layout -->
@@ -10,8 +11,13 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tabRecipes"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        app:tabBackground="@android:color/transparent"
+        app:tabRippleColor="@null"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        app:tabMaxWidth="0dp">
 
     </android.support.design.widget.TabLayout>
 
