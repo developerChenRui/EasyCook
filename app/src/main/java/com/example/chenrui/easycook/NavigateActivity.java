@@ -10,6 +10,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 public class NavigateActivity extends AppCompatActivity implements UserProfile.UserProfileListener,TabRecipes.OnFragmentInteractionListener{
 
 
-    // for the shopping list ingredients
+    // for the shopping list ingredients and for the rating returned from the DishItemActivity
     public static int GETINGREDIENTS = 1;
     ArrayList<String> shoppinglist= new ArrayList<>();
     //TODO fragments initialization
@@ -42,7 +43,15 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
                 shoppinglist.add(s);
             }
             shoppingListFragment.initItems(shoppinglist);
+
+
+            // for the returned Rating and returned # of reviewers
+            float returnRating = data.getFloatExtra("returnRating",0);
+            int  returnNumOfReviewers = data.getIntExtra("returnNumOfReviewers",0);
+            CustomAdaptor cAdaptor = dFrag.returnAdaptor();
+            cAdaptor.changeRecipeList(cAdaptor.justOpenPosition,returnRating,returnNumOfReviewers);
         }
+
     }
 
 

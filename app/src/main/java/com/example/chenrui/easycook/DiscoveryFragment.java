@@ -44,7 +44,7 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
     private SearchView.OnQueryTextListener queryTextListener;
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
-    private CustomAdaptor cAdaptor;
+    public CustomAdaptor cAdaptor;
     private View fragView;
     private StaggeredGridLayoutManager layoutManager;
 
@@ -167,6 +167,10 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
 
         fragView = view;
         return view;
+    }
+
+    public CustomAdaptor returnAdaptor() {
+        return cAdaptor;
     }
 
     private void registerListener(){

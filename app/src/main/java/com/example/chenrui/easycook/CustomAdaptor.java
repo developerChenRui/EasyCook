@@ -23,6 +23,18 @@ class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private List<Recipe> recipesList;
     private Context context;
 
+    public static int justOpenPosition;
+    float rating = 0;
+
+
+    public void changeRecipeList(int position, float rating, int num) {
+        Recipe recipe = recipesList.get(position);
+        recipe.setNumOfReviewer(num);
+        recipe.setRating(rating);
+        this.rating = rating;
+        notifyItemChanged(position);
+    }
+
 
     public CustomAdaptor(List<Recipe> recipesList, Context context){
         this.recipesList = recipesList;
@@ -40,7 +52,7 @@ class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         /** setOnRatingBarChangeListener **/
         if (holder instanceof contentHolder){
             contentHolder cHolder = (contentHolder) holder;
-//            cHolder.dishRB.setRating(3); /** 3 hard coding **/
+            cHolder.dishRB.setRating(rating); /** 3 hard coding **/
 //            cHolder.dishImage.setImageResource(this.ImageList.get(position).intValue());
             if (this.recipesList.get(position).getRecipeImageURL().equals("")) {
                 cHolder.dishImage.setImageResource(R.drawable.hamburger);
@@ -104,6 +116,7 @@ class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
                 default:
                     Intent i = new Intent(context,DishItemActivity.class);
+                    justOpenPosition = getAdapterPosition();
                     Utils.recipeIdSearch(recipesList.get(getAdapterPosition()).getRecipeId(), new AsyncData() {
                         @Override
                         public void onData(ArrayList<Recipe> recipeList) {

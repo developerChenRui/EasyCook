@@ -60,6 +60,8 @@ public class DishItemActivity extends AppCompatActivity {
 
     static int GETREVIEW = 1;
 
+    RecyclerAdapter recyclerAdapter;
+
 
 
     //shopping list
@@ -76,6 +78,9 @@ public class DishItemActivity extends AppCompatActivity {
      List<String> dates = new ArrayList<>();
 
     ReviewSaver reviewSaver;
+
+    float returnRating;
+    int returnNumOfReviewers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,9 +236,9 @@ public class DishItemActivity extends AppCompatActivity {
 
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                 reviews.setLayoutManager(layoutManager);
-                RecyclerAdapter adapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,dates,starNum,reviewers);
+                recyclerAdapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,dates,starNum,reviewers);
                 reviews.setNestedScrollingEnabled(false);
-                reviews.setAdapter(adapter);
+                reviews.setAdapter(recyclerAdapter);
 
             }
         });
@@ -268,6 +273,10 @@ public class DishItemActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putStringArrayListExtra("shoppingList",shoppinglist);
                 setResult(Activity.RESULT_OK, intent);
+
+                // return the rating and # of reviewers
+                intent.putExtra("returnRating", returnRating);
+                intent.putExtra("returnNumOfReviewers",returnNumOfReviewers);
                 finish();
             }
         });
@@ -321,14 +330,22 @@ public class DishItemActivity extends AppCompatActivity {
                     ratingStar.setRating(reviewSaver.getAverageReview());
                     numOfReviewers.setText("" + reviewSaver.getNumReviewers());
                     reviewNum.setText("Reviews ("+reviewSaver.getNumReviewers()+")");
+
+                    returnRating = reviewSaver.getAverageReview();
+                    returnNumOfReviewers = reviewSaver.getNumReviewers();
+
                 }
             });
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
             reviews.setLayoutManager(layoutManager);
-            RecyclerAdapter adapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,dates,starNum,reviewers);
+            recyclerAdapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,dates,starNum,reviewers);
             reviews.setNestedScrollingEnabled(false);
-            reviews.setAdapter(adapter);
+            reviews.setAdapter(recyclerAdapter);
         }
+
+    }
+
+    public void changeSpecificRecipe(int position, float newRating, int newNumOfReviewer) {
 
     }
 
