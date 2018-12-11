@@ -240,7 +240,7 @@ public class RecipeSaver {
 
     // Standardized method for getting a Recipe filename
     public String getFileName() {
-        return recipe.getRecipeName().replace(' ','_') + "-" + recipe.getMakerName().replace(' ','_') + "-" + recipe.getRecipeId().replace(' ','_');
+        return recipe.getRecipeId();
     }
 
     public String getFileName(Recipe recipe) {

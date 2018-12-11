@@ -16,43 +16,26 @@ import java.io.IOException;
 
 public class ImageSaver {
 
-    private static StorageReference imageRef;
-    private static String imageName;
-    private static Bitmap image;
-    private static String imageURL;
+    private StorageReference imageRef;
+    private String imageName;
+    private Bitmap image;
+    private String imageURL;
 
-//    public static void fetchImage(String imgURL, final ImageCallback callback) {
-//        Target image;
-//        image = new Target() {
-//
-//            @Override
-//            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//                callback()
-//            }
-//
-//            @Override
-//            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-//
-//            }
-//
-//            @Override
-//            public void onPrepareLoad(Drawable placeHolderDrawable) {
-//
-//            }
-//        };
-//        Picasso.get().load(imgURL).into(image);
-//
-//    }
 
-    public static void pushImage(File path, final ImageCallback callback){
+    public void pushImage(File path, final ImageCallback callback){
         StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
         if (image == null) {
             return;
         }
+        System.out.format("IMAGESAVER: Got image %s%n",imageName );
         File imageFile = new File(path, imageName);
-        imageFile.deleteOnExit();
+        System.out.format("IMAGESAVER: Made file %s%n",imageFile);
         try {
+            System.out.format("IMAGESAVER: Trying file %s%n",imageFile);
+
             FileOutputStream fOut = new FileOutputStream(imageFile);
+            System.out.format("IMAGESAVER: Made fOut %s%n",fOut);
+
             image.compress(Bitmap.CompressFormat.JPEG,90,fOut);
             fOut.flush();
             fOut.close();
@@ -86,5 +69,13 @@ public class ImageSaver {
         }
 
     }
+
+    public void pushImage(String imageName, Bitmap image, File path, ImageCallback callback) {
+        this.imageName = imageName;
+        this.image = image;
+        pushImage(path,callback);
+    }
+
+
 
 }

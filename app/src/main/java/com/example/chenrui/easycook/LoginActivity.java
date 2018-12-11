@@ -175,15 +175,28 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             profileSaver.checkProfile(getBaseContext().getFilesDir(), new ProfileCallback() {
                 @Override
                 public void onCallback(User profile) {
-                    Utils.user = profile;
+                    if (profile.getEmail().equals("")) {
+                        Utils.user = new User();
+                        Utils.user.setEmail(email);
+                        Utils.user.setUsername(name);
+                        Utils.user.setPassword("");
+                    } else {
+                        Utils.user = profile;
+                    }
+                    Utils.username = profile.getUsername();
+
+                    Utils.user.setUsername(account.getDisplayName());
+
+                    System.out.format("Got profile: %s%n", Utils.user.getUsername());
+                    Intent intent = new Intent(getBaseContext(), NavigateActivity.class);
+                    startActivity(intent);
                 }
             }, true);
+
 
         }
         else{
         }
-        Intent intent = new Intent(this, NavigateActivity.class);
-        startActivity(intent);
     }
     @Override
     protected void onActivityResult(int requestCode,int resultCode,Intent data){

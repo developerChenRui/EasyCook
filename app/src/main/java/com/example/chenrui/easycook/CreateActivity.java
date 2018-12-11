@@ -298,7 +298,7 @@ public class CreateActivity extends AppCompatActivity {
                     Bitmap bitmap = adapter.getBitmap();
                     Log.i("bitmapSave", "" + bitmap.getByteCount());
                     ImageSaver imageSaver = new ImageSaver();
-                    imageSaver.pushImage(getBaseContext().getFilesDir(), new ImageCallback() {
+                    imageSaver.pushImage(imageName, bitmap, getBaseContext().getFilesDir(), new ImageCallback() {
                         @Override
                         public void onCallback(String imageURL) {
                             Log.i("imageURL", "success" + imageURL);
@@ -307,7 +307,7 @@ public class CreateActivity extends AppCompatActivity {
 
                                 String userName = Utils.user.getEmail().toString();
                                 String recipeName = enterName.getText().toString();
-                                String recipeID = enterName.getText().toString() + "_" + userName;
+                                String recipeID = enterName.getText().toString() + "_" + userName.replace('.','_').replace('@','_');
                                 System.out.println("recipe " + imageURL.toString() + " "  + recipeID + " " + userName);
                                 JSONArray instructions = getInstructions();
                                 JSONArray ingredients = getIngredients();
@@ -331,6 +331,8 @@ public class CreateActivity extends AppCompatActivity {
                                 recipe.setIngredients(ingredients);
                                 recipe.setRecipeName(recipeName);
                                 recipe.setTags(tags);
+
+                                System.out.format("Filename: %s%n",recipe.getRecipeId());
 
 //                                createRecipe(imageURL);
                                 RecipeSaver recipeSaver = new RecipeSaver();
@@ -452,7 +454,7 @@ public class CreateActivity extends AppCompatActivity {
             Bitmap bitmap = insAdapter.getBitmap(path);
             Log.i("bitmapSave", "" + bitmap.getByteCount());
             ImageSaver imageSaver = new ImageSaver();
-            imageSaver.pushImage(getBaseContext().getFilesDir(), new ImageCallback() {
+            imageSaver.pushImage(imageName, bitmap, getBaseContext().getFilesDir(), new ImageCallback() {
                 @Override
                 public void onCallback(String imageURL) {
  //                   Log.i("step", "success" + imageURL);

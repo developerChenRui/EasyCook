@@ -215,6 +215,7 @@ public class ProfileSaver {
     }
 
     public void updateProfile(User profile, File path) {
+        System.out.format("Utils.user: %s%n",Utils.user);
         final StorageReference profileRef = FirebaseStorage.getInstance().getReference().child("users/"+profile.getCleanEmail());
         try {
             final File localFile = File.createTempFile("profile","json");
