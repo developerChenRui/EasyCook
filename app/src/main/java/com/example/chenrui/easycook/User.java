@@ -78,6 +78,58 @@ public class User {
         return email.replace('@','_').replace('.','_');
     }
 
+    public void addFavorite(String recipeID) {
+        try {
+            for (int i = 0; i < this.favoriteRecipes.length(); i++) {
+                if (this.favoriteRecipes.getString(i).equals(recipeID)) {
+                    return;
+                }
+            }
+            this.favoriteRecipes.put(recipeID);
+        } catch (JSONException e) {
+
+        }
+    }
+
+    public void removeFavorite(String recipeID) {
+        try {
+            for (int i = 0; i < this.favoriteRecipes.length(); i++) {
+                if (this.favoriteRecipes.getString(i).equals(recipeID)) {
+                    this.favoriteRecipes.remove(i);
+                    return;
+                }
+            }
+        } catch (JSONException e) {
+
+        }
+    }
+
+    public void addIngredient(String ingredient) {
+        try {
+            for (int i = 0; i < this.shoppingList.length(); i++) {
+                if (((Item)this.shoppingList.get(i)).ItemString.equals(ingredient)) {
+                    return;
+                }
+            }
+            this.shoppingList.put(ingredient);
+        } catch (JSONException e) {
+
+        }
+    }
+
+    public void removeIngredient(String ingredient) {
+        try {
+            for (int i = 0; i < this.shoppingList.length(); i++) {
+                if (((Item)this.shoppingList.get(i)).ItemString.equals(ingredient)) {
+                    this.shoppingList.remove(i);
+                    return;
+                }
+            }
+        } catch (JSONException e) {
+
+        }
+    }
+
     public User() {}
 
 

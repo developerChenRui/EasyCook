@@ -190,19 +190,6 @@ public class ShoppingListFragment extends Fragment {
                 .start();
     }
 
-    public class Item {
-        boolean checked;
-        String ItemString;
-        Item(String t, boolean b){
-            ItemString = t;
-            checked = b;
-        }
-
-        public boolean isChecked(){
-            return checked;
-        }
-    }
-
 
     public class ItemsListAdapter extends BaseAdapter {
 

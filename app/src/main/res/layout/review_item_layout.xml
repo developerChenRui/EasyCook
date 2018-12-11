@@ -79,6 +79,7 @@ oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
 
         <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/liked"
             android:gravity="center"
             android:paddingLeft="30dp"
             android:layout_width="100dp"

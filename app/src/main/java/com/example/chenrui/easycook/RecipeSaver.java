@@ -168,6 +168,7 @@ public class RecipeSaver {
         // Write recipe to file
         String recipeName = getFileName();
         File recipeFile = new File(path,recipeName);
+        recipeFile.deleteOnExit();
         try {
             FileWriter writer = new FileWriter(recipeFile);
             writer.write(recipeJSON.toString());

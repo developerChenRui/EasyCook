@@ -26,12 +26,14 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
+import com.robertlevonyan.views.customfloatingactionbutton.FloatingLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,6 +79,7 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
 
     // invert for hand gestures
     Boolean invert = false;
+
 
 
     // fake image and description
@@ -271,8 +274,34 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
         setClock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(StepByStepActivity.this, TimerActivity.class);
-                startActivity(i);
+                AlertDialog.Builder customizeDialog =
+                        new AlertDialog.Builder(StepByStepActivity.this);
+                final View dialogView = LayoutInflater.from(StepByStepActivity.this)
+                        .inflate(R.layout.timer_setting_dialog, null);
+
+                TextView title = new TextView(StepByStepActivity.this);
+                title.setTextSize(25);
+                title.setPadding(0, 30, 0, 30);
+
+                title.setText("Timer Setting");
+                title.setGravity(Gravity.CENTER);
+                customizeDialog.setCustomTitle(title);
+
+                customizeDialog.setView(dialogView);
+                customizeDialog.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO start the voice control here
+                                Intent i = new Intent(StepByStepActivity.this, TimerActivity.class);
+                                i.putExtra("hour",((TextView)dialogView.findViewById(R.id.setHour)).getText().toString());
+                                i.putExtra("minute",((TextView)dialogView.findViewById(R.id.setMinute)).getText().toString());
+                                i.putExtra("second",((TextView)dialogView.findViewById(R.id.setSecond)).getText().toString());
+                                startActivity(i);
+                            }
+                        });
+                customizeDialog.show();
+
             }
         });
 

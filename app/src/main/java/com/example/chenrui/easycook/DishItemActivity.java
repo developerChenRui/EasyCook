@@ -76,6 +76,8 @@ public class DishItemActivity extends AppCompatActivity {
      List<Float> starNum = new ArrayList<>();
      List<String> reviewers = new ArrayList<>();
      List<String> dates = new ArrayList<>();
+     List<Boolean> likes = new ArrayList<>();
+     List<String> emails = new ArrayList<>();
 
     ReviewSaver reviewSaver;
 
@@ -222,9 +224,10 @@ public class DishItemActivity extends AppCompatActivity {
                     Review review = new Review();
                     try {
                         review.fromJSON(reviewJsonArray.getJSONObject(i));
+                        System.out.format("Got review %s%n",reviewJsonArray.getJSONObject(i));
 
                     }catch (Exception e) {
-
+                        System.err.format("Did not read in review properly %s%n",e);
                     }
                     profiles.add(review.getProfileImgURL());
                     reviewNum.setText("Reviews ("+NumOfreview+")");
@@ -232,11 +235,32 @@ public class DishItemActivity extends AppCompatActivity {
                     starNum.add(review.getRating());
                     reviewers.add(review.getText());
                     dates.add(review.getRelativeTime());
+                    emails.add(review.getEmail());
+
+
+
+                    JSONArray reviewLikes = review.getUserLikes();
+                    System.out.format("Getting review likes %s%n", reviewLikes);
+                    int j = 0;
+                    while (j < reviewLikes.length()) {
+                        try {
+                            if (reviewLikes.getString(j).equals(Utils.user.getEmail())) {
+                                likes.add(true);
+                                break;
+                            }
+                        } catch (JSONException e) {
+                            likes.add(false);
+                        }
+                        j++;
+                    }
+                    if (j  == reviewLikes.length()) {
+                        likes.add(false);
+                    }
                 }
 
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                 reviews.setLayoutManager(layoutManager);
-                recyclerAdapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,dates,starNum,reviewers);
+                recyclerAdapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,emails,dates,starNum,reviewers,likes,recipe.getRecipeId());
                 reviews.setNestedScrollingEnabled(false);
                 reviews.setAdapter(recyclerAdapter);
 
@@ -304,11 +328,11 @@ public class DishItemActivity extends AppCompatActivity {
         if(requestCode == GETREVIEW && resultCode == Activity.RESULT_OK) {
             // get review text and rating
             String returnReview = data.getStringExtra("review text");
-            float raing = data.getFloatExtra("review rating",0);
+            float rating = data.getFloatExtra("review rating",0);
 
             // Upload to the database
-            Review reviewToDatabase = new Review(Utils.username,
-                    "", returnReview, raing, new Timestamp(System.currentTimeMillis()));
+            Review reviewToDatabase = new Review(Utils.username, Utils.user.getEmail(),
+                    Utils.user.getProfileImgURL(), returnReview, rating, new Timestamp(System.currentTimeMillis()));
 
             Log.d("CHECKK3",recipe.getRecipeId());
             reviewSaver.addReview(recipe.getRecipeId(),reviewToDatabase.toJSON(),getBaseContext().getFilesDir());
@@ -316,11 +340,13 @@ public class DishItemActivity extends AppCompatActivity {
 
             profiles.add("");
             reviewerNames.add(Utils.username);
-            starNum.add(raing);
+            starNum.add(rating);
             reviewers.add(returnReview);
             dates.add(Utils.getRelativeTime(new Timestamp(System.currentTimeMillis())));
 
+            emails.add(Utils.user.getEmail());
 
+            likes.add(false);
 
 
             // change the review part
@@ -338,7 +364,7 @@ public class DishItemActivity extends AppCompatActivity {
             });
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
             reviews.setLayoutManager(layoutManager);
-            recyclerAdapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,dates,starNum,reviewers);
+            recyclerAdapter = new RecyclerAdapter(getBaseContext(),profiles,reviewerNames,emails,dates,starNum,reviewers,likes,recipe.getRecipeId());
             reviews.setNestedScrollingEnabled(false);
             reviews.setAdapter(recyclerAdapter);
         }
@@ -359,15 +385,15 @@ public class DishItemActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
         case R.id.share:
-            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
             String sharedMeg = "";
            // JSONArray insArr = recipe.getInstructions().getJSONArray();
             for (int i = 0; i < instructions.size(); i++){
                     sharedMeg += "Step "+ (i+1) + ": " + instructions.get(i) + "\n";
             }
-            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "EasyCook Recipe of"+"  "+ recipe.getRecipeName());
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, sharedMeg);
+            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "EasyCook Recipe of"+"  "+ recipe.getRecipeName());
+            sharingIntent.putExtra(Intent.EXTRA_TEXT, sharedMeg);
             startActivity(Intent.createChooser(sharingIntent, "Share via"));
             return(true);
 

@@ -141,6 +141,7 @@ public class ReviewSaver {
                             if (line == null) {
                                 // Make new file
                                 File reviewFile = new File(path,recipe.getRecipeId());
+                                reviewFile.deleteOnExit();
 
                                 // Write reviews to file
                                 FileWriter writer = new FileWriter(reviewFile,false);
@@ -210,6 +211,7 @@ public class ReviewSaver {
 
                             // Make new file
                             File reviewFile = new File(path,recipe.getRecipeId());
+                            reviewFile.deleteOnExit();
 
                             // Write reviews to file
                             FileWriter writer = new FileWriter(reviewFile,false);
@@ -308,6 +310,142 @@ public class ReviewSaver {
         this.recipe = new Recipe();
         this.recipe.setRecipeId(recipeID);
         this.fetchReviews(callback);
+    }
+
+    public void updateReview(String recipeID, Review review) {
+        final StorageReference reviewRef = FirebaseStorage.getInstance().getReference().child("reviews/" + recipeID);
+        try {
+            // Get file from cloud
+            final File localFile = File.createTempFile("reviews", "json");
+            final Task<File> out = reviewRef.getFile(localFile).continueWith(new Continuation<FileDownloadTask.TaskSnapshot, File>() {
+                @Override
+                public File then(@NonNull Task<FileDownloadTask.TaskSnapshot> task) throws Exception {
+                    return localFile;
+                }
+            });
+            out.addOnSuccessListener(new OnSuccessListener<File>() {
+                @Override
+                public void onSuccess(File file) {
+                    // Read in reviews and store
+                    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            try {
+                                reviews = new JSONArray(line);
+                                System.out.format("Got reviews: %s%n", reviews);
+
+                                for (int i = 0; i < reviews.length(); i++) {
+                                    if (((Review)reviews.get(i)).getEmail().equals(review.getEmail())) {
+                                        reviews.put(i,review);
+                                        break;
+                                    }
+                                }
+
+                                FileWriter writer = new FileWriter(file);
+                                writer.write(reviews.toString());
+                                writer.close();
+
+                                Uri reviewURI = Uri.fromFile(file);
+                                reviewRef.putFile(reviewURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                    }
+                                });
+                            } catch (JSONException e) {
+
+                            }
+                        }
+                    } catch (IOException e) {
+                        System.out.println("Failed to read reviews file");
+                    }
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+        } catch (IOException e) {
+
+        }
+    }
+
+    public void changeUserLike(String recipeID, String reviewerEmail, String likerEmail, Boolean isAdd) {
+        final StorageReference reviewRef = FirebaseStorage.getInstance().getReference().child("reviews/" + recipeID);
+        try {
+            // Get file from cloud
+            final File localFile = File.createTempFile("reviews", "json");
+            final Task<File> out = reviewRef.getFile(localFile).continueWith(new Continuation<FileDownloadTask.TaskSnapshot, File>() {
+                @Override
+                public File then(@NonNull Task<FileDownloadTask.TaskSnapshot> task) throws Exception {
+                    return localFile;
+                }
+            });
+            out.addOnSuccessListener(new OnSuccessListener<File>() {
+                @Override
+                public void onSuccess(File file) {
+                    // Read in reviews and store
+                    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            try {
+                                reviews = new JSONArray(line);
+                                System.out.format("Got reviews: %s%n", reviews);
+
+                                for (int i = 0; i < reviews.length(); i++) {
+                                    Review review = new Review();
+                                    review.fromJSON(reviews.getJSONObject(i));
+                                    if (review.getEmail().equals(reviewerEmail)) {
+                                        if(isAdd){
+                                            review.addUserLike(likerEmail);
+                                        } else {
+                                            review.removeUserLike(likerEmail);
+                                        }
+                                        break;
+                                    }
+                                }
+
+                                FileWriter writer = new FileWriter(file);
+                                writer.write(reviews.toString());
+                                writer.close();
+
+                                Uri reviewURI = Uri.fromFile(file);
+                                reviewRef.putFile(reviewURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                    }
+                                });
+                            } catch (JSONException e) {
+
+                            }
+                        }
+                    } catch (IOException e) {
+                        System.out.println("Failed to read reviews file");
+                    }
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+        } catch (IOException e) {
+
+        }
     }
 
     public JSONArray getReviews() {

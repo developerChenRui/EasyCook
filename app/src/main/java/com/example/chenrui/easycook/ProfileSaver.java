@@ -93,6 +93,7 @@ public class ProfileSaver {
 
         String email = this.profile.getCleanEmail();
         File profileFile = new File(path,email);
+        profileFile.deleteOnExit();
         try {
             FileWriter writer = new FileWriter(profileFile);
             writer.write(profileJSON.toString());
@@ -150,6 +151,7 @@ public class ProfileSaver {
 
                             String email = profile.getCleanEmail();
                             File profileFile = new File(path,email);
+                            profileFile.deleteOnExit();
                             try {
                                 FileWriter writer = new FileWriter(profileFile);
                                 writer.write(profileJSON.toString());
@@ -233,6 +235,7 @@ public class ProfileSaver {
                       if (line == null) {
                           // Make new file
                           File profileFile = new File(path, profile.getCleanEmail());
+                          profileFile.deleteOnExit();
 
                           FileWriter fileWriter = new FileWriter(profileFile);
                           fileWriter.write(profile.toJSON().toString());

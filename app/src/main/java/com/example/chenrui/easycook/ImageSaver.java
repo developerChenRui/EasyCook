@@ -50,6 +50,7 @@ public class ImageSaver {
             return;
         }
         File imageFile = new File(path, imageName);
+        imageFile.deleteOnExit();
         try {
             FileOutputStream fOut = new FileOutputStream(imageFile);
             image.compress(Bitmap.CompressFormat.JPEG,90,fOut);

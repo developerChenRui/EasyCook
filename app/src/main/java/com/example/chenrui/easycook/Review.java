@@ -11,19 +11,21 @@ import java.text.SimpleDateFormat;
 
 public class Review {
     private String username;
+    private String email;
     private String profileImgURL;
     private String text;
     private float rating;
     private JSONArray userLikes = new JSONArray();
     private Timestamp timestamp;
 
-    Review(String username, String profileImgURL, String text, float rating, Timestamp timestamp) {
+    Review(String username, String email, String profileImgURL, String text, float rating, Timestamp timestamp) {
         this.username = username;
+        this.email = email;
         this.profileImgURL = profileImgURL;
         this.text = text;
         this.rating = rating;
         this.timestamp = timestamp;
-
+//        userLikes.put
     }
 
     Review() {
@@ -46,9 +48,9 @@ public class Review {
         this.rating = rating;
     }
 
-    public void addUserLike(String username) {
-        this.userLikes.put(username);
-    }
+//    public void addUserLike(String username) {
+//        this.userLikes.put(username);
+//    }
 
     public void setTimestamp() {
         this.timestamp = new Timestamp(System.currentTimeMillis());
@@ -74,6 +76,40 @@ public class Review {
         return timestamp;
     }
 
+    public JSONArray getUserLikes() {
+        return userLikes;
+    }
+
+    public void addUserLike(String email) {
+        try {
+            for (int i = 0; i < this.userLikes.length(); i++) {
+                if (this.userLikes.getString(i).equals(email)) {
+                    return;
+                }
+            }
+            this.userLikes.put(email);
+        } catch (JSONException e) {
+
+        }
+    }
+
+    public void removeUserLike(String email) {
+        try {
+            for (int i = 0; i < this.userLikes.length(); i++) {
+                if (this.userLikes.getString(i).equals(email)) {
+                    this.userLikes.remove(i);
+                    return;
+                }
+            }
+        } catch (JSONException e) {
+
+        }
+    }
+
+    public void setEmail(String email) { this.email = email; }
+
+    public String getEmail() {return this.email; }
+
     public String getRelativeTime() {
         long relative = System.currentTimeMillis() - this.timestamp.getTime();
         if (relative >= (long)1000*60*60*24*365) {
@@ -98,6 +134,7 @@ public class Review {
         JSONObject out = new JSONObject();
         try {
             out.put("username",this.username);
+            out.put("email",this.email);
             out.put("profileImgURL",this.profileImgURL);
             out.put("text",this.text);
             out.put("userLikes",this.userLikes);
@@ -112,6 +149,7 @@ public class Review {
     public void fromJSON(JSONObject reviewJSON) {
         try {
             this.username = reviewJSON.getString("username");
+            this.email = reviewJSON.getString("email");
             this.profileImgURL = reviewJSON.getString("profileImgURL");
             this.text = reviewJSON.getString("text");
             this.userLikes = reviewJSON.getJSONArray("userLikes");
@@ -120,7 +158,9 @@ public class Review {
             try {
                 Date parsedDate = dateFormat.parse(reviewJSON.getString("timestamp"));
                 this.timestamp = new Timestamp((parsedDate.getTime()));
+                System.out.format("Got timestamp %s%n",this.timestamp);
             } catch (Exception e) {
+                System.err.format("Timestamp not filled in properly for %s: %s%n",this.username,e);
 
             }
 
