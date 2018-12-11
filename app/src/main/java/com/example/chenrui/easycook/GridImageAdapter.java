@@ -1,6 +1,9 @@
 package com.example.chenrui.easycook;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +19,7 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +33,13 @@ public class GridImageAdapter extends
     private Context context;
 
     private onAddPicClickListener mOnAddPicClickListener;
+
+    public static Bitmap bitmap;
+    public static String path;
+
+    public String getPath() {
+        return path;
+    }
 
     public interface onAddPicClickListener {
         void onAddPicClick();
@@ -145,6 +156,8 @@ public class GridImageAdapter extends
                         .load(path)
                         .apply(options)
                         .into(viewHolder.mImg);
+
+                setPath(path);
             if (mItemClickListener != null) {
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -165,5 +178,23 @@ public class GridImageAdapter extends
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mItemClickListener = listener;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public Bitmap getBitmap() {
+        Bitmap bitmap = null;
+        File file = new File(path);
+        Uri uri = Utils.getImageContentUri(context, file);
+        System.out.print("uri" + uri.toString());
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
     }
 }

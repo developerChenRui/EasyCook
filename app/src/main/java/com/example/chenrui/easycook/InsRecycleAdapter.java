@@ -1,12 +1,16 @@
 package com.example.chenrui.easycook;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,10 +22,12 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.chenrui.easycook.InsRecycleAdapter.InsViewHolder.delImg;
+import static com.example.chenrui.easycook.InsRecycleAdapter.InsViewHolder.detail;
 
 public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.InsViewHolder> {
 
@@ -31,6 +37,10 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
     private LayoutInflater mInflater;
     private List<LocalMedia> medialist = new ArrayList<>();
     private int selectMax = 1;
+
+
+
+    private String path;
 
     private onAddPicClickListener mOnAddPicClickListener;
 
@@ -65,7 +75,7 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
             if (media.isCut()) {
                 Log.i("crop path::", media.getCutPath());
             }
-
+            setPath(path);
             RequestOptions options = new RequestOptions()
                     .centerCrop()
                     .placeholder(R.color.color_f6);
@@ -78,12 +88,38 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
   //      }
     }
 
+        public String getDetail() {
+            return detail.getText().toString();
+        }
+
+
+        private void setPath(String path) {
+            this.path = path;
+        }
+
+    public Bitmap getBitmap(String path) {
+        Bitmap bitmap = null;
+        File file = new File(path);
+        Uri uri = Utils.getImageContentUri(context, file);
+        System.out.print("uri" + uri.toString());
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
+    }
+
+    public String getPath() {
+        return path;
+    }
 
     public interface onAddPicClickListener {
         void onAddPicClick();
     }
 
-    public InsRecycleAdapter(Context context, List<Integer> list, InsRecycleAdapter.onAddPicClickListener mOnAddPicClickListener) {
+    public InsRecycleAdapter(Context context, List<Integer> list, onAddPicClickListener mOnAddPicClickListener) {
         this.context = context;
         this.list = list;
         this.mOnAddPicClickListener = mOnAddPicClickListener;
@@ -171,12 +207,14 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
        static TextView title;
        static ImageButton upload;
        static ImageView delImg;
+        static EditText detail;
         public InsViewHolder(View view) {
             super(view);
             delete = (ImageView)view.findViewById(R.id.delete);
             title = (TextView)view.findViewById(R.id.title);
             upload = (ImageButton) view.findViewById(R.id.pic);
             delImg = (ImageView)view.findViewById(R.id.iv_del);
+            detail = (EditText)view.findViewById(R.id.detail);
         }
     }
 

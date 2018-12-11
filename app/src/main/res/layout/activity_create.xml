@@ -172,65 +172,49 @@
                 android:textColor="@color/grey_700"
                 android:textSize="16sp"
                 android:text="Choose 3-4 tags to describe your recipe" />
+
             <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 app:cardBackgroundColor="@color/cardview_light_background"
                 app:cardCornerRadius="4dp"
-                app:cardElevation="4dp"
-                android:layout_margin="10dp"
-                android:id="@+id/EnterDes">
-                <android.support.design.widget.TextInputLayout
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:id="@+id/des"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10sp"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="50"
-                    app:errorEnabled="true">
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="4sp"
+                    android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/enterDescription"
-                        android:hint="Description Tags"
-                        android:textSize="15sp"
-                        />
-                </android.support.design.widget.TextInputLayout>
-                <!---->
-            <!--<RelativeLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:gravity="center_vertical">-->
 
-                <!--<TextView-->
-                    <!--android:id="@+id/description"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginStart="4sp"-->
-                    <!--android:layout_marginTop="1sp"-->
-                    <!--android:text="Description:"-->
-                    <!--android:textColor="@color/common_google_signin_btn_text_dark_focused"-->
-                    <!--android:textSize="18sp" />-->
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/et_tags"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Description"
+                            android:textSize="15sp"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="100"
+                            app:errorEnabled="true" />
 
-                <!--<EditText-->
-                    <!--android:id="@+id/enterDescription"-->
+                    <!--<EditText-->
+                    <!--android:id="@+id/et_tags"-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_margin="10dp"-->
                     <!--android:layout_marginStart="4sp"-->
-                    <!--android:layout_marginTop="28sp"-->
                     <!--android:layout_marginEnd="4sp"-->
-                    <!--android:layout_marginBottom="4sp"-->
-                    <!--android:background="@drawable/order_edt_note_bg"-->
-                    <!--android:ems="10"-->
-                    <!--android:gravity="top"-->
-                    <!--android:hint="Add description here"-->
+                    <!--android:background="#0000"-->
                     <!--android:inputType="textMultiLine"-->
-                    <!--android:minLines="5"-->
-                    <!--android:padding="@dimen/dp_5"-->
-                    <!--android:textColor="@color/black"-->
-                    <!--android:textSize="@dimen/sp_14" />-->
-            <!--</RelativeLayout>-->
+                    <!--android:textSize="14sp"></EditText>-->
+                </LinearLayout>
+
             </android.support.v7.widget.CardView>
             <!--<View-->
                 <!--android:id="@+id/divider4"-->
@@ -243,85 +227,115 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="13sp"
-                android:layout_below="@id/EnterDes"
+                android:layout_below="@id/des"
                 android:textColor="@color/grey_700"
                 android:textSize="16sp"
                 android:text="What ingredients make up this meal?" />
 
-            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/cardview_light_background"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="4dp"
-                android:layout_margin="10dp"
-                android:id="@+id/Ingredients">
+            <!--<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"-->
+                <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:cardBackgroundColor="@color/cardview_light_background"-->
+                <!--app:cardCornerRadius="4dp"-->
+                <!--app:cardElevation="4dp"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:id="@+id/Ingredients">-->
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-                <!--<TextView-->
-                    <!--android:id="@+id/ing"-->
-                    <!--android:layout_width="wrap_content"-->
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/ing"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="Ingredients:"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginStart="4sp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginTop="1sp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textColor="@color/common_google_signin_btn_text_dark_focused"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textSize="18sp" />&ndash;&gt;-->
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/ll"-->
+                    <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Ingredients:"-->
-                    <!--android:layout_marginStart="4sp"-->
-                    <!--android:layout_marginTop="1sp"-->
-                    <!--android:textColor="@color/common_google_signin_btn_text_dark_focused"-->
-                    <!--android:textSize="18sp" />-->
 
-                <LinearLayout
-                    android:id="@+id/ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:orientation="vertical">
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10sp"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="300"
-                        app:errorEnabled="true">
-
-                        <android.support.design.widget.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/et_tags"
-                            android:hint="Ingredients"
-                            android:textSize="15sp"
-                            app:counterEnabled="true"
-                            app:counterMaxLength="100"
-                            app:errorEnabled="true"/>
-                    </android.support.design.widget.TextInputLayout>
-                    <!--<EditText-->
-                        <!--android:id="@+id/et_tags"-->
+                    <!--android:orientation="vertical">-->
+                    <!--<android.support.design.widget.TextInputLayout-->
                         <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_margin="10dp"-->
-                        <!--android:layout_marginStart="4sp"-->
-                        <!--android:layout_marginEnd="4sp"-->
-                        <!--android:background="#0000"-->
-                        <!--android:inputType="textMultiLine"-->
-                        <!--android:textSize="14sp"></EditText>-->
-                </LinearLayout>
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_margin="10sp"-->
+                        <!--app:counterEnabled="true"-->
+                        <!--app:counterMaxLength="300"-->
+                        <!--app:errorEnabled="true">-->
 
-            </RelativeLayout>
-            </android.support.v7.widget.CardView>
+                        <!--<android.support.design.widget.TextInputEditText-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:id="@+id/et_tags"-->
+                            <!--android:hint="Ingredients"-->
+                            <!--android:textSize="15sp"-->
+                            <!--app:counterEnabled="true"-->
+                            <!--app:counterMaxLength="100"-->
+                            <!--app:errorEnabled="true"/>-->
+                    <!--</android.support.design.widget.TextInputLayout>-->
+                    <!--&lt;!&ndash;<EditText&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/et_tags"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_margin="10dp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_marginStart="4sp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_marginEnd="4sp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:background="#0000"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:inputType="textMultiLine"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:textSize="14sp"></EditText>&ndash;&gt;-->
+                <!--</LinearLayout>-->
+
+            <!--</RelativeLayout>-->
+            <!--</android.support.v7.widget.CardView>-->
             <!--<View-->
                 <!--android:id="@+id/divider5"-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="1dp"-->
                 <!--android:background="?android:attr/listDivider" />-->
 
+            <LinearLayout
+                android:id="@+id/ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/ingredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="4sp"
+                    android:scrollbars="none"
+                    tools:listitem="@layout/ingredients_layout">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <Button
+                    android:id="@+id/addIngredient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ingredients"
+                    android:layout_margin="10sp"
+                    android:text="Add Ingredients"
+                    android:background="@color/transparent"
+                    android:gravity="center"
+                    android:textColor="#eb6b5b"
+                    />
+            </LinearLayout>
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="13sp"
-                android:layout_below="@id/Ingredients"
+                android:layout_below="@id/addIngredient"
                 android:textColor="@color/grey_700"
                 android:textSize="16sp"
                 android:text="How long did you cook?" />

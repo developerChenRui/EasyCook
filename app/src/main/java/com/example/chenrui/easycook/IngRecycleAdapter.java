@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -16,6 +17,10 @@ public class IngRecycleAdapter extends RecyclerView.Adapter<IngRecycleAdapter.My
     private Context context;
     private List<Integer> list = new ArrayList<Integer>();
 
+
+    public EditText amount;
+    public EditText unit;
+    public EditText ingredient;
     public IngRecycleAdapter(Context context, List<Integer> list) {
         this.context = context;
         this.list = list;
@@ -24,7 +29,7 @@ public class IngRecycleAdapter extends RecyclerView.Adapter<IngRecycleAdapter.My
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
-                context).inflate(R.layout.item_layout, viewGroup,false));
+                context).inflate(R.layout.ingredients_layout, viewGroup,false));
         return holder;
     }
 
@@ -60,11 +65,26 @@ public class IngRecycleAdapter extends RecyclerView.Adapter<IngRecycleAdapter.My
         notifyDataSetChanged();
     }
 
+    public Float getAmount() {
+        return Float.parseFloat(amount.getText().toString());
+    }
+
+    public String getUnit() {
+        return unit.getText().toString();
+    }
+
+    public String getIngredient() {
+        return ingredient.getText().toString();
+    }
+
     class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView tv_delete;
         public MyViewHolder(View view) {
             super(view);
-            tv_delete = (ImageView)view.findViewById(R.id.tv_delete);
+            tv_delete = (ImageView)view.findViewById(R.id.delete);
+            amount = (EditText)view.findViewById(R.id.amount);
+            unit = (EditText)view.findViewById(R.id.unit);
+            ingredient = (EditText)view.findViewById(R.id.ingredient);
         }
     }
 }
