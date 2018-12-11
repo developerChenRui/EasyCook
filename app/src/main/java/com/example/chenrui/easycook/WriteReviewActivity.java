@@ -37,27 +37,6 @@ public class WriteReviewActivity extends AppCompatActivity {
     // for update the reviews
     RecyclerView reviews;
 
-    // return from the photo gallery of the phone
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == SELECT_IMAGE) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                if (data != null) {
-//                    try {
-//                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getBaseContext().getContentResolver(), data.getData());
-//                        addSuccessful = true;
-//                        addImageToReview.setImageBitmap(bitmap);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            } else if (resultCode == Activity.RESULT_CANCELED)  {
-//                Toast.makeText(getBaseContext(), "Canceled", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
