@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -91,6 +93,7 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
     int numOfImage;
 
     public void performLeft(){
+        Toast.makeText(this, "Left", Toast.LENGTH_SHORT).show();
         Animation fadeIn = new AlphaAnimation(0, 1);
         if (cur == 0) {
             return;
@@ -132,6 +135,7 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
     }
 
     public void performRight() {
+        Toast.makeText(this, "Right", Toast.LENGTH_SHORT).show();
         if (cur == des.length()-1){
             return;
         }
@@ -198,18 +202,15 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
             @Override
             public void onReceive(Context context, Intent intent) {
                 String message = intent.getStringExtra(RECEIVER_MESSAGE);
-                // call any method you want here
-                //char[] mesArray = message.toCharArray();
-                //HashSet<Character> mesSet = new HashSet<Character>();
-//                for(Character c : mesArray) {
-//                    mesSet.add(c);
-//                }
 
-                if(message.equals(leftCommand) && cur>0) {
-                    performLeft();
-                }
-                if(message.equals(rightCommand) && cur<des.length()) {
-                    performRight();
+                if(voiceControlOn) {
+
+                    if (message.equals(leftCommand) && cur > 0) {
+                        performLeft();
+                    }
+                    if (message.equals(rightCommand) && cur < des.length()) {
+                        performRight();
+                    }
                 }
             }
         };
@@ -304,6 +305,11 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
 
             }
         });
+
+
+
+
+
 
         // tools listener
         voiceControl.setOnClickListener(new View.OnClickListener() {
