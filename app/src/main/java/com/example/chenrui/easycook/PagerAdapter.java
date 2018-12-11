@@ -18,6 +18,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 return favorites;
             case 1: // My Public RecipesFragment
                 MyRecipes myPublicRecipes = new MyRecipes();
+                myPublicRecipes.setPubFlag(true);
                 return myPublicRecipes;
             case 2: // My Private RecipesFragment
                 MyRecipes myPrivateRecipes = new MyRecipes();

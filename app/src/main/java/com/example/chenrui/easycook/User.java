@@ -130,6 +130,34 @@ public class User {
         }
     }
 
+    public void addPublicRecipe(String recipeID) {
+        try {
+            for (int i = 0; i < this.publicRecipes.length(); i++) {
+                if (this.publicRecipes.getString(i).equals(recipeID)) {
+                    return;
+                }
+            }
+            this.publicRecipes.put(recipeID);
+        } catch (JSONException e) {
+
+        }
+    }
+
+    public void addPrivateRecipe(Recipe recipe) {
+        try {
+            for (int i = 0; i < this.privateRecipes.length(); i++) {
+                Recipe current = new Recipe();
+                current.fromJSON(this.privateRecipes.getJSONObject(i));
+                if (current.getRecipeId().equals(recipe.getRecipeId())) {
+                    return;
+                }
+            }
+            this.privateRecipes.put(recipe.toJSON());
+        } catch (JSONException e) {
+
+        }
+    }
+
     public User() {}
 
 

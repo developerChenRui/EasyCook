@@ -339,32 +339,35 @@ public class CreateActivity extends AppCompatActivity {
                                 recipeSaver.setRecipe(recipe);
                                 recipeSaver.pushRecipe(getBaseContext().getFilesDir());
                                 Log.i("PUSH", "success");
+                                Utils.user.addPublicRecipe(recipeID);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            Intent i = new Intent(CreateActivity.this, NavigateActivity.class);
+                            i.putExtra("id", 1);
+//                i.putExtra("bitmap", bitmapByte);
+                            startActivity(i);
+
+                            //return to MyRecipes
+                            Toast.makeText(CreateActivity.this, "Submitted!", Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     });
 
-                    Intent i = new Intent(CreateActivity.this, NavigateActivity.class);
-                    i.putExtra("id", 1);
-//                i.putExtra("bitmap", bitmapByte);
-                    startActivity(i);
 
-                    //return to MyRecipes
-                    Toast.makeText(CreateActivity.this, "Submitted!", Toast.LENGTH_SHORT).show();
-                    finish();
                 }
             }
         });
-/*
+
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO Should be the implementation of submit!!!!!!!
                                String imageName = "coverImg_"
-                                       + Utils.user.getEmail().toString().replaceAll("@", "_")
-                                       .replaceAll(" ", "_")
-                                       + enterName;
+                                       + Utils.user.getEmail().replaceAll("@", "_")
+                                       .replaceAll(" ", "_").replace('.','_')
+                                       + enterName.getText().toString().replace(' ','_');
 //                String imageName = "coverImg_wmx_bu_edu" + enterName.getText().toString();
 
                 String path = adapter.getPath();
@@ -373,30 +376,65 @@ public class CreateActivity extends AppCompatActivity {
                 Log.i("bitmapSave", "" + bitmap.getByteCount());
                 ImageSaver imageSaver = new ImageSaver();
                 imageSaver.pushImage(imageName, bitmap, getBaseContext().getFilesDir(), new ImageCallback() {
-                    @Override
-                    public void onCallback(String imageURL) {
-                        Log.i("imageURL", "success" + imageURL);
-                        System.out.print("success");
-                        try {
-                            createRecipe(imageURL);
-                            RecipeSaver recipeSaver = new RecipeSaver();
-                            recipeSaver.setRecipe(recipe);
-                            recipeSaver.pushRecipe(getBaseContext().getFilesDir());
-                            Log.i("PUSH", "success");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                Intent i = new Intent(CreateActivity.this, NavigateActivity.class);
-                i.putExtra("id", 1);
+
+                            @Override
+                            public void onCallback(String imageURL) {
+                                Log.i("imageURL", "success" + imageURL);
+                                System.out.print("success");
+                                try {
+
+                                    String userName = Utils.user.getEmail().toString();
+                                    String recipeName = enterName.getText().toString();
+                                    String recipeID = enterName.getText().toString() + "_" + userName.replace('.','_').replace('@','_');
+                                    System.out.println("recipe " + imageURL.toString() + " "  + recipeID + " " + userName);
+                                    JSONArray instructions = getInstructions();
+                                    JSONArray ingredients = getIngredients();
+                                    System.out.println("instruction: " + instructions.toString());
+                                    System.out.println("ingredients: " + ingredients.toString());
+                                    JSONArray tags = getTags(desTags);
+                                    System.out.println("etTags: " + etTags.getText().toString());
+                                    System.out.println("tags: " + tags.toString());
+
+                                    recipe.setMakerName(userName);
+                                    recipe.setBriefDescription("");
+                                    recipe.setRating(0);
+                                    recipe.setProfileURL(Utils.user.getProfileImgURL());
+                                    recipe.setNumOfReviewer(0);
+                                    recipe.setRecipeImageURL(imageURL);
+                                    recipe.setCookTime(Integer.parseInt(time.getText().toString()));
+                                    recipe.setRecipeId(recipeID);
+                                    recipe.setInstructions(instructions);
+                                    recipe.setIngredients(ingredients);
+                                    recipe.setRecipeName(recipeName);
+                                    recipe.setTags(tags);
+
+                                    System.out.format("Filename: %s%n",recipe.getRecipeId());
+
+//                                createRecipe(imageURL);
+                                    RecipeSaver recipeSaver = new RecipeSaver();
+                                    recipeSaver.setRecipe(recipe);
+                                    recipeSaver.pushRecipe(getBaseContext().getFilesDir());
+                                    Log.i("PUSH", "success");
+                                    Utils.user.addPrivateRecipe(recipe);
+
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                Intent i = new Intent(CreateActivity.this, NavigateActivity.class);
+                                i.putExtra("id", 1);
 //                i.putExtra("bitmap", bitmapByte);
-                startActivity(i);
-                Toast.makeText(CreateActivity.this, "Saved as draft", Toast.LENGTH_SHORT).show();
-                finish();
+                                startActivity(i);
+                                Toast.makeText(CreateActivity.this, "Saved as draft", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        }
+                );
             }
         });
-*/
+
 
         iv_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -471,7 +509,7 @@ public class CreateActivity extends AppCompatActivity {
 
             try {
                 Log.i("step", "success" + insAdapter.getDetail());
-                step.put("details", insAdapter.getDetail());
+                step.put("step", insAdapter.getDetail());
                 System.out.print("step " + i + step.toString());
                 instructions.put(i, step);
 //                System.out.print("step" + i + instructions.toString());

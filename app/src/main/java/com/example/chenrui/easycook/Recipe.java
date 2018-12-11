@@ -175,4 +175,44 @@ public class Recipe {
             //ERROR
         }
     }
+
+    public void fromJSON(JSONObject jsonIn) {
+        try {
+            this.recipeName = jsonIn.getString("recipeName");
+            this.briefDescription = jsonIn.getString("briefDescription");
+            this.rating = (float)jsonIn.getDouble("rating");
+            this.recipeImageURL = jsonIn.getString("recipeImageURL");
+            this.profileURL = jsonIn.getString("profileURL");
+            this.makerName = jsonIn.getString("makerName");
+            this.cookTime = jsonIn.getInt("cookTime");
+            this.numOfReviewer = jsonIn.getInt("numOfReviewer");
+            this.ingredients = jsonIn.getJSONArray("ingredients");
+            this.instructions = jsonIn.getJSONArray("instructions");
+            this.tags = jsonIn.getJSONArray("tags");
+            this.recipeId = jsonIn.getString("recipeID");
+        } catch (JSONException e) {
+
+        }
+    }
+
+    public JSONObject toJSON() {
+        JSONObject out = new JSONObject();
+        try {
+            out.put("recipeName",this.recipeName);
+            out.put("briefDescription",this.briefDescription);
+            out.put("rating",this.rating);
+            out.put("recipeImageURL",this.recipeImageURL);
+            out.put("profileURL",this.profileURL);
+            out.put("makerName",this.makerName);
+            out.put("cookTime",this.cookTime);
+            out.put("numOfReviewer",this.numOfReviewer);
+            out.put("ingredients",this.ingredients);
+            out.put("instructions",this.instructions);
+            out.put("tags",this.tags);
+            out.put("recipeID",this.recipeId);
+        } catch (JSONException e) {
+
+        }
+        return out;
+    }
 }

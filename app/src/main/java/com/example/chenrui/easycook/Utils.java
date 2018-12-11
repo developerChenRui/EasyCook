@@ -38,8 +38,8 @@ import java.sql.Timestamp;
 
 
 public class Utils {
-    public static User user=null;
-    public static String username= null;
+    public static User user= new User();
+    public static String username= "";
     public static String md5Encryption(final String input){
         String result = "";
         try{

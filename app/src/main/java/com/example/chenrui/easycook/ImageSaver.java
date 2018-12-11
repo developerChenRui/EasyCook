@@ -65,7 +65,7 @@ public class ImageSaver {
                 }
             });
         } catch (IOException e) {
-
+            System.err.format("IMAGESAVER IO error %s%n", e);
         }
 
     }

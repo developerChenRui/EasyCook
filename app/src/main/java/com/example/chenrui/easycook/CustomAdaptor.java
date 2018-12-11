@@ -111,32 +111,18 @@ class CustomAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.userFavourite:
-                    if (favBar.isChecked()){
+                    if (!favBar.isChecked()){
                         Toast.makeText(context,
                                 "User likes recipe " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
                         try{
-                            Utils.user.setFavoriteRecipes(Utils.user.getFavoriteRecipes()
-                                    .put(recipesList.get(getAdapterPosition()).getRecipeId()));
+                            Utils.user.addFavorite(recipesList.get(getAdapterPosition()).getRecipeId());
                         }catch (Exception e){
                             e.printStackTrace();
                         }
-
+                    } else{
+                        Toast.makeText(context, "User unlikes recipe " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                        Utils.user.removeFavorite(recipesList.get(getAdapterPosition()).getRecipeId());
                     }
-                    else Toast.makeText(context,
-                            "User unlikes recipe " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                    JSONArray idArr = Utils.user.getFavoriteRecipes();
-                    for (int i = 0; i < idArr.length(); i++){
-                        try{
-                            if (idArr.getString(i).equals(recipesList.get(getAdapterPosition()).getRecipeId())){
-                                idArr.remove(i);
-                                break;
-                            }
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                        Utils.user.setFavoriteRecipes(idArr);
-                    }
-
                     break;
 
                 default:

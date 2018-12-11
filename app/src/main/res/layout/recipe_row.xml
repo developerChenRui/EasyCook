@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="40sp"
     android:gravity="center_vertical">
 
     <ImageView
@@ -15,16 +15,14 @@
 
     <TextView
         android:id="@+id/txtRecipe"
+        android:textSize="18sp"
         android:layout_width="0dp"
+        android:paddingStart="10sp"
         android:layout_height="wrap_content"
-        android:layout_weight="9"
+        android:layout_weight="7"
         android:gravity="fill_vertical|clip_horizontal"
-        android:text="Sample Recipe" />
+        android:text="Sample Recipe"
+        android:ellipsize="end"
+        android:maxLines="1"/>
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/next_right" />
 </LinearLayout>

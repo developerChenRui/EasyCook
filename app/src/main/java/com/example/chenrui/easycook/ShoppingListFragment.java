@@ -13,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -82,6 +83,21 @@ public class ShoppingListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_shopping_list, container, false);
         listView = (ListView)view.findViewById(R.id.listview);
         btnSupermarket = (ImageButton)view.findViewById(R.id.btnStore);
+        JSONArray ingArr = Utils.user.getShoppingList();
+        Log.d("YANG", "onCreateView: " + ingArr);
+        if (ingArr != null){
+            try {
+                items = new ArrayList<>();
+                for (int i = 0; i < ingArr.length(); i++){
+                    Item item = new Item();
+                    item.ImportJsonObj(ingArr.getJSONObject(i));
+                    items.add(item);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                System.err.format("Shopping list: %s%n", e);
+            }
+        }
         myItemsListAdapter = new ItemsListAdapter(getActivity(), items);
         btnAdd = (FloatingActionButton) view.findViewById(R.id.btnAdd);
         TextInputLayout addIngredient = (TextInputLayout)view.findViewById(R.id.layout_ing);
@@ -162,19 +178,22 @@ public class ShoppingListFragment extends Fragment {
         if(items == null) {
             items = new ArrayList<Item>();
         }
-        ingArr = Utils.user.getShoppingList();
+        JSONArray ingArr = Utils.user.getShoppingList();
         if (ingArr == null) ingArr = new JSONArray();
         try{
             for (int i = 0; i < ingArr.length(); i++){
-                items.add((Item)ingArr.get(i));
+                Item newItem = new Item();
+                newItem.ImportJsonObj(ingArr.getJSONObject(i));
+                items.add(newItem);
             }
         }catch (Exception e){
             e.printStackTrace();
         }
+
         for(String s:shoppinglist) {
             Item item = new Item(s,false);
             items.add(item);
-            ingArr.put(item);
+            ingArr.put(item.ExportJsonObj());
         }
         Utils.user.setShoppingList(ingArr);
 
@@ -189,6 +208,7 @@ public class ShoppingListFragment extends Fragment {
                 .setDuration(duration)
                 .start();
     }
+
 
 
     public class ItemsListAdapter extends BaseAdapter {
@@ -264,6 +284,11 @@ public class ShoppingListFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     list.get(position).checked = !list.get(position).isChecked();
+                    JSONArray newIngArr = new JSONArray();
+                    for (Item i : list){
+                        newIngArr.put(i);
+                    }
+                    Utils.user.setShoppingList(newIngArr);
                     ((ListView) parent).performItemClick(view, position, 0);
                 }
             });
@@ -274,7 +299,7 @@ public class ShoppingListFragment extends Fragment {
                     myItemsListAdapter.notifyDataSetChanged();
                     JSONArray newIngArr = new JSONArray();
                     for (Item i : items){
-                        newIngArr.put(i);
+                        newIngArr.put(i.ExportJsonObj());
                     }
                     Utils.user.setShoppingList(newIngArr);
                 }

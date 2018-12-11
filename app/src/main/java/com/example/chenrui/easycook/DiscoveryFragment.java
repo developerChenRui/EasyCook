@@ -214,7 +214,7 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
             @Override
             public void onError(String errorMessage) {
                 refreshLayout.setRefreshing(false);
-                Toast.makeText(getContext(),"There was error retrieving data", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(),"There was error retrieving data", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -239,11 +239,9 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
             @Override
             public void onError(String errorMessage) {
                 refreshLayout.setRefreshing(false);
-                Toast.makeText(getContext(),"There was error retrieving data", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"There was error retrieving data", Toast.LENGTH_LONG).show();
             }
         });
 
     }
 }
-
-

@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onCreate(savedInstanceState);
         welcomeScreen = new WelcomeHelper(this, WelcomeScreenActivity.class);
         welcomeScreen.show(savedInstanceState);
+        Utils.user = new User();
         //welcomeScreen.forceShow();
 
         setContentView(R.layout.activity_login);

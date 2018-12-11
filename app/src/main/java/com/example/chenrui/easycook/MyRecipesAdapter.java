@@ -70,6 +70,7 @@ class MyRecipesAdapter extends RecyclerView.Adapter<MyRecipesAdapter.MyViewHolde
         @Override
         public void onClick(View v) {
             Intent i = new Intent(context,DishItemActivity.class);
+            System.out.format("Picked recipe: %s%n", recipeList.get(getAdapterPosition()).getRecipeId());
             i.putExtras(Utils.Recipe2Bundle(recipeList.get(getAdapterPosition())));
             ((Activity)context).startActivityForResult(i,NavigateActivity.GETINGREDIENTS);
         }

@@ -38,7 +38,7 @@ public class RecipeSaver {
     private JSONObject recipeJSON;
     private Recipe recipe;
     private FirebaseFunctions mFunctions = FirebaseFunctions.getInstance();
-    private JSONArray recipeList;
+    private JSONArray recipeList = new JSONArray();
 
 
     /***

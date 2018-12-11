@@ -44,6 +44,9 @@ public class Favorites extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
+        ProfileSaver profileSaver = new ProfileSaver();
+        profileSaver.updateProfile(Utils.user,getContext().getFilesDir());
+
         lstFavorites = view.findViewById(R.id.lstFavorites);
         recipeSaver = new RecipeSaver();
         recipeList = new ArrayList<>();
@@ -60,6 +63,16 @@ public class Favorites extends Fragment {
                         @Override
                         public void onData(ArrayList<Recipe> recipeList) {
                             Favorites.this.recipeList.add(recipeList.get(0));
+                            if (rvAdapter == null){
+                                rvAdapter = new FavoritesAdapter(Favorites.this.recipeList, getContext());
+                                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+                                lstFavorites.setLayoutManager(mLayoutManager);
+                                lstFavorites.setItemAnimator(new DefaultItemAnimator());
+                                lstFavorites.setAdapter(rvAdapter);
+                            }else {
+                                rvAdapter.notifyDataSetChanged();
+                            }
+
                         }
 
                         @Override
@@ -69,27 +82,36 @@ public class Favorites extends Fragment {
                         }
                     });
                 }else {
-                        Favorites.this.recipeSaver.fetchRecipe(id, new RecipeCallback() {
-                            @Override
-                            public void onCallBack(JSONArray value) {
-                                try {
-                                    Favorites.this.recipeList.add((Recipe) value.get(0));
-                                }catch (Exception e){
-                                    e.printStackTrace();
+                    Favorites.this.recipeSaver.fetchRecipe(id, new RecipeCallback() {
+                        @Override
+                        public void onCallBack(JSONArray value) {
+                            try {
+                                Favorites.this.recipeList.add((Recipe) value.get(0));
+                                if (rvAdapter == null){
+                                    rvAdapter = new FavoritesAdapter(Favorites.this.recipeList, getContext());
+                                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+                                    lstFavorites.setLayoutManager(mLayoutManager);
+                                    lstFavorites.setItemAnimator(new DefaultItemAnimator());
+                                    lstFavorites.setAdapter(rvAdapter);
+                                }else {
+                                    rvAdapter.notifyDataSetChanged();
                                 }
+                            }catch (Exception e){
+                                e.printStackTrace();
                             }
-                        });
+                        }
+                    });
                 }
             }
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        rvAdapter = new FavoritesAdapter(recipeList, getContext());
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        lstFavorites.setLayoutManager(mLayoutManager);
-        lstFavorites.setItemAnimator(new DefaultItemAnimator());
-        lstFavorites.setAdapter(rvAdapter);
+//        rvAdapter = new FavoritesAdapter(recipeList, getContext());
+//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+//        lstFavorites.setLayoutManager(mLayoutManager);
+//        lstFavorites.setItemAnimator(new DefaultItemAnimator());
+//        lstFavorites.setAdapter(rvAdapter);
         return view;
     }
 

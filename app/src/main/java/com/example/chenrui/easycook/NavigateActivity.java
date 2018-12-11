@@ -178,7 +178,7 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
     }
 
     private void pushUserData(){
-        profileSaver.updateProfile(Utils.user,getFilesDir());
+//        profileSaver.updateProfile(Utils.user,getFilesDir());
     }
 
     @Override
