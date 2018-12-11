@@ -54,11 +54,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         setContentView(R.layout.activity_login);
         btnGoogleSignIn = (SignInButton)findViewById(R.id.btnGoogleSignIn);
-        btnSignOut = (Button)findViewById(R.id.btnSignOut);
+       // btnSignOut = (Button)findViewById(R.id.btnSignOut);
         btnGoogleSignIn.setOnClickListener(this);
-        btnSignOut.setOnClickListener(this);
+//        btnSignOut.setOnClickListener(this);
         txt_creat = (TextView) findViewById(R.id.txt_create);
-        txt_forgot = (TextView) findViewById(R.id.txt_forgot);
+        //txt_forgot = (TextView) findViewById(R.id.txt_forgot);
 
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,signInOptions).build();
@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         mPasswordEditText = (EditText) findViewById(R.id.editTextPassword);
         mSubmitButton = (Button) findViewById(R.id.submit);
         txt_creat.setOnClickListener(this);
-        txt_forgot.setOnClickListener(this);
+       // txt_forgot.setOnClickListener(this);
 
 
         // once submit check the information in the database
@@ -153,17 +153,17 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             case R.id.btnGoogleSignIn:
                 signIn();
                 break;
-            case R.id.btnSignOut:
-                signOut();
-                break;
+//            case R.id.btnSignOut:
+//                signOut();
+//                break;
             case R.id.txt_create:
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.txt_forgot:
-                Intent i = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
-                startActivity(i);
-                break;
+//            case R.id.txt_forgot:
+//                Intent i = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+//                startActivity(i);
+//                break;
         }
 
 

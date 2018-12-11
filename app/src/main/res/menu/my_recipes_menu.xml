@@ -7,6 +7,6 @@
     <item
         android:id="@+id/setting"
         android:title="settings"
-        android:icon="@drawable/setting"
+        android:icon="@drawable/logout"
         app:showAsAction="always" />
 </menu>
