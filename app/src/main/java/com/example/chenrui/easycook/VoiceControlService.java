@@ -26,6 +26,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+/***
+ * VoiceControlService
+ ***/
 public class  VoiceControlService extends Service implements SpeechDelegate, Speech.stopDueToDelay {
 
     public static SpeechDelegate delegate;
@@ -57,10 +60,8 @@ public class  VoiceControlService extends Service implements SpeechDelegate, Spe
                         Speech.getInstance().stopTextToSpeech();
                         Speech.getInstance().startListening(null, this);
                     } catch (SpeechRecognitionNotAvailable exc) {
-                        //showSpeechNotSupportedDialog();
 
                     } catch (GoogleVoiceTypingDisabledException exc) {
-                        //showEnableGoogleVoiceTyping();
                     }
                 } else {
                     Toast.makeText(this, R.string.permission_required, Toast.LENGTH_LONG).show();

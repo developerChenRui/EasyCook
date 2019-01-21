@@ -29,6 +29,9 @@ import com.willy.ratingbar.ScaleRatingBar;
 
 //import com.willy.ratingbar.RotationRatingBar;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -105,6 +108,25 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
                             Toast.makeText(getContext(),"There was error retriving data", Toast.LENGTH_LONG).show();
                         }
                     });
+                    RecipeSaver recipeSaver = new RecipeSaver();
+                    recipeSaver.searchRecipes(query, new RecipeCallback() {
+                        @Override
+                        public void onCallBack(JSONArray value) {
+                            Log.d(TAG, "onCallBack: " + value.toString());
+                            try {
+                                for (int i = 0; i < value.length(); i++){
+                                    RecylerRecipeList.add((Recipe) value.get(i));
+                                }
+                                cAdaptor = new CustomAdaptor(RecylerRecipeList, getActivity());
+                                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                                recyclerView.setAdapter(cAdaptor);
+                                refreshLayout.setRefreshing(false);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                                Log.d(TAG, "onCallBack: " + e.getMessage());
+                            }
+                        }
+                    });
 
                     return true;
                 }
@@ -147,6 +169,8 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
                 R.color.colorYellow,
                 R.color.colorGreen
         );
+        ProfileSaver profileSaver = new ProfileSaver();
+        profileSaver.updateProfile(Utils.user,getContext().getFilesDir());
         recyclerView = view.findViewById(R.id.RecyView);
         refreshLayout.setOnRefreshListener(this);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -191,7 +215,7 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
                     @Override
                     public void onError(String errorMessage) {
                         refreshLayout.setRefreshing(false);
-                        Toast.makeText(getContext(),"There was error retrieving data", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getContext(),"There was error retrieving data", Toast.LENGTH_LONG).show();
 
                     }
                 });
@@ -242,6 +266,7 @@ public class DiscoveryFragment extends Fragment implements SwipeRefreshLayout.On
                 Toast.makeText(getActivity(),"There was error retrieving data", Toast.LENGTH_LONG).show();
             }
         });
+
 
     }
 }

@@ -44,7 +44,10 @@ class MyRecipesAdapter extends RecyclerView.Adapter<MyRecipesAdapter.MyViewHolde
         myViewHolder.txtRecipe.setText(this.recipeList.get(position).getRecipeName());
         /** if its image itself, should modify**/
 //        myViewHolder.imgRecipe.setImageResource(this.recipeList.get(position).intValue());
-        Picasso.get().load(this.recipeList.get(position).getRecipeImageURL()).into(myViewHolder.imgRecipe);
+        System.out.format("Recipe Image URL %s: %s%n",this.recipeList,this.recipeList.get(position).getRecipeImageURL());
+        if (!this.recipeList.get(position).getRecipeImageURL().equals("")) {
+            Picasso.get().load(this.recipeList.get(position).getRecipeImageURL()).into(myViewHolder.imgRecipe);
+        }
 
     }
 

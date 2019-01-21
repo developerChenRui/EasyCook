@@ -9,9 +9,20 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
+/***
+ * DownloadURL
+ *
+ * Helps interact with Google Places API
+ ***/
 public class DownloadURL {
 
+    /***
+     * readUrl
+     *
+     * @param myUrl         String  URL from Google Places API
+     * @return              String  Data from the URL
+     * @throws IOException          Can't read in the data to a local file
+     ***/
     public String readUrl(String myUrl) throws IOException
     {
         String data = "";

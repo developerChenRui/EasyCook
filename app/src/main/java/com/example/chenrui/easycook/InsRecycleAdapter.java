@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,11 +41,11 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
     private List<LocalMedia> medialist = new ArrayList<>();
     private int selectMax = 1;
 
-
-
+    private ArrayList<String> pathList = new ArrayList<>();
     private String path;
 
     private onAddPicClickListener mOnAddPicClickListener;
+    private ArrayList<String> detailList = new ArrayList<>();
 
     public void setList(List<LocalMedia> selectList) {
         medialist = selectList;
@@ -75,6 +78,7 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
             if (media.isCut()) {
                 Log.i("crop path::", media.getCutPath());
             }
+            pathList.add(path);
             setPath(path);
             RequestOptions options = new RequestOptions()
                     .centerCrop()
@@ -88,8 +92,12 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
   //      }
     }
 
-        public String getDetail() {
-            return detail.getText().toString();
+    public ArrayList<String> getDetailList() {
+        return detailList;
+    }
+
+        public void setDetail(String det) {
+            detailList.add(det);
         }
 
 
@@ -111,8 +119,12 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
         return bitmap;
     }
 
-    public String getPath() {
-        return path;
+    public ArrayList<String> getPaths() {
+        return pathList;
+    }
+
+    public ArrayList<String> getDetail() {
+        return detailList;
     }
 
     public interface onAddPicClickListener {
@@ -154,6 +166,29 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
 
         });
 
+//        if(!myViewHolder.detail.getText().toString().equals(null)) {
+//            setDetail(myViewHolder.detail.getText().toString());
+//        }
+
+        myViewHolder.detail.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                System.out.println("afterTextChanged"+detail.getText().toString());
+                if(i >= detailList.size()-1) {
+                    detailList.add(detail.getText().toString());
+                } else {
+                    detailList.set(i, detail.getText().toString());
+                }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                System.out.println("beforeTextChanged"+detail.getText().toString());
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("onTextChanged"+detail.getText().toString());
+            }
+        });
 
         myViewHolder.delImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,6 +251,14 @@ public class InsRecycleAdapter extends RecyclerView.Adapter<InsRecycleAdapter.In
             delImg = (ImageView)view.findViewById(R.id.iv_del);
             detail = (EditText)view.findViewById(R.id.detail);
         }
+    }
+
+    public int getInsImageCount() {
+        return pathList.size();
+    }
+
+    public int getDetailCount() {
+        return detailList.size();
     }
 
 }

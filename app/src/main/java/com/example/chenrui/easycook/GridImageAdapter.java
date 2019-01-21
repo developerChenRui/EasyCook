@@ -23,6 +23,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/***
+ * GridImageAdapter
+ *
+ * Used for picking images
+ ***/
 public class GridImageAdapter extends
         RecyclerView.Adapter<GridImageAdapter.ViewHolder> {
     public static final int TYPE_CAMERA = 1;
@@ -194,7 +199,7 @@ public class GridImageAdapter extends
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        file.delete();
         return bitmap;
     }
 }

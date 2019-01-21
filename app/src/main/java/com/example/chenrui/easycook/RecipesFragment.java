@@ -3,7 +3,11 @@ package com.example.chenrui.easycook;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -37,8 +41,13 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +93,12 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
         View view = inflater.inflate(R.layout.fragment_recipes, container, false);
 
         EditText txtUser = (EditText) view.findViewById(R.id.textView);
+        if (!Utils.username.equals("")) {
+            txtUser.setText(Utils.username);
+        }
 
+
+        // Detect when a user changes their username and push to database
         username = txtUser.getText().toString();
         txtUser.addTextChangedListener(new TextWatcher()  {
             @Override
@@ -103,8 +117,24 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
                 } else {
                     txtUser.setError(null);
                 }
+                username = txtUser.getText().toString();
+                Utils.username = txtUser.getText().toString();
+                Utils.user.setUsername(Utils.username);
+
+                // Need to update user made recipes accordingly
+                JSONArray recipes = Utils.user.getPublicRecipes();
+                RecipeSaver recipeSaver = new RecipeSaver();
+                for (int i = 0; i < recipes.length(); i++) {
+                    try{
+                        recipeSaver.updateUser(Utils.user.getProfileImgURL(),Utils.username,recipes.getString(i));
+                    } catch (JSONException e) {
+
+                    }
+                }
             }
         });
+
+        // Update username when user has moved away from edittext
         txtUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -114,7 +144,20 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
                 else{
-                    username= txtUser.getText().toString();
+                    username = txtUser.getText().toString();
+                    Utils.username = txtUser.getText().toString();
+                    Utils.user.setUsername(Utils.username);
+
+                    // Update usermade recipes accordingly
+                    JSONArray recipes = Utils.user.getPublicRecipes();
+                    RecipeSaver recipeSaver = new RecipeSaver();
+                    for (int i = 0; i < recipes.length(); i++) {
+                        try{
+                            recipeSaver.updateUser(Utils.user.getProfileImgURL(),Utils.username,recipes.getString(i));
+                        } catch (JSONException e) {
+
+                        }
+                    }
                     InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
@@ -122,8 +165,14 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
         });
 
 
-
+        // Set user image
         imgUser = (ImageView)view.findViewById(R.id.imgUserPic);
+
+        if (!Utils.user.getProfileImgURL().equals("")) {
+            Picasso.get().load(Utils.user.getProfileImgURL()).transform(new PicassoCircleTransformation()).into(imgUser);
+        }
+
+        // Let user update profile picture
         imgUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,10 +186,11 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
                         .forResult(PictureConfig.CHOOSE_REQUEST);
 
                 Log.i("select", ""+picList.size());
-//                System.out.print("pic" + picList);
+
             }
         });
 
+        // New recipe creation button
         addRecipe = (ImageView)view.findViewById(R.id.addRecipe);
         addRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,8 +264,7 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
                         new ResultCallback<Status>() {
                             @Override
                             public void onResult(Status status) {
-                                // ...
-                                //Toast.makeText(getContext(),"Logged Out",Toast.LENGTH_SHORT).show();
+
                                 Intent i=new Intent(getContext(),LoginActivity.class);
                                 startActivity(i);
                             }
@@ -227,17 +276,15 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
         }
         return super.onOptionsItemSelected(item);
     }
-//
-//    @Override
-//    public void onClick(View view) {
-//
-//    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
+
+                // User has changed their profile picture
                 case PictureConfig.CHOOSE_REQUEST:
                     picList = PictureSelector.obtainMultipleResult(data);
                     setList(picList);
@@ -271,11 +318,53 @@ public class RecipesFragment extends Fragment implements UserProfile.UserProfile
                                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                                 .into(imgUser);
                         setHasOptionsMenu(true);
+                        System.out.println("Updated imgUser");
+
+
+
+                        Bitmap bm = getBitmap(path);
+
+                        // Push new image to cloud storage
+                        ImageSaver imageSaver = new ImageSaver();
+                        imageSaver.pushImage(Utils.user.getCleanEmail(),bm,getContext().getFilesDir(), new ImageCallback() {
+                            @Override
+                            public void onCallback(String imageURL) {
+                                System.out.format("Uploaded user image URL: %s%n",imageURL);
+                                Utils.user.setProfileImgURL(imageURL);
+                                ProfileSaver profileSaver = new ProfileSaver();
+                                profileSaver.updateProfile(Utils.user,getContext().getFilesDir());
+
+                                JSONArray publicRecipes = Utils.user.getPublicRecipes();
+
+                                // Update all public recipes of profile change
+                                for (int i = 0; i < publicRecipes.length(); i++) {
+                                    try {
+                                        RecipeSaver recipeSaver = new RecipeSaver();
+                                        recipeSaver.updateUser(imageURL,Utils.username,publicRecipes.getString(i));
+                                    } catch (JSONException e) {
+
+                                    }
+                                }
+                            }
+                        });
                     }
-//                    notifyDataSetChanged();
                     break;
             }
         }
+    }
+
+    public Bitmap getBitmap(String path) {
+        Bitmap bitmap = null;
+        File file = new File(path);
+        Uri uri = Utils.getImageContentUri(getContext(), file);
+        System.out.print("uri" + uri.toString());
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
     }
 
     private void setList(List<LocalMedia> picList) {

@@ -2,11 +2,15 @@ package com.example.chenrui.easycook;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,16 +20,22 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Selection;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -53,10 +63,16 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import es.dmoral.toasty.Toasty;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class CreateActivity extends AppCompatActivity {
+/***
+ * CreateActivity
+ *
+ * Users create new recipes through this activity
+ ***/
+public class CreateActivity extends AppCompatActivity implements TextWatcher, View.OnKeyListener{
 
     //    private Toolbar toolbar;
     private List<LocalMedia> selectList = new ArrayList<>();
@@ -88,46 +104,17 @@ public class CreateActivity extends AppCompatActivity {
 
     private int tagsCnt = 0;
 
+    private int stepNum = 0;
+
     public RecipesFragment favoriteFragment;
 
     List<String> source = new ArrayList<>();
     private static final boolean isChinese2English = false;
 
     private static final int STEP_PIC = 222;
+    private int length = 0;
 
-    public static void setEditTextInhibitInputSpeChat(EditText editText) {
-        InputFilter filter = new InputFilter() {
-            @Override
-            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                String chars = "\r\n\t ";
-                String speChat = "[" + chars + "]";
-                Pattern pattern = Pattern.compile(speChat);
-                Matcher matcher = pattern.matcher(source.toString());
-                if (matcher.find()) {
-                    String str = source.toString();
-                    char[] charArr = toCharArray(chars);
-                    for (char c : charArr) {
-                        str = str.replaceAll(new String(new char[]{c}), "");
-                    }
-                    return str;
-                } else return null;
-            }
-        };
-        InputFilter emojiFilter = new InputFilter() {
 
-            @Override
-            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                for (int index = start; index < end; index++) {
-                    int type = Character.getType(source.charAt(index));
-                    if (type == Character.SURROGATE) {
-                        return "";
-                    }
-                }
-                return null;
-            }
-        };
-        editText.setFilters(new InputFilter[]{filter, emojiFilter});
-    }
 
 
     @Override
@@ -144,98 +131,8 @@ public class CreateActivity extends AppCompatActivity {
         time = (EditText) findViewById(R.id.time);
         etTags = (EditText) findViewById(R.id.et_tags);
 
-        findViewById(R.id.des).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setSoftInputVis(etTags, true);
-            }
-        });
-
-        init();
-        etTags.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_COMMA) {
-                    initTags();
-//                    if(!desTags.contains(temp)) {
-//                        desTags.add(temp);
-//                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        etTags.addTextChangedListener(new TextWatcher() {
-            int start;
-            int count;
-            int before;
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                this.start = start;
-                this.before = before;
-                this.count = count;
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (count <= 0) {
-                    return;
-                }
-                etTags.removeTextChangedListener(this);
-                if (Selection.getSelectionEnd(editable) != start + count) {
-                    editable.replace(start, start + count, "");
-                } else {
-                    onChange(editable);
-                }
-                etTags.addTextChangedListener(this);
-            }
-
-            private void onChange(Editable editable) {
-                String changeString = editable.subSequence(start, start + count).toString();
-                int sumOfComma = removeAllComma(editable);
-                count -= sumOfComma;
-//                count -= delIfOverMax();
-                if (sumOfComma > 0) {
-                    initTags();
-                    return;
-                }
-                if (count == 0) {
-                    return;
-                }
-                setTextSpan(editable);
-            }
-
-            private void setTextSpan(Editable editable) {
-                CharSequence string = editable.subSequence(start, start + count);
-                char[] chars = toCharArray(string);
-                int i = 0;
-                for (char c : chars) {
-                    editable.setSpan(new MyImageSpanText(CreateActivity.this, getImage(new String(new char[]{c}), false)),
-                            start + i, start + i + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    i++;
-                }
-            }
-
-            private int removeAllComma(Editable editable) {
-                int sum = 0;
-                while (editable.toString().contains(",")) {
-                    int selEndIndex = Selection.getSelectionEnd(editable);
-                    int i = editable.toString().indexOf(",");
-                    editable.replace(i, i + 1, "");
-                    Selection.setSelection(editable, selEndIndex - (selEndIndex >= i ? 1 : 0));
-                    sum++;
-                }
-                return sum;
-            }
-        });
-
-        setEditTextInhibitInputSpeChat(etTags);
+        etTags.addTextChangedListener(this);
+        etTags.setOnKeyListener(this);
 
 
         ImageView cancel = (ImageView) findViewById(R.id.cancel);
@@ -250,6 +147,7 @@ public class CreateActivity extends AppCompatActivity {
         adapter.setSelectMax(1);
         recyclerView.setAdapter(adapter);
 
+        // Pick cover image
         adapter.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
@@ -261,6 +159,7 @@ public class CreateActivity extends AppCompatActivity {
             }
         });
 
+        // Cancel button
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -271,184 +170,322 @@ public class CreateActivity extends AppCompatActivity {
             }
         });
 
-        //check if the required fields are missing
-        submit.setOnClickListener(new View.OnClickListener() {
+        // Create private recipe
+        check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (TextUtils.isEmpty(enterName.getText()) || TextUtils.isEmpty(etTags.getText()) ||
-                        TextUtils.isEmpty(time.getText())) {
-                    initDialog();
+                // first input error check, only need to check last step
+                ArrayList<String> amounts = ingAdapter.getAmounts();
+                ArrayList<String> units = ingAdapter.getUnits();
+                ArrayList<String> ingres = ingAdapter.getIngredients();
+
+                if(amounts.size()==0 || ingres.size() == 0 ||
+                        amounts.get(amounts.size()-1).equals("") ||
+                        ingres.get(ingres.size()-1).equals("") ) {
+                    Toasty.error(CreateActivity.this, "Please input ingredient", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if(!amounts.get(amounts.size()-1).matches("[-+]?[0-9]*\\.?[0-9]+")) {
+                    Toasty.error(CreateActivity.this, "Please input a number for amount", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ArrayList<String> pathList = insAdapter.getPaths();
+                ArrayList<String> detailList = insAdapter.getDetail();
+
+                // Check if there are any instructions
+                if(insAdapter.getDetailCount() == 0 ||
+                        insAdapter.getInsImageCount() == 0
+                        || pathList.get(pathList.size()-1).equals("") ||
+                        detailList.get(detailList.size()-1).equals("")) {
+                    Toasty.error(CreateActivity.this,"Please input instruction",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+
+                String path = adapter.getPath();
+
+                // Make tags
+                onSetspan();
+
+
+                if(enterName.getText().toString().equals("") ||
+                        tags == null ||
+                        tags.length() == 0 ||
+                        time.getText().toString().equals("") ||
+                        path == null || insAdapter.getInsImageCount() == 0 ||
+                        insAdapter.getDetailCount() == 0){
+
                     if (alertDialog != null && !alertDialog.isShowing()) {
                         alertDialog.show();
                         WindowManager.LayoutParams params = alertDialog.getWindow().getAttributes();
                         alertDialog.getWindow().setAttributes(params);
+                    } else {
+                        Toasty.error(getBaseContext(),"Invalid recipe. Please try again with a recipe name, picture, and description.",Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    String imageName = "coverImg_"
-                            + Utils.user.getEmail().toString().replaceAll("@", "_")
-                            .replaceAll(" ", "_")
-                            .replaceAll(".", "_")
-                            .replaceAll(",","_")
-                            + enterName.getText().toString();
-//                String imageName = "coverImg_wmx_bu_edu" + enterName.getText().toString();
 
-                    String path = adapter.getPath();
+                } else {
+
+
+                    String imageName = "coverImg_"
+                            + Utils.user.getEmail().replaceAll("@", "_")
+                            .replaceAll(" ", "_").replace('.','_')
+                            + enterName.getText().toString().replace(' ','_');
+
+                    // disable the screen
+                    setContentView(R.layout.transparent_view);
+                    getWindow().getDecorView().findViewById(android.R.id.content).setClickable(false);
+
+
+                    // Get bitmap of cover image
+                    Bitmap bitmap = adapter.getBitmap();
+                    ImageSaver imageSaver = new ImageSaver();
+
+                    // Push cover image to cloud storage
+                    imageSaver.pushImage(imageName, bitmap, getBaseContext().getFilesDir(), new ImageCallback() {
+
+
+                                @Override
+                                public void onCallback(String imageURL) {
+                                    Log.i("imageURL", "success" + imageURL);
+                                    System.out.print("success");
+                                    getInstructions(new RecipeCallback() {
+                                        @Override
+                                        public void onCallBack(JSONArray value) {
+                                            try {
+
+                                                String userName = Utils.user.getUsername();
+                                                String recipeName = enterName.getText().toString();
+                                                String recipeID = enterName.getText().toString().replace(' ','_').replace('@','_').replace(',','_').replace('.','_') + "-" + Utils.user.getCleanEmail();
+                                                System.out.println("recipe " + imageURL + " "  + recipeID + " " + userName);
+                                                JSONArray instructions = value;
+                                                JSONArray ingredients = getIngredients();
+                                                System.out.println("instruction: " + instructions.toString());
+                                                System.out.println("ingredients: " + ingredients.toString());
+                                                JSONArray tags = getTags();
+                                                System.out.println("desTags: " + desTags.toString());
+                                                System.out.println("etTags: " + etTags.getText().toString());
+                                                System.out.println("tags: " + tags.toString());
+
+                                                // Create recipe object
+                                                recipe.setMakerName(userName);
+                                                recipe.setBriefDescription("");
+                                                recipe.setRating(0);
+                                                recipe.setProfileURL(Utils.user.getProfileImgURL());
+                                                recipe.setNumOfReviewer(0);
+                                                recipe.setRecipeImageURL(imageURL);
+                                                recipe.setCookTime(Integer.parseInt(time.getText().toString()));
+                                                recipe.setRecipeId(recipeID);
+                                                recipe.setInstructions(instructions);
+                                                recipe.setIngredients(ingredients);
+                                                recipe.setRecipeName(recipeName);
+                                                recipe.setTags(tags);
+
+                                                System.out.format("Filename: %s%n",recipe.getRecipeId());
+
+                                                // Add recipe to private recipes
+                                                Utils.user.addPrivateRecipe(recipe);
+
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            Intent i = new Intent(CreateActivity.this, NavigateActivity.class);
+                                            i.putExtra("id", 1);
+                                            startActivity(i);
+
+                                            //return to MyRecipes
+                                            Toasty.success(CreateActivity.this, "Submitted!", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        }
+                                    });
+
+                                }
+                            }
+                    );
+                }
+
+            }
+
+        });
+
+
+        // Create public recipe
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // first input error check, only need to check last step
+                ArrayList<String> amounts = ingAdapter.getAmounts();
+                ArrayList<String> units = ingAdapter.getUnits();
+                ArrayList<String> ingres = ingAdapter.getIngredients();
+
+                if(amounts.size()==0 || ingres.size() == 0 ||
+                        amounts.get(amounts.size()-1).equals("") ||
+                        ingres.get(ingres.size()-1).equals("") ) {
+                    Toasty.error(CreateActivity.this, "Please input ingredient", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if(!amounts.get(amounts.size()-1).matches("[-+]?[0-9]*\\.?[0-9]+")) {
+                    Toasty.error(CreateActivity.this, "Please input a number for amount", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ArrayList<String> pathList = insAdapter.getPaths();
+                ArrayList<String> detailList = insAdapter.getDetail();
+
+                if(insAdapter.getDetailCount() == 0 ||
+                        insAdapter.getInsImageCount() == 0
+                        || pathList.get(pathList.size()-1).equals("") ||
+                        detailList.get(detailList.size()-1).equals("")) {
+                    Toasty.error(CreateActivity.this,"Please input instruction",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+
+                String path = adapter.getPath();
+
+                // Create tags
+                onSetspan();
+
+                if(enterName.getText().toString().equals("") ||
+                        tags == null ||
+                        tags.length() == 0 ||
+                        time.getText().toString().equals("") ||
+                        path == null || insAdapter.getInsImageCount() == 0 ||
+                        insAdapter.getDetailCount() == 0){
+
+                    if (alertDialog != null && !alertDialog.isShowing()) {
+                        alertDialog.show();
+                        WindowManager.LayoutParams params = alertDialog.getWindow().getAttributes();
+                        alertDialog.getWindow().setAttributes(params);
+                    } else {
+                        Toasty.error(getBaseContext(),"Invalid recipe. Please try again with a recipe name, picture, and description.",Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+
+                    String imageName = "coverImg_"
+                            + Utils.user.getEmail().replaceAll("@", "_")
+                            .replaceAll(" ", "_").replace('.','_')
+                            + enterName.getText().toString().replace(' ','_');
                     Log.i("path", path);
                     Bitmap bitmap = adapter.getBitmap();
-                    Log.i("bitmapSave", "" + bitmap.getByteCount());
+
+                    // disable the screen
+                    setContentView(R.layout.transparent_view);
+                    getWindow().getDecorView().findViewById(android.R.id.content).setClickable(false);
                     ImageSaver imageSaver = new ImageSaver();
                     imageSaver.pushImage(imageName, bitmap, getBaseContext().getFilesDir(), new ImageCallback() {
-                        @Override
-                        public void onCallback(String imageURL) {
-                            Log.i("imageURL", "success" + imageURL);
-                            System.out.print("success");
-                            try {
 
-                                String userName = Utils.user.getEmail().toString();
-                                String recipeName = enterName.getText().toString();
-                                String recipeID = enterName.getText().toString() + "_" + userName.replace('.','_').replace('@','_');
-                                System.out.println("recipe " + imageURL.toString() + " "  + recipeID + " " + userName);
-                                JSONArray instructions = getInstructions();
-                                JSONArray ingredients = getIngredients();
-                                System.out.println("instruction: " + instructions.toString());
-                                System.out.println("ingredients: " + ingredients.toString());
-                                JSONArray tags = getTags(desTags);
-                                System.out.println("etTags: " + etTags.getText().toString());
-                                System.out.println("tags: " + tags.toString());
+                                @Override
+                                public void onCallback(String imageURL) {
+                                    Log.i("imageURL", "success" + imageURL);
+                                    System.out.print("success");
+                                    getInstructions(new RecipeCallback() {
+                                        @Override
+                                        public void onCallBack(JSONArray value) {
+                                            try {
 
-//        recipe = new Recipe();
+                                                String userName = Utils.user.getUsername();
+                                                String recipeName = enterName.getText().toString();
+                                                String recipeID = enterName.getText().toString().replace(' ','_').replace('@','_').replace(',','_').replace('.','_') + "-" + Utils.user.getCleanEmail();
+                                                System.out.println("recipe " + imageURL + " "  + recipeID + " " + userName);
+                                                JSONArray instructions = value;
+                                                JSONArray ingredients = getIngredients();
+                                                System.out.println("instruction: " + instructions.toString());
+                                                System.out.println("ingredients: " + ingredients.toString());
+                                                JSONArray tags = getTags();
+                                                System.out.println("desTags: " + desTags.toString());
+                                                System.out.println("etTags: " + etTags.getText().toString());
+                                                System.out.println("tags: " + tags.toString());
 
-                                recipe.setMakerName(userName);
-                                recipe.setBriefDescription("");
-                                recipe.setRating(0);
-                                recipe.setProfileURL(Utils.user.getProfileImgURL());
-                                recipe.setNumOfReviewer(0);
-                                recipe.setRecipeImageURL(imageURL);
-                                recipe.setCookTime(Integer.parseInt(time.getText().toString()));
-                                recipe.setRecipeId(recipeID);
-                                recipe.setInstructions(instructions);
-                                recipe.setIngredients(ingredients);
-                                recipe.setRecipeName(recipeName);
-                                recipe.setTags(tags);
+                                                // Create recipe object
+                                                recipe.setMakerName(userName);
+                                                recipe.setBriefDescription("");
+                                                recipe.setRating(0);
+                                                recipe.setProfileURL(Utils.user.getProfileImgURL());
+                                                recipe.setNumOfReviewer(0);
+                                                recipe.setRecipeImageURL(imageURL);
+                                                recipe.setCookTime(Integer.parseInt(time.getText().toString()));
+                                                recipe.setRecipeId(recipeID);
+                                                recipe.setInstructions(instructions);
+                                                recipe.setIngredients(ingredients);
+                                                recipe.setRecipeName(recipeName);
+                                                recipe.setTags(tags);
 
-                                System.out.format("Filename: %s%n",recipe.getRecipeId());
+                                                System.out.format("Filename: %s%n",recipe.getRecipeId());
 
-//                                createRecipe(imageURL);
-                                RecipeSaver recipeSaver = new RecipeSaver();
-                                recipeSaver.setRecipe(recipe);
-                                recipeSaver.pushRecipe(getBaseContext().getFilesDir());
-                                Log.i("PUSH", "success");
-                                Utils.user.addPublicRecipe(recipeID);
+                                                // Add recipe to user's public recipes
+                                                Utils.user.addPublicRecipe(recipeID);
+                                                RecipeSaver recipeSaver = new RecipeSaver();
+                                                recipeSaver.setRecipe(recipe);
+                                                recipeSaver.pushRecipe(getBaseContext().getFilesDir());
+                                                Log.i("PUSH", "success");
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            Intent i = new Intent(CreateActivity.this, NavigateActivity.class);
+                                            i.putExtra("id", 1);
+
+                                            startActivity(i);
+
+                                            //return to MyRecipes
+                                            Toasty.success(CreateActivity.this, "Submitted!", Toast.LENGTH_SHORT).show();
+
+                                            finish();
+                                        }
+                                    });
+
+                                }
                             }
-                            Intent i = new Intent(CreateActivity.this, NavigateActivity.class);
-                            i.putExtra("id", 1);
-//                i.putExtra("bitmap", bitmapByte);
-                            startActivity(i);
+                    );
+                }}
+        });
 
-                            //return to MyRecipes
-                            Toast.makeText(CreateActivity.this, "Submitted!", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    });
+        // Add ingredient
+        iv_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                // first check last one if valid
+                ArrayList<String> amounts = ingAdapter.getAmounts();
+                ArrayList<String> units = ingAdapter.getUnits();
+                ArrayList<String> ingres = ingAdapter.getIngredients();
 
+                if(amounts.size()==0 || ingres.size() == 0 ||
+                        amounts.get(amounts.size()-1).equals("") ||
+                        ingres.get(ingres.size()-1).equals("") ) {
+                    Toasty.error(CreateActivity.this, "Please finish the last one first", Toast.LENGTH_SHORT).show();
+                } else if(!amounts.get(amounts.size()-1).matches("[-+]?[0-9]*\\.?[0-9]+")) {
+                    Toasty.error(CreateActivity.this, "Please input a number for amount", Toast.LENGTH_SHORT).show();
+                } else {
+                    ingAdapter.addData(ingList.size());
                 }
             }
         });
 
-        check.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO Should be the implementation of submit!!!!!!!
-                               String imageName = "coverImg_"
-                                       + Utils.user.getEmail().replaceAll("@", "_")
-                                       .replaceAll(" ", "_").replace('.','_')
-                                       + enterName.getText().toString().replace(' ','_');
-//                String imageName = "coverImg_wmx_bu_edu" + enterName.getText().toString();
-
-                String path = adapter.getPath();
-                Log.i("path", path);
-                Bitmap bitmap = adapter.getBitmap();
-                Log.i("bitmapSave", "" + bitmap.getByteCount());
-                ImageSaver imageSaver = new ImageSaver();
-                imageSaver.pushImage(imageName, bitmap, getBaseContext().getFilesDir(), new ImageCallback() {
-
-                            @Override
-                            public void onCallback(String imageURL) {
-                                Log.i("imageURL", "success" + imageURL);
-                                System.out.print("success");
-                                try {
-
-                                    String userName = Utils.user.getEmail().toString();
-                                    String recipeName = enterName.getText().toString();
-                                    String recipeID = enterName.getText().toString() + "_" + userName.replace('.','_').replace('@','_');
-                                    System.out.println("recipe " + imageURL.toString() + " "  + recipeID + " " + userName);
-                                    JSONArray instructions = getInstructions();
-                                    JSONArray ingredients = getIngredients();
-                                    System.out.println("instruction: " + instructions.toString());
-                                    System.out.println("ingredients: " + ingredients.toString());
-                                    JSONArray tags = getTags(desTags);
-                                    System.out.println("etTags: " + etTags.getText().toString());
-                                    System.out.println("tags: " + tags.toString());
-
-                                    recipe.setMakerName(userName);
-                                    recipe.setBriefDescription("");
-                                    recipe.setRating(0);
-                                    recipe.setProfileURL(Utils.user.getProfileImgURL());
-                                    recipe.setNumOfReviewer(0);
-                                    recipe.setRecipeImageURL(imageURL);
-                                    recipe.setCookTime(Integer.parseInt(time.getText().toString()));
-                                    recipe.setRecipeId(recipeID);
-                                    recipe.setInstructions(instructions);
-                                    recipe.setIngredients(ingredients);
-                                    recipe.setRecipeName(recipeName);
-                                    recipe.setTags(tags);
-
-                                    System.out.format("Filename: %s%n",recipe.getRecipeId());
-
-//                                createRecipe(imageURL);
-                                    RecipeSaver recipeSaver = new RecipeSaver();
-                                    recipeSaver.setRecipe(recipe);
-                                    recipeSaver.pushRecipe(getBaseContext().getFilesDir());
-                                    Log.i("PUSH", "success");
-                                    Utils.user.addPrivateRecipe(recipe);
-
-
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-                                Intent i = new Intent(CreateActivity.this, NavigateActivity.class);
-                                i.putExtra("id", 1);
-//                i.putExtra("bitmap", bitmapByte);
-                                startActivity(i);
-                                Toast.makeText(CreateActivity.this, "Saved as draft", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        }
-                );
-            }
-        });
-
-
-        iv_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ingAdapter.addData(ingList.size());
-            }
-        });
-
+        // Add instruction
         step_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CreateActivity.this, "add clicked", Toast.LENGTH_SHORT).show();
+                Toasty.normal(CreateActivity.this, "add clicked", Toast.LENGTH_SHORT).show();
 //                resetMedia();
-                insAdapter.addData(insList.size());
+
+                ArrayList<String> pathList;
+                pathList = insAdapter.getPaths();
+                ArrayList<String> detailList;
+                detailList = insAdapter.getDetail();
+
+                // first check last step is complete or not
+                if(insAdapter.getDetailCount() == 0 || insAdapter.getInsImageCount() == 0
+                        || pathList.get(pathList.size()-1).equals("") ||
+                        detailList.get(detailList.size()-1).equals("")) {
+                    Toasty.error(CreateActivity.this,"Please finish the last step first",Toast.LENGTH_SHORT).show();
+                } else {
+                    insAdapter.addData(insList.size());
+                }
             }
         });
     }
@@ -477,28 +514,65 @@ public class CreateActivity extends AppCompatActivity {
         ingRV = (RecyclerView) findViewById(R.id.ingredients);
     }
 
-    private JSONArray getInstructions() {
+    /***
+     * getInstructions
+     *
+     * @param callback     RecipeCallback  Gets a JSONArray back. Should be the instructions with urls
+     *
+     * Gets instructions back through the callback
+     ***/
+    private void  getInstructions(RecipeCallback callback) {
         JSONArray instructions = new JSONArray();
 
-
         int count = insAdapter.getItemCount();
-
-         for(int i = 0; i < count; i++) {
+        ArrayList<String> pathList;
+        pathList = insAdapter.getPaths();
+        ArrayList<String> detailList;
+        detailList = insAdapter.getDetail();
+        for(int i = 0; i < count; i++) {
             JSONObject step = new JSONObject();
-//            String url = "";
+
             String imageName = enterName.getText().toString() + "_" + i;
-            String path = insAdapter.getPath();
-            Log.i("path", path);
+            if (pathList.size() == 0) {
+                callback.onCallBack(new JSONArray());
+                return;
+            }
+            String path = pathList.get(i);
+            String detail = detailList.get(i);
+            System.out.println("PathList" + path);
             Bitmap bitmap = insAdapter.getBitmap(path);
             Log.i("bitmapSave", "" + bitmap.getByteCount());
+
+            // Add step and image to instructions
+            try {
+                step.put("step", detail);
+                step.put("stepimg", path);
+                System.out.print("step " + i + detail);
+                System.out.print("step " + i + path);
+                instructions.put(i, step);
+
+            } catch (JSONException e) {
+
+            }
+
+            // Push step image to cloud storage and get url back
             ImageSaver imageSaver = new ImageSaver();
-            imageSaver.pushImage(imageName, bitmap, getBaseContext().getFilesDir(), new ImageCallback() {
+            imageSaver.pushImage(imageName, bitmap, getBaseContext().getFilesDir(),i, new InstructionsCallback() {
                 @Override
-                public void onCallback(String imageURL) {
- //                   Log.i("step", "success" + imageURL);
+                public void onCallback(String imageURL,int i) {
+                    //                   Log.i("step", "success" + imageURL);
                     System.out.print("step upload success");
                     try {
-                        step.put("image", imageURL);
+                        JSONObject temp = instructions.getJSONObject(i);
+                        temp.put("image", imageURL);
+                        Log.i("GETINSTRUCTIONS", "success" + i);
+//                        instructions.remove(j);
+                        instructions.put(i,temp);
+                        stepNum++;
+                        if(stepNum >= count) {
+                            callback.onCallBack(instructions);
+
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -506,41 +580,53 @@ public class CreateActivity extends AppCompatActivity {
                 }
             });
 
-
-            try {
-                Log.i("step", "success" + insAdapter.getDetail());
-                step.put("step", insAdapter.getDetail());
-                System.out.print("step " + i + step.toString());
-                instructions.put(i, step);
-//                System.out.print("step" + i + instructions.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
-        return instructions;
+        return;
     }
 
 
-
+    /***
+     * getingredients
+     *
+     * @return JSONArray      The list of ingredients (JSONObjects with tags "name", "amount", and "unit"
+     * @throws JSONException  Uses JSONObjects/JSONArrays
+     *
+     * Get JSONArray of ingredients
+     */
     private JSONArray getIngredients() throws JSONException {
         JSONArray ingredients = new JSONArray();
         int ingredientCnt = ingAdapter.getItemCount();
 
+        ArrayList<String> amounts = ingAdapter.getAmounts();
+        ArrayList<String> units = ingAdapter.getUnits();
+        ArrayList<String> ingres = ingAdapter.getIngredients();
+
+        if (ingres.size() == 0) {
+            return new JSONArray();
+        }
+
+
         for(int i = 0; i < ingredientCnt; i ++) {
+
 
             JSONObject content = new JSONObject();
 
-            Float amount = null;
-            String unit = "";
+            Float amount = 0.0f;
+            String unit = " ";
             String ingre = "";
 
-            amount = ingAdapter.getAmount();
-            unit = ingAdapter.getUnit();
-            ingre = ingAdapter.getIngredient();
+
+            amount = Float.parseFloat(amounts.get(i));
+            try {
+                unit = units.get(i);
+            }catch (Exception e) {
+
+            }
+            ingre = ingres.get(i);
 
             content.put("amount", amount);
             content.put("unit", unit);
-            content.put("ingredient", ingre);
+            content.put("name", ingre);
 
             ingredients.put(i, content);
         }
@@ -548,15 +634,15 @@ public class CreateActivity extends AppCompatActivity {
         return ingredients;
     }
 
-    private JSONArray getTags(ArrayList<String> desTags) throws JSONException {
-
-            tags.put(0, desTags.get(0));
-            for(int i = 1; i < desTags.size(); i++) {
-                String prev = desTags.get(i - 1);
-                int size = prev.length();
-
-                tags.put(i, desTags.get(i).substring(size));
-            }
+    private JSONArray getTags() throws JSONException {
+        tags = new JSONArray();
+        for(int i = 0; i < tagsCnt; i++) {
+            tags.put(i, desTags.get(i));
+        }
+        String[] temp = desTags.get(desTags.size() - 1).split("  ");
+        for(int i = 0; i < temp.length; i++) {
+            tags.put(i, temp[i]);
+        }
         return tags;
     }
 
@@ -655,7 +741,7 @@ public class CreateActivity extends AppCompatActivity {
                 if (aBoolean) {
                     PictureFileUtils.deleteCacheDirFile(CreateActivity.this);
                 } else {
-                    Toast.makeText(CreateActivity.this,
+                    Toasty.normal(CreateActivity.this,
                             getString(R.string.picture_jurisdiction), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -708,293 +794,76 @@ public class CreateActivity extends AppCompatActivity {
                 .forResult(requestCode);
     }
 
-    @NonNull
-    private static MyImageSpanImage[] getSortedImageSpans(final Editable text) {
-        MyImageSpanImage[] spans = text.getSpans(0, text.length(), MyImageSpanImage.class);
-
-        Arrays.sort(spans, new Comparator<MyImageSpanImage>() {
-            @Override
-            public int compare(MyImageSpanImage o1, MyImageSpanImage o2) {
-                int start1 = text.getSpanStart(o1);
-                int start2 = text.getSpanStart(o2);
-                if (start1 > start2) {
-                    return 1;
-                } else if (start1 < start2) {
-                    return -1;
-                }
-                return 0;
-            }
-        });
-        return spans;
-    }
-    private int delIfOverMax() {
-        final Editable text = etTags.getText();
-        int selEndIndex = Selection.getSelectionEnd(text);
-        int lastEnd = 0;
-        MyImageSpanImage[] spans = getSortedImageSpans(text);
-        for (MyImageSpanImage span : spans) {
-            int start = text.getSpanStart(span);
-            int length = init(text, selEndIndex, lastEnd, start);
-            if (length > 0)
-                return length;
-
-            int end = text.getSpanEnd(span);
-            lastEnd = Math.max(end, lastEnd);
-        }
-        int length = text.length();
-        length = init(text, selEndIndex, lastEnd, length);
-        if (length > 0)
-            return length;
-
-        return 0;
-    }
-
-    private int init(Editable text, int selectedIndex, int start, int end) {
-        if (start >= end) {
-            return 0;
-        }
-        if (selectedIndex >= start && selectedIndex <= end) {
-            String blockString = text.subSequence(start, end).toString();
-            int length = calculateLength(blockString);
-            if (length > maxLength) {
-                String rightString = text.subSequence(selectedIndex, end).toString();
-                String leftString = text.subSequence(start, selectedIndex).toString();
-                int rightLength = calculateLength(rightString);
-                int leftLength = calculateLength(leftString);
-                //
-                char[] leftStringChars = toCharArray(leftString);
-                int okIndex = selectedIndex;
-                int charSum = 0;
-                int leaveLength = maxLength - rightLength;
-                for (int i = leftStringChars.length - 1; i >= 0; i--) {
-                    char c = leftStringChars[i];
-                    if ((c & 0xffff) <= 0xff) {
-                        charSum += 1;
-                        okIndex--;
-                    } else {
-                        charSum += 2;
-                        okIndex--;
-                    }
-                    int nowLeaveLength = leftLength - charSum;
-                    if (nowLeaveLength <= leaveLength) {
-                        break;
-                    }
-                }
-                text.replace(okIndex, selectedIndex, "");
-                return selectedIndex - okIndex;
-            }
-        } else {
-            setImageSpan(text, start, end);
-        }
-        return 0;
-    }
-
-
-    private static char[] toCharArray(CharSequence str) {
-        if (str instanceof SpannableStringBuilder) {
-            str.length();
-        }
-        char[] charArray = new char[str.length()];
-        for (int i = 0; i < str.length(); i++) {
-            charArray[i] = str.charAt(i);
-        }
-        return charArray;
-    }
-
-
-
-    private void init() {
-        StringBuilder sb = new StringBuilder();
-        for (String str : source) {
-            str = str.trim().replaceAll(",", "").replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "");
-            if (str.length() == 0) {
-                continue;
-            }
-            sb.append(str);
-        }
-
-        etTags.setText(sb.toString());
-
-        etTags.setSelection(etTags.length());
-
-        int length = 0;
-        Editable text = etTags.getText();
-        for (String str : source) {
-            str = str.trim().replaceAll(",", "").replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "");
-            if (str.length() == 0) {
-                continue;
-            }
-            int strLength = str.length();
-            Bitmap tagImage = getTagImage(str);
-            text.setSpan(new MyImageSpanImage(this, tagImage), length, strLength + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            length += strLength;
-        }
-    }
-
-    private void processImageSpan() {
-        final Editable text = etTags.getText();
-        MyImageSpanImage[] spans = getSortedImageSpans(text);
-        source.clear();
-        int lastEnd = 0;
-        for (MyImageSpanImage span : spans) {
-            int start = text.getSpanStart(span);
-            int end = text.getSpanEnd(span);
-            if (lastEnd == end || start == end) {
-                lastEnd = end;
-                continue;
-            }
-            lastEnd = end;
-            source.add(text.toString().substring(start, end));
-        }
-
-        this.source = source;
-        finish();
-    }
-
-    public static float getTextViewLength(TextView textView, String text) {
-        if (text == null) {
-            return 0;
-        }
-        TextPaint paint = textView.getPaint();
-        float textLength = paint.measureText(text);
-        return textLength;
-    }
-
-    private static class MyImageSpanText extends ImageSpan {
-
-        public MyImageSpanText(Context context, Bitmap b) {
-            super(context, b);
-        }
-    }
-
-    private static class MyImageSpanImage extends ImageSpan {
-
-        public MyImageSpanImage(Context context, Bitmap b) {
-            super(context, b);
-        }
-    }
-
-    public void setSoftInputVis(View view, boolean vis) {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (vis) {
-            imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
-        } else {
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
-    public int getPx(int dp) {
-        return (int) (getResources().getDisplayMetrics().density * dp);
-    }
-
-    public int calculateLength(CharSequence c) {
-
-        if (!isChinese2English) {
-            return c.length();
-        }
-
-        double len = 0;
-        for (int i = 0; i < c.length(); i++) {
-            char cc = c.charAt(i);
-            if ((cc & 0xffff) <= 0xff) {
-                len += 0.5;
-            } else {
-                len++;
-            }
-        }
-        len = len * 2;
-        return (int) Math.round(len);
-    }
-    private void initTags() {
-        final Editable text = etTags.getText();
-        if(!desTags.contains(text.toString())) {
-            desTags.add(text.toString());
-        }
-        int lastEnd = 0;
-        MyImageSpanImage[] spans = getSortedImageSpans(text);
-
-        for (MyImageSpanImage span : spans) {
-            int start = text.getSpanStart(span);
-            int end = text.getSpanEnd(span);
-            if (lastEnd < start) {
-                setImageSpan(text, lastEnd, start);
-            }
-
-            lastEnd = Math.max(end, lastEnd);
-        }
-        if (lastEnd != text.length()) {
-            setImageSpan(text, lastEnd, text.length());
-        }
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        length = charSequence.length();
 
     }
 
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-    private void setImageSpan(Editable text, int start, int end) {
-        Bitmap tagImage = getTagImage(text.subSequence(start, end).toString());
-        for (MyImageSpanText span2 : text.getSpans(0, etTags.length(), MyImageSpanText.class)) {
-            text.removeSpan(span2);
-        }
-        text.setSpan(new MyImageSpanImage(this, tagImage), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
-    private Bitmap getImage(String string, boolean isHint) {
-        if (string == null) {
-            return null;
+    @Override
+    public void afterTextChanged(Editable s) {
+        if(length == s.length() || s.length() == 0) {
+            return;
         }
-        FrameLayout fl = new FrameLayout(this);
-        fl.setPadding(0, getPx(6), 0, getPx(6));
-        TextView tv = new TextView(this);
-        tv.setMaxLines(1);
-        tv.setLines(1);
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
-        tv.setText(string);
-        tv.setTextColor(isHint ? 0xff888888 : 0xff444444);
-        fl.addView(tv);
-        return getBitmapViewByMeasure(fl, (int) getTextViewLength(tv, string), getPx(32));
+        String content = s.toString();
+        String last = content.substring(content.length() - 1, content.length());
+
+        if(" ".equals(last)) {
+            onSetspan();
+            this.tagsCnt += 1;
+        }
     }
 
 
-    private Bitmap getTagImage(String string) {
-        if (string == null) {
-            return null;
+    /***
+     * onSetSpan
+     *
+     * Creates description tags
+     ***/
+    private void onSetspan() {
+        String content = etTags.getText().toString();
+        this.desTags.add(content);
+        SpannableString spannable = new SpannableString(content);
+        String[] m = content.split(" ");
+        //       tagsCnt = m.length;
+        int start = 0;
+        int end;
+        for (String str : m) {
+            end = start + str.length();
+            spannable.setSpan(new BackgroundColorSpan(Color.rgb(255, 136, 0)), start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new ForegroundColorSpan(Color.WHITE), start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            start = end + 1;
         }
-        string = string.replaceAll(",", "");
-        if (string.length() == 0) {
-            return null;
-        }
-        FrameLayout fl = new FrameLayout(this);
-        fl.setPadding(getPx(4), getPx(2), getPx(4), getPx(2));
-        TextView tv = new TextView(this);
-        tv.setPadding(getPx(4), getPx(4), getPx(4), getPx(4));
-        tv.setMaxLines(1);
-        tv.setLines(1);
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
-        tv.setText(string);
-        tv.setTextColor(0xffffffff);
-        tv.setBackgroundResource(R.drawable.tag_bg);
-        fl.addView(tv);
-        return getBitmapViewByMeasure(fl, (int) getTextViewLength(tv, string) + getPx(16), getPx(32));
-    }
-
-    public static Bitmap getBitmapViewByMeasure(View view, int width, int height) {
-
-        view.setDrawingCacheEnabled(true);
-
-        if (height <= 0) {
-            view.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
-                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-        } else if (height > 0) {
-            view.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
-                    View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
-        }
-        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
-        Bitmap bitmap = null;
+        etTags.setText(spannable);
+        etTags.setSelection(spannable.length());
         try {
-            bitmap = view.getDrawingCache();
-        } catch (Exception e) {
-            e.printStackTrace();
+            tags = getTags();
+        } catch (JSONException e) {
+
         }
-        return bitmap;
+
     }
+
+    @Override
+    public boolean onKey(View view, int i, KeyEvent keyEvent) {
+        String content = etTags.getText().toString();
+        if(content.length()>0){
+            String last = content.substring(content.length()-1,content.length());
+            if(i == KeyEvent.KEYCODE_DEL && !last.equals(" ")){
+                String[] m = content.split(" ");
+                String lastTag = m[m.length-1];
+                content = content.substring(0,content.length()-lastTag.length());
+                etTags.setText(content);
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

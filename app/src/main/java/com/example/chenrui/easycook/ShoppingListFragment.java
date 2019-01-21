@@ -83,6 +83,8 @@ public class ShoppingListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_shopping_list, container, false);
         listView = (ListView)view.findViewById(R.id.listview);
         btnSupermarket = (ImageButton)view.findViewById(R.id.btnStore);
+        ProfileSaver profileSaver = new ProfileSaver();
+        profileSaver.updateProfile(Utils.user,getContext().getFilesDir());
         JSONArray ingArr = Utils.user.getShoppingList();
         Log.d("YANG", "onCreateView: " + ingArr);
         if (ingArr != null){
@@ -107,7 +109,7 @@ public class ShoppingListFragment extends Fragment {
 
 
 
-
+        // Add ingredients manually
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,9 +139,12 @@ public class ShoppingListFragment extends Fragment {
                                     Toasty.error(getContext(),"Please enter valid input",Toast.LENGTH_SHORT, true).show();
                                 }
                                 else {
-                                    items.add(new Item(((TextView) dialogView.findViewById(R.id.addingredient)).getText().toString(), false));
-
+                                    Item item = new Item(((TextView) dialogView.findViewById(R.id.addingredient)).getText().toString(), false);
+                                    items.add(item);
                                     myItemsListAdapter.notifyDataSetChanged();
+                                    JSONArray shopingList = Utils.user.getShoppingList();
+                                    shopingList.put(item.ExportJsonObj());
+                                    Utils.user.setShoppingList(shopingList);
                                     animateFab(btnAdd, true, 200);
                                 }
                             }
@@ -157,6 +162,7 @@ public class ShoppingListFragment extends Fragment {
         });
 
 
+        // Ingredient has been selected
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -174,6 +180,13 @@ public class ShoppingListFragment extends Fragment {
         return view;
     }
 
+    /***
+     * initItems
+     *
+     * @param shoppinglist     ArrayList<String>  List of ingredients
+     *
+     * Get ingredients into a recyclerview
+     */
     public void initItems(ArrayList<String> shoppinglist){
         if(items == null) {
             items = new ArrayList<Item>();
@@ -280,18 +293,22 @@ public class ShoppingListFragment extends Fragment {
             stateList.addState(new int[] {statePressed}, new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.rect)));
 
             viewHolder.checkBox.setButtonDrawable(stateList);
+
+            // Check button
             viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     list.get(position).checked = !list.get(position).isChecked();
                     JSONArray newIngArr = new JSONArray();
                     for (Item i : list){
-                        newIngArr.put(i);
+                        newIngArr.put(i.ExportJsonObj());
                     }
                     Utils.user.setShoppingList(newIngArr);
                     ((ListView) parent).performItemClick(view, position, 0);
                 }
             });
+
+            // Delete button
             viewHolder.btndelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

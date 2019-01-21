@@ -45,11 +45,11 @@
 
         <ImageView
             android:id="@+id/imgUserPic"
-            android:layout_width="wrap_content"
+            android:layout_width="50sp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_margin="10sp"
-            android:layout_height="wrap_content"
+            android:layout_height="50sp"
             android:foregroundGravity="center_horizontal"
             android:scaleType="fitCenter"
             android:src="@drawable/portrait_photo" />

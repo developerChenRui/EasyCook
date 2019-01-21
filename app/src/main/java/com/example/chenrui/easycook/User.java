@@ -65,6 +65,10 @@ public class User {
         return profileImgURL;
     }
 
+    public void setProfileImgURL(String profileImgURL) {
+        this.profileImgURL = profileImgURL;
+    }
+
     public JSONArray getShoppingList() {
         return shoppingList;
     }
@@ -107,28 +111,34 @@ public class User {
     public void addIngredient(String ingredient) {
         try {
             for (int i = 0; i < this.shoppingList.length(); i++) {
-                if (((Item)this.shoppingList.get(i)).ItemString.equals(ingredient)) {
+                if (this.shoppingList.getJSONObject(i).getString("name").equals(ingredient)) {
+                    if (this.shoppingList.getJSONObject(i).getBoolean("checked")) {
+                        this.shoppingList.getJSONObject(i).remove("checked");
+                        this.shoppingList.getJSONObject(i).put("checked",false);
+
+                    }
                     return;
                 }
             }
-            this.shoppingList.put(ingredient);
+            JSONObject ing = new JSONObject();
+            ing.put("name",ingredient);
+            ing.put("checked",false);
+            this.shoppingList.put(ing);
         } catch (JSONException e) {
 
         }
     }
 
-    public void removeIngredient(String ingredient) {
-        try {
-            for (int i = 0; i < this.shoppingList.length(); i++) {
-                if (((Item)this.shoppingList.get(i)).ItemString.equals(ingredient)) {
-                    this.shoppingList.remove(i);
-                    return;
-                }
-            }
-        } catch (JSONException e) {
-
-        }
-    }
+//    public void removeIngredient(String ingredient) {
+//        try {
+//            for (int i = 0; i < this.shoppingList.length(); i++) {
+//                if ()
+//                }
+//            }
+//        } catch (JSONException e) {
+//
+//        }
+//    }
 
     public void addPublicRecipe(String recipeID) {
         try {

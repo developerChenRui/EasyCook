@@ -4,19 +4,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+/***
+ * Recipe
+ *
+ * Stores all relevant recipe information
+ ***/
 public class Recipe {
-    private String recipeName;
-    private String briefDescription;
-    private float rating;
-    private String recipeImageURL;
-    private String profileURL;
-    private String makerName;
-    private int cookTime;
-    private int numOfReviewer;
-    private JSONArray ingredients;
-    private JSONArray instructions;
-    private JSONArray tags;
+    private String recipeName = "";
+    private String briefDescription = "";
+    private float rating = 0.0f;
+    private String recipeImageURL = "";
+    private String profileURL = "";
+    private String makerName = "";
+    private int cookTime = 0;
+    private int numOfReviewer = 0;
+    private JSONArray ingredients = new JSONArray();
+    private JSONArray instructions = new JSONArray();
+    private JSONArray tags = new JSONArray();
 
     private String recipeId;
 
@@ -148,6 +152,13 @@ public class Recipe {
         return this.tags;
     }
 
+    /***
+     * getFlatTags
+     *
+     * @return     String  Flat representation of the tags
+     *
+     * Flattens tags for easy storage in the Realtime Database
+     ***/
     public String getFlatTags() {
         StringBuilder sTags = new StringBuilder("");
         for (int i = 0; i < this.tags.length(); i++) {
@@ -164,6 +175,16 @@ public class Recipe {
         return sTags.toString();
     }
 
+
+    /***
+     * addIngredients
+     *
+     * @param ingredient     String  Name of ingredient
+     * @param amount         float   Amount of ingredient
+     * @param measure        String  Unit
+     *
+     * Add ingredient to ingredients list
+     ***/
     public void addIngredients(String ingredient, float amount, String measure) {
         try{
             JSONObject ing = new JSONObject();
@@ -178,7 +199,7 @@ public class Recipe {
 
     public void fromJSON(JSONObject jsonIn) {
         try {
-            this.recipeName = jsonIn.getString("recipeName");
+            this.recipeName = jsonIn.getString("name");
             this.briefDescription = jsonIn.getString("briefDescription");
             this.rating = (float)jsonIn.getDouble("rating");
             this.recipeImageURL = jsonIn.getString("recipeImageURL");
@@ -198,7 +219,7 @@ public class Recipe {
     public JSONObject toJSON() {
         JSONObject out = new JSONObject();
         try {
-            out.put("recipeName",this.recipeName);
+            out.put("name",this.recipeName);
             out.put("briefDescription",this.briefDescription);
             out.put("rating",this.rating);
             out.put("recipeImageURL",this.recipeImageURL);

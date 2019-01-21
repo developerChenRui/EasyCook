@@ -74,13 +74,13 @@ public class RecipeSaver {
                                 recipeJSON = new JSONObject(line);
                                 recipe = new Recipe(
                                         recipeJSON.getString("name"),
-                                        recipeJSON.getString("description"),
+                                        recipeJSON.getString("briefDescription"),
                                         (float) recipeJSON.getDouble("rating"),
-                                        recipeJSON.getString("imageURL"),
+                                        recipeJSON.getString("recipeImageURL"),
                                         recipeJSON.getString("profileURL"),
                                         recipeJSON.getString("makerName"),
                                         recipeJSON.getInt("cookTime"),
-                                        recipeJSON.getInt("numReviewers"),
+                                        recipeJSON.getInt("numOfReviewer"),
                                         recipeJSON.getJSONArray("ingredients"),
                                         recipeJSON.getJSONArray("instructions"),
                                         recipeJSON.getJSONArray("tags"),
@@ -130,13 +130,13 @@ public class RecipeSaver {
         try{
             this.recipeJSON = new JSONObject();
             this.recipeJSON.put("name",recipe.getRecipeName());
-            this.recipeJSON.put("description",recipe.getBriefDescription());
+            this.recipeJSON.put("briefDescription",recipe.getBriefDescription());
             this.recipeJSON.put("rating",recipe.getRating());
-            this.recipeJSON.put("imageURL",recipe.getRecipeImageURL());
+            this.recipeJSON.put("recipeImageURL",recipe.getRecipeImageURL());
             this.recipeJSON.put("profileURL",recipe.getProfileURL());
             this.recipeJSON.put("makerName",recipe.getMakerName());
             this.recipeJSON.put("cookTime",recipe.getCookTime());
-            this.recipeJSON.put("numReviewers",recipe.getNumOfReviewer());
+            this.recipeJSON.put("numOfReviewer",recipe.getNumOfReviewer());
             this.recipeJSON.put("ingredients",recipe.getIngredients());
             this.recipeJSON.put("instructions",recipe.getInstructions());
             this.recipeJSON.put("tags",recipe.getTags());
@@ -168,7 +168,6 @@ public class RecipeSaver {
         // Write recipe to file
         String recipeName = getFileName();
         File recipeFile = new File(path,recipeName);
-        recipeFile.deleteOnExit();
         try {
             FileWriter writer = new FileWriter(recipeFile);
             writer.write(recipeJSON.toString());
@@ -194,6 +193,7 @@ public class RecipeSaver {
         } catch (IOException e) {
             System.err.format("Error opening file: %s%n",e);
         }
+        recipeFile.delete();
 
     }
 
@@ -222,13 +222,13 @@ public class RecipeSaver {
         try{
             this.recipeJSON = new JSONObject();
             this.recipeJSON.put("name",recipeName);
-            this.recipeJSON.put("description",briefDescription);
+            this.recipeJSON.put("briefDescription",briefDescription);
             this.recipeJSON.put("rating",rating);
-            this.recipeJSON.put("imageURL",recipeImageURL);
+            this.recipeJSON.put("recipeImageURL",recipeImageURL);
             this.recipeJSON.put("profileURL",profileURL);
             this.recipeJSON.put("makerName",makerName);
             this.recipeJSON.put("cookTime",cookTime);
-            this.recipeJSON.put("numReviewers",numOfReviewer);
+            this.recipeJSON.put("numOfReviewer",numOfReviewer);
             this.recipeJSON.put("ingredients",ingredients);
             this.recipeJSON.put("instructions",instructions);
             this.recipeJSON.put("tags",tags);
@@ -248,7 +248,6 @@ public class RecipeSaver {
         return getFileName();
     }
 
-    // Search for recipes with search terms. Get JSONArray of Recipe objects through the callback
 
     /***
      * Name: searchRecipes
@@ -340,7 +339,7 @@ public class RecipeSaver {
                     public void onCallBack(JSONArray value) {
                         try {
                             recipeList.put(value.get(0));
-                            System.out.format("Added %s%n", value.get(0).toString());
+                            System.out.format("Added %s%n", ((Recipe)value.get(0)).getRecipeImageURL());
 
                             // Make sure all recipes have been received
                             // DANGEROUS CONCURRENCY
@@ -368,6 +367,85 @@ public class RecipeSaver {
      ***/
     public void fetchRecipes(ArrayList<String> recipeNames, RecipeCallback callback) {
         fetchRecipes(new JSONArray(recipeNames),callback);
+    }
+
+    public void updateUser(String imageURL,String username, String filename) {
+        this.recipeRef = FirebaseStorage.getInstance().getReference().child("recipes/" + filename);
+
+        try {
+            final File localFile = File.createTempFile("recipes", "json");
+            final Task<File> out = recipeRef.getFile(localFile).continueWith(new Continuation<FileDownloadTask.TaskSnapshot, File>() {
+                @Override
+                public File then(@NonNull Task<FileDownloadTask.TaskSnapshot> task) throws Exception {
+                    return localFile;
+                }
+            });
+            System.out.println("Got task");
+            out.addOnSuccessListener(new OnSuccessListener<File>() {
+                @Override
+                public void onSuccess(File file) {
+                    System.out.println("Got file");
+                    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            try {
+                                recipeJSON = new JSONObject(line);
+                                recipe = new Recipe(
+                                        recipeJSON.getString("name"),
+                                        recipeJSON.getString("briefDescription"),
+                                        (float) recipeJSON.getDouble("rating"),
+                                        recipeJSON.getString("recipeImageURL"),
+                                        imageURL,
+                                        username,
+                                        recipeJSON.getInt("cookTime"),
+                                        recipeJSON.getInt("numOfReviewer"),
+                                        recipeJSON.getJSONArray("ingredients"),
+                                        recipeJSON.getJSONArray("instructions"),
+                                        recipeJSON.getJSONArray("tags"),
+                                        recipeJSON.getString("recipeID")
+                                );
+                                recipeJSON = recipe.toJSON();
+
+                                FileWriter writer = new FileWriter(file,false);
+                                writer.write(recipeJSON.toString());
+                                writer.close();
+
+                                Uri recipeURI = Uri.fromFile(file);
+                                System.out.format("Got file URI: %s%n", imageURL);
+                                System.out.format("Got recipe contents: %s%n", recipeJSON);
+
+                                recipeRef.putFile(recipeURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        Log.i("RECIPESAVER","File uploaded successfully");
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.e("RECIPESAVER","File upload failure");
+                                    }
+                                });
+
+                                System.out.format("Got stuff %s%n",line);
+                            } catch (JSONException e) {
+                                System.err.format("JSON File error %s%n",e);
+                            }
+                        }
+                    } catch (IOException x) {
+                        System.err.format("IOException: %s%n", x);
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    System.err.format("Download exception: %s$n",e);
+
+                }
+            });
+
+        } catch (IOException e) {
+            System.err.format("IO exception: %s$n",e);
+        }
     }
 
 

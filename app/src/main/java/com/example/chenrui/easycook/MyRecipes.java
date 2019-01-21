@@ -40,7 +40,11 @@ public class MyRecipes extends Fragment{
     }
 
 
-
+    /***
+     * setPubFlag
+     *
+     * @param pubFlag     boolean  Set the flag determining if this is a public or private recipe fragment
+     */
     public void setPubFlag(boolean pubFlag) {
         this.pubFlag = pubFlag;
     }
@@ -52,12 +56,25 @@ public class MyRecipes extends Fragment{
         ProfileSaver profileSaver = new ProfileSaver();
         profileSaver.updateProfile(Utils.user,getContext().getFilesDir());
 
+        // Check pubFlag for debugging
+        if (pubFlag) {
+            System.out.println("Starting public tab");
+
+        } else {
+            System.out.println("Starting private tab");
+
+        }
+
         lstRecipes = view.findViewById(R.id.lstRecipes);
         recipeList= new ArrayList<>();
         recipeSaver = new RecipeSaver();
         /** do something to pass in the recipeList**/
         Toast.makeText(getContext(),"loading data, please wait", Toast.LENGTH_LONG).show();
+
+        // Private recipe fragment
         if (!pubFlag) {
+
+            // Add all private recipes to the list to be displayed
             idArr = Utils.user.getPrivateRecipes();
             for (int i = 0; i < idArr.length(); i++) {
                 try {
@@ -68,15 +85,24 @@ public class MyRecipes extends Fragment{
                     e.printStackTrace();
                 }
             }
+
+            // Display private recipes
             rvAdapter = new MyRecipesAdapter(recipeList, getContext());
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
             lstRecipes.setLayoutManager(mLayoutManager);
             lstRecipes.setItemAnimator(new DefaultItemAnimator());
             lstRecipes.setAdapter(rvAdapter);
         }
+
+        // Public recipe fragment
         else {
+
+            // Add all public recipes to the list to be displayed
             idArr = Utils.user.getPublicRecipes();
             if (idArr == null) idArr = new JSONArray();
+            System.out.format("Looking for recipes: %s%n",idArr);
+
+            // Get public recipes from cloud storage
             recipeSaver.fetchRecipes(idArr, new RecipeCallback() {
                 @Override
                 public void onCallBack(JSONArray value) {
@@ -89,6 +115,8 @@ public class MyRecipes extends Fragment{
                     }catch (Exception e){
                         e.printStackTrace();
                     }
+
+                    // Add recipes to list
                     rvAdapter = new MyRecipesAdapter(recipeList, getContext());
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                     lstRecipes.setLayoutManager(mLayoutManager);

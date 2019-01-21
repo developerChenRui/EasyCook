@@ -22,14 +22,17 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
+/***
+ * WriteReviewActivity
+ *
+ * Create new reviews
+ ***/
 public class WriteReviewActivity extends AppCompatActivity {
 
     ImageButton btnCloseReview;
     ImageButton btnSaveReview;
     ScaleRatingBar RatingStarInReview;
     EditText editReview;
-//    ImageView addImageToReview;
-//    ImageView deleteImage;
     boolean addSuccessful;
 
     final int SELECT_IMAGE = 0;
@@ -48,8 +51,7 @@ public class WriteReviewActivity extends AppCompatActivity {
         btnSaveReview = findViewById(R.id.btnSaveReview);
         RatingStarInReview = findViewById(R.id.RatingStarInReview);
         editReview = findViewById(R.id.editReview);
-//        addImageToReview = findViewById(R.id.addImageToReview);
-//        deleteImage = findViewById(R.id.deleteImage);
+
 
         btnCloseReview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,8 +64,7 @@ public class WriteReviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 float numOfStar = RatingStarInReview.getRating();
-//                String review = editReview.getText().toString();
-                // add the review to bundle
+
                 Intent intent = new Intent();
                 intent.putExtra("review text", editReview.getText().toString());
                 intent.putExtra("review rating",numOfStar);
@@ -73,52 +74,9 @@ public class WriteReviewActivity extends AppCompatActivity {
         });
 
 
-//        addImageToReview.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // open the phone photo
-//                Intent intent = new Intent();
-//                intent.setType("image/*");
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                startActivityForResult(Intent.createChooser(intent, "Select Picture"),SELECT_IMAGE);
-//            }
-//        });
-//
-//
-//
-//        deleteImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                addSuccessful = false;
-//                addImageToReview.setImageResource(R.drawable.add_image);
-//            }
-//        });
-
     }
 
-//    private void updateReviews(String name, String date){//,Bitmap uploadedImage) {
-//        // review part - recycler view
-//
-//        List<String> profiles = DishItemActivity.profiles;
-//        List<String> names = DishItemActivity.reviewerNames;
-//        List<String> dates = DishItemActivity.dates;
-//        List<Float> starNum = DishItemActivity.starNum;
-//        List<String> reviewers =DishItemActivity.reviewers;
-//
-////        profiles.add(R.drawable.profile);
-//        names.add(name);
-//        dates.add(date);
-//        reviewers.add(editReview.getText().toString());
-//        starNum.add(RatingStarInReview.getRating());
-//
-//
-//        reviews = DishItemActivity.reviews;
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-//        reviews.setLayoutManager(layoutManager);
-//        RecyclerAdapter adapter = new RecyclerAdapter(getBaseContext(),profiles,names,dates,starNum,reviewers);
-//        reviews.setNestedScrollingEnabled(false);
-//        reviews.setAdapter(adapter);
-//    }
+
 
 
 }

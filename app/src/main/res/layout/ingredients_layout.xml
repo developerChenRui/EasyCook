@@ -13,73 +13,79 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/amount"
-            android:layout_width="40sp"
-            android:layout_height="40sp"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:id="@+id/amounts"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="4sp"
-            android:layout_marginTop="10sp"
-            android:ems="10"
-            android:hint="eg: 3"
-            android:inputType="text|number"
-            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.EditText" />
+            android:layout_centerVertical="true"
+            app:counterEnabled="true"
+            app:counterMaxLength="8"
+            app:errorEnabled="true">
 
-        <EditText
-            android:id="@+id/unit"
-            android:layout_width="88dp"
-            android:layout_height="40sp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="62sp"
-            android:layout_marginTop="10sp"
-            android:ems="10"
-            android:hint="eg: g / ml"
-            android:inputType="textPersonName"
-            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.EditText" />
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/amout"
+                android:hint="Amount"
+                android:textSize="15sp" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/ingredient"
-            android:layout_width="wrap_content"
-            android:layout_height="40sp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="10sp"
-            android:layout_marginEnd="4sp"
-            android:layout_toEndOf="@+id/unit"
-            android:ems="10"
-            android:hint="eg: eggs"
-            android:inputType="textPersonName"
-            android:selectAllOnFocus="true"
-            android:textAppearance="@android:style/TextAppearance.Holo.Widget.EditText" />
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:id="@+id/units"
+            android:layout_toRightOf="@id/amounts"
+            android:layout_centerVertical="true"
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
+            app:errorEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/unit"
+                android:hint="Unit"
+                android:textSize="15sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:id="@+id/ingredients"
+            android:layout_toRightOf="@id/units"
+            android:layout_centerVertical="true"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:errorEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ingredient"
+                android:hint="Ingredient"
+                android:textSize="15sp" />
+        </android.support.design.widget.TextInputLayout>
+
 
         <ImageButton
             android:id="@+id/delete"
-            android:layout_width="15sp"
-            android:layout_height="15sp"
+            android:layout_width="25sp"
+            android:layout_height="25sp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="6sp"
-            android:layout_marginTop="0sp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="6sp"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="10sp"
+            android:layout_marginEnd="10sp"
+            android:layout_marginBottom="10sp"
             android:adjustViewBounds="true"
             android:background="@drawable/close"
             android:padding="0dp" />
 
-        <!--<TextView-->
-        <!--android:id="@+id/title"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_marginBottom="5sp"-->
-        <!--android:layout_marginLeft="10sp"-->
-        <!--android:layout_marginTop="10sp"-->
-        <!--android:textColor="@color/grey_600"-->
-        <!--android:textSize="15sp" />-->
 
 
     </RelativeLayout>

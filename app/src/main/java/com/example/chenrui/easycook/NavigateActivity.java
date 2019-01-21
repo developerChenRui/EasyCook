@@ -25,6 +25,11 @@ import java.util.ArrayList;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+/***
+ * NavigateActivity
+ *
+ * Main navigation view. Displays Discovery, Shopping List, and My Recipes
+ ***/
 public class NavigateActivity extends AppCompatActivity implements UserProfile.UserProfileListener,TabRecipes.OnFragmentInteractionListener{
 
 
@@ -44,21 +49,26 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
     // my favorite fragment
     public RecipesFragment favoriteFragment;
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         shoppinglist.clear();
         if(requestCode == GETINGREDIENTS && resultCode == Activity.RESULT_OK) {
+
             // get the ingredients from the dishitemActivity
             for(String s:data.getStringArrayListExtra("shoppingList")) {
                 shoppinglist.add(s);
             }
             shoppingListFragment.initItems(shoppinglist);
+
             // for the returned Rating and returned # of reviewers
             float returnRating = data.getFloatExtra("returnRating",0);
             int  returnNumOfReviewers = data.getIntExtra("returnNumOfReviewers",0);
             CustomAdaptor cAdaptor = dFrag.returnAdaptor();
-            cAdaptor.changeRecipeList(cAdaptor.justOpenPosition,returnRating,returnNumOfReviewers);
+            if(cAdaptor != null) {
+                cAdaptor.changeRecipeList(cAdaptor.justOpenPosition, returnRating, returnNumOfReviewers);
+            }
         }
 
     }
@@ -79,6 +89,7 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigate);
         profileSaver = new ProfileSaver();
+
         // hide the title of actionbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -87,7 +98,6 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
         fTransaction = fManager.beginTransaction();
 
         // Added by Justin for My RecipesFragment tab
-
         dFrag = new DiscoveryFragment();
         fTransaction.add(R.id.FragLayout,dFrag,"Discovery");
 
@@ -103,7 +113,6 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
 
 
 
-    //    fTransaction.add(R.id.FragLayout,dFrag,"Discovery");
 
 
         fTransaction = fManager.beginTransaction();
@@ -151,6 +160,8 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
 
 
 
+
+
         RxPermissions permissions = new RxPermissions(this);
         permissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Observer<Boolean>() {
             @Override
@@ -178,7 +189,7 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
     }
 
     private void pushUserData(){
-//        profileSaver.updateProfile(Utils.user,getFilesDir());
+        profileSaver.updateProfile(Utils.user,getFilesDir());
     }
 
     @Override
@@ -198,5 +209,15 @@ public class NavigateActivity extends AppCompatActivity implements UserProfile.U
         }
 
         super.onResume();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        System.out.format("Navigating to favorite %s%n",savedInstanceState.getInt("id"));
+        switch (savedInstanceState.getInt("id")) {
+            case 1:
+                ((BottomNavigationView)findViewById(R.id.navigation)).setSelectedItemId(R.id.favorite);
+        }
+        super.onRestoreInstanceState(savedInstanceState);
     }
 }

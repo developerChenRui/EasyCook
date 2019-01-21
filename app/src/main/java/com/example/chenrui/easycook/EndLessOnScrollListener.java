@@ -5,9 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 
-/**
+/***
+ * EndLessOnScrollListener
+ *
  * Created by Zhiyi Yang on 11/16/2018
- */
+ *
+ * Allows for endless scrolling in the Discovery fragment
+ ***/
 
 public abstract class EndLessOnScrollListener extends  RecyclerView.OnScrollListener{
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
@@ -28,7 +32,6 @@ public abstract class EndLessOnScrollListener extends  RecyclerView.OnScrollList
         super.onScrolled(recyclerView, dx, dy);
         visibleItemCount = recyclerView.getChildCount();
         totalItemCount = staggeredGridLayoutManager.getItemCount();
-//        firstVisibleItem = staggeredGridLayoutManager.findFirstVisibleItemPosition();
         firstVisibleItem = staggeredGridLayoutManager.findFirstVisibleItemPositions(null)[0];
 
         if (loading) {
@@ -37,11 +40,14 @@ public abstract class EndLessOnScrollListener extends  RecyclerView.OnScrollList
             Log.d(TAG, "totalPageCount:" + totalItemCount);
             Log.d(TAG, "visibleItemCount:" + visibleItemCount);
 
+            // We have more items than can be displayed
             if (totalItemCount > previousTotal) {
                 loading = false;
                 previousTotal = totalItemCount;
             }
         }
+
+        // Need to get more items
         if (!loading && totalItemCount-visibleItemCount <= firstVisibleItem){
             currentPage ++;
             onLoadMore(currentPage);

@@ -22,6 +22,8 @@
             android:layout_height="40dp"
             android:layout_weight="2"
             android:layout_marginRight="10dp"
+            android:inputType="number"
+
             />
     </LinearLayout>
 
@@ -43,6 +45,7 @@
             android:layout_height="40dp"
             android:layout_weight="2"
             android:layout_marginRight="10dp"
+            android:inputType="number"
             />
     </LinearLayout>
 
@@ -64,6 +67,7 @@
             android:layout_height="40dp"
             android:layout_weight="2"
             android:layout_marginRight="10dp"
+            android:inputType="number"
             />
     </LinearLayout>
 

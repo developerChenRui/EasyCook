@@ -2,6 +2,8 @@ package com.example.chenrui.easycook;
 import com.loopj.android.http.*;
 
 public class AsyncHttpRequest {
+
+    // Set up spoonacular constants
     private static final String BASE_URL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/";
     private static final String API_KEY = "ua9TN5jI9Zmsh2GQruoJx9GDuB6kp16z22FjsnpoTwy1GJRizA";
 

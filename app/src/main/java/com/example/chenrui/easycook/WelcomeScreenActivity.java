@@ -28,7 +28,7 @@ public class WelcomeScreenActivity extends WelcomeActivity {
                         .background(R.color.welcome_screen_3)
                 )
                 .page(new BasicPage(R.drawable.gloves,
-                        "My RecipesFragment",
+                        "My Recipes",
                         "Customized your own recipes and share with public")
                         .background(R.color.welcome_screen_4)
                 )

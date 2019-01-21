@@ -36,7 +36,11 @@ import java.util.concurrent.TimeUnit;
 import cz.msebera.android.httpclient.Header;
 import java.sql.Timestamp;
 
-
+/***
+ * Utils
+ *
+ * Static utility functions and values
+ ***/
 public class Utils {
     public static User user= new User();
     public static String username= "";
@@ -129,6 +133,7 @@ public class Utils {
         bundle.putString("recipeImage",recipe.getRecipeImageURL());
         //    bundle.putString("profile",recipe.getProfileURL());
         bundle.putString("makerName",recipe.getMakerName());
+        bundle.putString("profileURL",recipe.getProfileURL());
         bundle.putString("ingredients",recipe.getIngredients().toString());
         bundle.putString("instructions",recipe.getInstructions().toString());
         bundle.putInt("numOfReviewer",recipe.getNumOfReviewer());
@@ -143,6 +148,7 @@ public class Utils {
         recipe.setBriefDescription(bundle.getString("briefDescription"));
         recipe.setRating(bundle.getFloat("rating"));
         recipe.setRecipeImageURL(bundle.getString("recipeImage"));
+        recipe.setProfileURL(bundle.getString("profileURL"));
         //    recipe.setProfileURL(bundle.getString("profile"));
         recipe.setMakerName(bundle.getString("makerName",recipe.getMakerName()));
         try{
@@ -160,24 +166,24 @@ public class Utils {
 
     // http request
 
-
+// TODO: COMMENTED OUT TO REMOVE API CALLS
     private static final String BASE_URL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/";
     private static final String API_KEY = "ua9TN5jI9Zmsh2GQruoJx9GDuB6kp16z22FjsnpoTwy1GJRizA";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
-
+// TODO: COMMENTED OUT TO REMOVE API CALLS
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.addHeader("X-RapidAPI-Key",API_KEY);
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
-
+    // TODO: COMMENTED OUT TO REMOVE API CALLS
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.addHeader("X-RapidAPI-Key",API_KEY);
         client.addHeader("Content-Type", "application/json");
         client.post(getAbsoluteUrl(url), params, responseHandler);
     }
 
-
+// TODO: COMMENTED OUT TO REMOVE API CALLS
     private static String getAbsoluteUrl(String relativeUrl) {
         return BASE_URL + relativeUrl;
     }
@@ -188,7 +194,7 @@ public class Utils {
     public static void randomSearch(final AsyncData callback){
 
         ArrayList<Recipe> recipeList = new ArrayList<>();
-        AsyncHttpRequest.get("recipes/random?number=20",null, new JsonHttpResponseHandler(){
+        AsyncHttpRequest.get("recipes/random?number=10",null, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
@@ -252,7 +258,7 @@ public class Utils {
         ArrayList<Recipe> recipeList = new ArrayList<>();
         if (keyWord != null && keyWord.length() != 0){
             keyWord.replace(" ","+");
-            AsyncHttpRequest.get("recipes/search?number=30&offset=0&query=" + keyWord, null, new JsonHttpResponseHandler(){
+            AsyncHttpRequest.get("recipes/search?number=2&offset=0&query=" + keyWord, null, new JsonHttpResponseHandler(){
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     try {
@@ -467,18 +473,18 @@ public class Utils {
 
     public static String getRelativeTime(Timestamp timestamp) {
         long relative = System.currentTimeMillis() - timestamp.getTime();
-        if (relative >= (long)1000*60*60*24*365) {
-            return (int) (relative / 1000 * 60 * 60 * 24 * 30) + " years";
-        } else if (relative >= (long)1000*60*60*24*30) {
-            return (int) (relative / 1000 * 60 * 60 * 24 * 30) + " months";
-        } else if (relative >= (long)1000*60*60*24*7) {
-            return (int)(relative/1000*60*60*24*7) + " weeks";
-        } else if (relative >= (long)1000*60*60*24) {
-            return (int)(relative/1000*60*60*24) + " days";
-        } else if (relative >= (long)1000*60*60) {
-            return (int)(relative/1000*60*60) + " hours";
-        } else if (relative >= (long)1000*60) {
-            return (int)(relative/1000*60) + " minutes";
+        if (relative >= ((long)1000*60*60*24*365)) {
+            return (int) (relative / ((long)1000 * 60 * 60 * 24 * 30)) + " years";
+        } else if (relative >= ((long)1000*60*60*24*30)) {
+            return (int) (relative / ((long)1000 * 60 * 60 * 24 * 30)) + " months";
+        } else if (relative >= ((long)1000*60*60*24*7)) {
+            return (int)(relative/((long)1000*60*60*24*7)) + " weeks";
+        } else if (relative >= ((long)1000*60*60*24)) {
+            return (int)(relative/((long)1000*60*60*24)) + " days";
+        } else if (relative >= ((long)1000*60*60)) {
+            return (int)(relative/((long)1000*60*60)) + " hours";
+        } else if (relative >= ((long)1000*60)) {
+            return (int)(relative/((long)1000*60)) + " minutes";
         } else {
             return "Just now";
         }

@@ -30,6 +30,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.stephentuso.welcome.WelcomeHelper;
 
+/***
+ * LoginActivity
+ *
+ * Allows users to login to use the app
+ ***/
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
     private EditText mUsernameEditText;
     private EditText mPasswordEditText;
@@ -41,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private TextView txt_creat;
     private TextView txt_forgot;
     WelcomeHelper welcomeScreen;
+
     // database setting
     private DatabaseReference mDatabase;
 
@@ -51,15 +57,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         welcomeScreen = new WelcomeHelper(this, WelcomeScreenActivity.class);
         welcomeScreen.show(savedInstanceState);
         Utils.user = new User();
-        //welcomeScreen.forceShow();
 
         setContentView(R.layout.activity_login);
         btnGoogleSignIn = (SignInButton)findViewById(R.id.btnGoogleSignIn);
-       // btnSignOut = (Button)findViewById(R.id.btnSignOut);
         btnGoogleSignIn.setOnClickListener(this);
-//        btnSignOut.setOnClickListener(this);
         txt_creat = (TextView) findViewById(R.id.txt_create);
-        //txt_forgot = (TextView) findViewById(R.id.txt_forgot);
 
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,signInOptions).build();
@@ -72,7 +74,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         mPasswordEditText = (EditText) findViewById(R.id.editTextPassword);
         mSubmitButton = (Button) findViewById(R.id.submit);
         txt_creat.setOnClickListener(this);
-       // txt_forgot.setOnClickListener(this);
 
 
         // once submit check the information in the database
@@ -93,6 +94,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             Intent myIntent = new Intent(LoginActivity.this, NavigateActivity.class);
                             Utils.username = profile.getUsername();
                             Utils.user = profile;
+                            Toast.makeText(getBaseContext(),"Welcome " + Utils.username, Toast.LENGTH_SHORT).show();
+
                             startActivity(myIntent);
                         } else {
                             Toast.makeText(getBaseContext(),"Please login again", Toast.LENGTH_SHORT).show();
@@ -125,17 +128,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             case R.id.btnGoogleSignIn:
                 signIn();
                 break;
-//            case R.id.btnSignOut:
-//                signOut();
-//                break;
+
             case R.id.txt_create:
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
                 break;
-//            case R.id.txt_forgot:
-//                Intent i = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
-//                startActivity(i);
-//                break;
+
         }
 
 
@@ -160,8 +158,20 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         });
 
     }
+
+    /***
+     * handleResult
+     *
+     * @param result    GoogleSignInResult  Stores Google login information
+     *
+     * Allows users to use their Google account to sign into the app
+     */
     private void handleResult(GoogleSignInResult result){
+
+        // Login successful
         if(result.isSuccess()){
+
+            // Get account information
             GoogleSignInAccount account = result.getSignInAccount();
             String name = account.getDisplayName();
             String email = account.getEmail();
@@ -171,22 +181,29 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             profile.setEmail(email);
             profile.setPassword("");
             System.out.format("Login profile url: %s %s%n",profile.getUsername(),profile.getEmail());
+
+            // Check to see if user already has a profile
             ProfileSaver profileSaver = new ProfileSaver();
             profileSaver.setProfile(profile);
             profileSaver.checkProfile(getBaseContext().getFilesDir(), new ProfileCallback() {
                 @Override
                 public void onCallback(User profile) {
+
+                    // User doesn't have a profile yet. Has been created
                     if (profile.getEmail().equals("")) {
                         Utils.user = new User();
                         Utils.user.setEmail(email);
                         Utils.user.setUsername(name);
                         Utils.user.setPassword("");
+
+                    // User already has a profile
                     } else {
                         Utils.user = profile;
                     }
-                    Utils.username = profile.getUsername();
+                    Utils.username = Utils.user.getUsername();
 
-                    Utils.user.setUsername(account.getDisplayName());
+//                    Utils.user.setUsername(account.getDisplayName());
+                    Toast.makeText(LoginActivity.this, "Welcome " + Utils.username, Toast.LENGTH_SHORT).show();
 
                     System.out.format("Got profile: %s%n", Utils.user.getUsername());
                     Intent intent = new Intent(getBaseContext(), NavigateActivity.class);
@@ -197,6 +214,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         }
         else{
+            Toast.makeText(LoginActivity.this, "Google Login failed. Please try again.", Toast.LENGTH_SHORT).show();
         }
     }
     @Override

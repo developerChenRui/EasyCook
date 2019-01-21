@@ -13,13 +13,21 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-
+/***
+ * Interface for Google Places API
+ ***/
 class GetNearbyPlacesData extends AsyncTask<Object, String, String> {
 
     private String googlePlacesData;
     private GoogleMap mMap;
     String url;
 
+    /***
+     * doInBackground
+     *
+     * @param objects     Object  GoogleMap object and URL
+     * @return            String  Google Places data
+     */
     @Override
     protected String doInBackground(Object... objects){
         mMap = (GoogleMap)objects[0];
@@ -45,6 +53,13 @@ class GetNearbyPlacesData extends AsyncTask<Object, String, String> {
         showNearbyPlaces(nearbyPlaceList);
     }
 
+    /***
+     * showNearbyPlaces
+     *
+     * @param nearbyPlaceList     List<HashMap<String, String>>  List of places
+     *
+     * Adds markers to the map using the Google Places API
+     ***/
     private void showNearbyPlaces(List<HashMap<String, String>> nearbyPlaceList)
     {
         for(int i = 0; i < nearbyPlaceList.size(); i++)

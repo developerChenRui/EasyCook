@@ -29,6 +29,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
+
+/***
+ * ReviewSaver
+ *
+ * All Review related Firebase interactions should be done through the Review Saver
+ */
 public class ReviewSaver {
 
     private Recipe recipe;
@@ -37,16 +43,7 @@ public class ReviewSaver {
     private int numReviewers;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    /*
-    TODO:Recipe structure:
-        Reviewer name
-        Reviewer profile image
-        Review text
-        Number of stars
-        List of usernames of users who liked the comment
-        Timestamp
 
-     */
 
 
     public void setRecipe(Recipe recipe) {
@@ -65,18 +62,26 @@ public class ReviewSaver {
                     try {
                          Object stuff = dataSnapshot.getValue();
                          if (stuff == null){
+                             averageReview = 0.0f;
+                             numReviewers = 0;
+                             recipe.setNumOfReviewer(0);
+                             recipe.setRating(0.0f);
+                             callback.onCallBack();
                              return;
                          }
                         JSONObject data = new JSONObject((HashMap)stuff);
-                        if (data == null){
-                            return;
-                        }
+
                         averageReview = (float)data.getDouble("averageReview");
                         numReviewers = data.getInt("numReviewers");
                         recipe.setNumOfReviewer(numReviewers);
+                        recipe.setRating(averageReview);
                         callback.onCallBack();
                     } catch (JSONException e) {
-
+                        averageReview = 0.0f;
+                        numReviewers = 0;
+                        recipe.setNumOfReviewer(0);
+                        recipe.setRating(0.0f);
+                        callback.onCallBack();
                     }
                 }
 
@@ -103,7 +108,14 @@ public class ReviewSaver {
         setReviewStats(callback);
     }
 
-    // Adds a review to the database and cloud storage. For path, pass in getBaseContext().getFilesDir()
+    /***
+     * addReview
+     *
+     * @param review     final JSONObject  The review information
+     * @param path       final File        Should always be getBaseContext().getFilesDir()
+     *
+     * Adds a review to the stored recipe's reviews file. If it doesn't exist yet then create a new file
+     ***/
     public void addReview(final JSONObject review, final File path) {
         try{
 
@@ -141,7 +153,6 @@ public class ReviewSaver {
                             if (line == null) {
                                 // Make new file
                                 File reviewFile = new File(path,recipe.getRecipeId());
-                                reviewFile.deleteOnExit();
 
                                 // Write reviews to file
                                 FileWriter writer = new FileWriter(reviewFile,false);
@@ -163,11 +174,24 @@ public class ReviewSaver {
                                         System.out.format("Failed to upload review");
                                     }
                                 });
+                                reviewFile.delete();
                             } else {
                                 do {
                                     try {
                                         // Add review to the JSONArray of reviews
                                         reviews = new JSONArray(line);
+                                        boolean found = false;
+                                        for (int i = 0; i < reviews.length(); i++){
+                                            if (reviews.getJSONObject(i).getString("email").equals(review.getString("email"))) {
+
+                                                reviews.remove(i);
+                                                break;
+                                            }
+                                        }
+
+
+
+
                                         reviews.put(review);
                                         try {
                                             // Write stored reviews to file and push back to cloud
@@ -211,7 +235,6 @@ public class ReviewSaver {
 
                             // Make new file
                             File reviewFile = new File(path,recipe.getRecipeId());
-                            reviewFile.deleteOnExit();
 
                             // Write reviews to file
                             FileWriter writer = new FileWriter(reviewFile,false);
@@ -234,6 +257,8 @@ public class ReviewSaver {
                                 }
                             });
 
+                            reviewFile.delete();
+
                         } catch (IOException f) {
 
                         }
@@ -250,13 +275,29 @@ public class ReviewSaver {
         }
     }
 
+    /***
+     * addReview
+     *
+     * @param recipeID     String            Recipe ID that the review pertains to
+     * @param review       final JSONObject  The review information
+     * @param path         final File        Should always be getBaseContext().getFilesDir()
+     *
+     * Adds a review to a recipe's reviews file. If it doesn't exist yet then create a new file
+     */
     public void addReview(String recipeID, final JSONObject review, final File path) {
         recipe = new Recipe();
         recipe.setRecipeId(recipeID);
         addReview(review,path);
     }
 
-    // Store reviews from the cloud
+
+    /***
+     * fetchReviews
+     *
+     * @param callback      ReviewCallback  Get list of reviews
+     *
+     * Get list of reviews through the callback
+     ***/
     public void fetchReviews(final ReviewCallback callback) {
         final StorageReference reviewRef = FirebaseStorage.getInstance().getReference().child("reviews/" + recipe.getRecipeId());
         try {
@@ -306,12 +347,30 @@ public class ReviewSaver {
         }
     }
 
+
+    /***
+     * fetchReviews
+     *
+     * @param recipeID      String          Recipe ID
+     * @param callback      ReviewCallback  Get list of reviews
+     *
+     * Get list of reviews through the callback
+     ***/
     public void fetchReviews(String recipeID, final ReviewCallback callback){
         this.recipe = new Recipe();
         this.recipe.setRecipeId(recipeID);
         this.fetchReviews(callback);
     }
 
+
+    /***
+     * updateReview
+     *
+     * @param recipeID     String  RecipeID
+     * @param review       Review  Review to update
+     *
+     * Update the information of a review. Usually if a user likes a recipe
+     ***/
     public void updateReview(String recipeID, Review review) {
         final StorageReference reviewRef = FirebaseStorage.getInstance().getReference().child("reviews/" + recipeID);
         try {
@@ -377,6 +436,17 @@ public class ReviewSaver {
         }
     }
 
+
+    /***
+     * ChangeUserLike
+     *
+     * @param recipeID          String   Recipe ID
+     * @param reviewerEmail     String   Email of the reviewer
+     * @param likerEmail        String   Email of the user who liked/unliked the review
+     * @param isAdd             Boolean  Whether it is adding or removing a like
+     *
+     * Update a review's user likes
+     */
     public void changeUserLike(String recipeID, String reviewerEmail, String likerEmail, Boolean isAdd) {
         final StorageReference reviewRef = FirebaseStorage.getInstance().getReference().child("reviews/" + recipeID);
         try {
@@ -415,6 +485,8 @@ public class ReviewSaver {
                                 FileWriter writer = new FileWriter(file);
                                 writer.write(reviews.toString());
                                 writer.close();
+
+                                System.out.println("Wrote reviews to file");
 
                                 Uri reviewURI = Uri.fromFile(file);
                                 reviewRef.putFile(reviewURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

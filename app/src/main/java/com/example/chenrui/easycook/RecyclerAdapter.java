@@ -15,6 +15,11 @@ import com.willy.ratingbar.ScaleRatingBar;
 
 import java.util.List;
 
+/***
+ * RecyclerAdapter
+ *
+ * Stores information for the reviews for a recipe
+ ***/
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>  {
     List<String> names;
     List<String> emails;
@@ -45,6 +50,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             oneReview = view.findViewById(R.id.oneReview);
             liked = view.findViewById(R.id.liked);
 
+            // User has liked a review
             liked.setOnRatingChangeListener(new BaseRatingBar.OnRatingChangeListener() {
                 @Override
                 public void onRatingChange(BaseRatingBar baseRatingBar, float v) {
@@ -94,7 +100,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         if(profiles.get(i).isEmpty()) {
             holder.ReviewProfile.setImageResource(R.drawable.profile);
         } else {
-            Picasso.get().load(profiles.get(i)).into(holder.ReviewProfile);
+            Picasso.get().load(profiles.get(i)).transform(new PicassoCircleTransformation()).into(holder.ReviewProfile);
         }
         holder.oneReview.setText(review.get(i));
         holder.RatingStarInReview.setRating(starNum.get(i));

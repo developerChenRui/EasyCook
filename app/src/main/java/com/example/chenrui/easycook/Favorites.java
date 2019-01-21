@@ -27,6 +27,8 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
+ *
+ * Displays the user's favorited recipes
  */
 public class Favorites extends Fragment {
     private RecyclerView lstFavorites;
@@ -38,7 +40,14 @@ public class Favorites extends Fragment {
         // Required empty public constructor
     }
 
-
+    /***
+     * onCreateView
+     *
+     * @param inflater               LayoutInflater  Inflater to inflate the fragment
+     * @param container              ViewGroup       Viewgroup to inflate the fragment
+     * @param savedInstanceState     Bundle          SavedInstanceState bundle
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,9 +64,13 @@ public class Favorites extends Fragment {
         JSONArray idArr = Utils.user.getFavoriteRecipes();
         if (idArr == null) idArr = new JSONArray();
         try{
+
+            // Go through every favorited recipe
             for (int i = 0; i < idArr.length(); i++){
                 String id = idArr.getString(i);
                 /** dangerous concurrency !!!!!!!!!! **/
+
+                // Spoonacular recipe
                 if (isDigit(id)){
                     Utils.recipeIdSearch(id, new AsyncData() {
                         @Override
@@ -81,6 +94,8 @@ public class Favorites extends Fragment {
                             Log.d("YANG", "onError: " + errorMessage);
                         }
                     });
+
+                // User recipe
                 }else {
                     Favorites.this.recipeSaver.fetchRecipe(id, new RecipeCallback() {
                         @Override
@@ -107,11 +122,11 @@ public class Favorites extends Fragment {
             e.printStackTrace();
         }
 
-//        rvAdapter = new FavoritesAdapter(recipeList, getContext());
-//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-//        lstFavorites.setLayoutManager(mLayoutManager);
-//        lstFavorites.setItemAnimator(new DefaultItemAnimator());
-//        lstFavorites.setAdapter(rvAdapter);
+        rvAdapter = new FavoritesAdapter(recipeList, getContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        lstFavorites.setLayoutManager(mLayoutManager);
+        lstFavorites.setItemAnimator(new DefaultItemAnimator());
+        lstFavorites.setAdapter(rvAdapter);
         return view;
     }
 
@@ -176,6 +191,7 @@ class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.MyViewHolde
         @Override
         public void onClick(View v) {
             Intent i = new Intent(context,DishItemActivity.class);
+            i.putExtra("id",1);
             i.putExtras(Utils.Recipe2Bundle(recipeList.get(getAdapterPosition())));
             ((Activity)context).startActivityForResult(i,NavigateActivity.GETINGREDIENTS);
         }

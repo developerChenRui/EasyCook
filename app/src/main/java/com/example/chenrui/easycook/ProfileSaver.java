@@ -22,7 +22,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
+/***
+ * ProfileSaver
+ *
+ * All Firebase interactions should be done through the ProfileSaver
+ ***/
 public class ProfileSaver {
 
     private StorageReference profileRef;
@@ -42,11 +46,21 @@ public class ProfileSaver {
         this.profileJSON = profile.toJSON();
     }
 
+    /***
+     * fetchProfile
+     *
+     * @param email        String           Email of the user being searched
+     * @param callback     ProfileCallback  Callback to notify the app that the profile has been received
+     *
+     * Gets the profile with associated email
+     */
     public void fetchProfile(String email, final ProfileCallback callback) {
         email = email.replace('.','_').replace('@','_');
         this.profileRef = FirebaseStorage.getInstance().getReference().child("users/" + email);
 
         try {
+
+            // Read file locally
             final File localFile = File.createTempFile("users","json");
             final Task<File> out = profileRef.getFile(localFile).continueWith(new Continuation<FileDownloadTask.TaskSnapshot, File>() {
                 @Override
@@ -55,6 +69,8 @@ public class ProfileSaver {
                     return localFile;
                 }
             });
+
+            // Finished downloading profile file
             out.addOnSuccessListener(new OnSuccessListener<File>() {
                 @Override
                 public void onSuccess(File file) {
@@ -62,6 +78,8 @@ public class ProfileSaver {
                         String line;
                         while ((line = reader.readLine()) != null) {
                             try {
+
+                                // Store profile
                                 profileJSON = new JSONObject(line);
                                 profile = new User();
                                 profile.fromJSON(profileJSON);
@@ -69,6 +87,8 @@ public class ProfileSaver {
 
                             }
                         }
+
+                        // Pass profile into callback
                         callback.onCallback(profile);
                     } catch (IOException e) {
 
@@ -85,6 +105,14 @@ public class ProfileSaver {
         }
     }
 
+
+    /***
+     * pushProfile
+     *
+     * @param path     File  Should always be getBaseContext().getFilesDir()
+     *
+     * Pushes current stored profile to cloud storage
+     */
     public void pushProfile(File path) {
         StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
         if (this.profileJSON == null){
@@ -93,7 +121,6 @@ public class ProfileSaver {
 
         String email = this.profile.getCleanEmail();
         File profileFile = new File(path,email);
-        profileFile.deleteOnExit();
         try {
             FileWriter writer = new FileWriter(profileFile);
             writer.write(profileJSON.toString());
@@ -117,8 +144,32 @@ public class ProfileSaver {
         } catch (IOException e) {
 
         }
+        profileFile.delete();
     }
 
+    /***
+     * pushProfile
+     *
+     * @param profile     User  Profile that needs to be pushed
+     * @param path        File  Should always be getBaseContext().getFilesDir()
+     */
+    public void pushProfile(User profile, File path) {
+        this.profile = profile;
+        this.profileJSON = profile.toJSON();
+        pushProfile(path);
+    }
+
+
+    /***
+     * checkProfile
+     *
+     * @param path         File             Should always be getBaseContext().getFilesDir()
+     * @param callback     ProfileCallback  Callback to get a profile object back
+     * @param makeNew      Boolean          If true, make a new profile if one doesn't exist
+     *
+     * Checks the existence of a profile. If none exist, output an empty profile through the callback
+     * If makeNew is true, create a new profile if it doesn't exist.
+     ***/
     public void checkProfile(File path, ProfileCallback callback, Boolean makeNew) {
         String email = this.profile.getCleanEmail();
         this.profileRef = FirebaseStorage.getInstance().getReference().child("users/"+email);
@@ -151,7 +202,6 @@ public class ProfileSaver {
 
                             String email = profile.getCleanEmail();
                             File profileFile = new File(path,email);
-                            profileFile.deleteOnExit();
                             try {
                                 FileWriter writer = new FileWriter(profileFile);
                                 writer.write(profileJSON.toString());
@@ -175,6 +225,7 @@ public class ProfileSaver {
                             } catch (IOException e) {
 
                             }
+                            profileFile.delete();
                         } else {
                             do {
                                 try {
@@ -202,18 +253,32 @@ public class ProfileSaver {
         }
     }
 
+    /***
+     * checkProfile
+     *
+     * @param profile      User             User profile that should be checked
+     * @param path         File             Should always be getBaseContext().getFilesDir()
+     * @param callback     ProfileCallback  Callback to get a profile object back
+     * @param makeNew      Boolean          If true, make a new profile if one doesn't exist
+     *
+     * Checks the existence of a profile. If none exist, output an empty profile through the callback
+     * If makeNew is true, create a new profile if it doesn't exist. Calls checkProfile
+     ***/
     public void checkProfile(User profile, File path, ProfileCallback callback, Boolean makeNew) {
         this.profile = profile;
         this.profileJSON = profile.toJSON();
         checkProfile(path, callback, makeNew);
     }
 
-    public void pushProfile(User profile, File path) {
-        this.profile = profile;
-        this.profileJSON = profile.toJSON();
-        pushProfile(path);
-    }
 
+    /***
+     * updateProfile
+     *
+     * @param profile     User  Profile that will be used to update information
+     * @param path        File  Should always be getBaseContext().getFilesDir()
+     *
+     * Updates user information with the inputted profile
+     */
     public void updateProfile(User profile, File path) {
         System.out.format("Utils.user: %s%n",Utils.user);
         final StorageReference profileRef = FirebaseStorage.getInstance().getReference().child("users/"+profile.getCleanEmail());
@@ -234,9 +299,9 @@ public class ProfileSaver {
 
                       // Profile doesn't exist? Should never get here
                       if (line == null) {
+
                           // Make new file
                           File profileFile = new File(path, profile.getCleanEmail());
-                          profileFile.deleteOnExit();
 
                           FileWriter fileWriter = new FileWriter(profileFile);
                           fileWriter.write(profile.toJSON().toString());
@@ -246,14 +311,14 @@ public class ProfileSaver {
                           profileRef.putFile(profileURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                               @Override
                               public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                                  System.out.format("Successfully uploaded new review for %s%n", recipe.getRecipeId());
                               }
                           }).addOnFailureListener(new OnFailureListener() {
                               @Override
                               public void onFailure(@NonNull Exception e) {
-//                                  System.out.format("Failed to upload review");
                               }
                           });
+
+                          profileFile.delete();
 
                       // Profile exists
                       } else {

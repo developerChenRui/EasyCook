@@ -11,8 +11,21 @@ import java.util.HashMap;
 import java.util.List;
 
 
+/***
+ * DataParser
+ *
+ * Helps parse data from the Google Places API
+ */
 public class DataParser {
 
+    /***
+     * getPlace
+     *
+     * @param googlePlaceJson     JSONObject               List of places from the Google Places API
+     * @return                    HashMap<String, String>  A HashMap representation of the input
+     *
+     * Restructures the input from a JSONObject to a HashMap
+     ***/
     private HashMap<String, String> getPlace(JSONObject googlePlaceJson)
     {
         HashMap<String, String> googlePlaceMap = new HashMap<>();
@@ -52,6 +65,15 @@ public class DataParser {
         return googlePlaceMap;
 
     }
+
+    /***
+     * getPlaces
+     *
+     * @param jsonArray     JSONArray                      A list of places from the Google Places API
+     * @return              List<HashMap<String, String>>  Reformatted version of the input
+     *
+     * Reformats the input from a JSONArray to a List of HashMaps
+     ***/
     private List<HashMap<String, String>> getPlaces(JSONArray jsonArray)
     {
         int count = jsonArray.length();
@@ -70,6 +92,14 @@ public class DataParser {
         return placelist;
     }
 
+    /***
+     * parse
+     *
+     * @param jsonData      String                         JSON data from the Google Places API
+     * @return              List<HashMap<String, String>>  Reformatted version of the input
+     *
+     * Reformats the input from a JSONArray to a List of HashMaps
+     ***/
     public List<HashMap<String, String>> parse(String jsonData)
     {
         JSONArray jsonArray = null;

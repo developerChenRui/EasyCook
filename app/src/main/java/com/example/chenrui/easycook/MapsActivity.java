@@ -30,6 +30,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+
+/***
+ * MapsActivity
+ *
+ * Displays Google places data for grocery stores
+ ***/
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
 GoogleApiClient.OnConnectionFailedListener,
@@ -70,6 +76,8 @@ GoogleApiClient.OnConnectionFailedListener,
 
         FloatingActionButton fabSupermarket = findViewById(R.id.fabSupermarket);
 
+
+        // Find grocery stores nearby
        fabSupermarket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,6 +135,7 @@ GoogleApiClient.OnConnectionFailedListener,
         client.connect();
 
     }
+
 
     @Override
     public void onLocationChanged(Location location) {

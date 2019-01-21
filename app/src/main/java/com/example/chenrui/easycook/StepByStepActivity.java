@@ -36,10 +36,13 @@ import android.widget.Toast;
 
 import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
 import com.robertlevonyan.views.customfloatingactionbutton.FloatingLayout;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 import edu.washington.cs.touchfreelibrary.sensors.CameraGestureSensor;
 import edu.washington.cs.touchfreelibrary.sensors.ClickSensor;
@@ -83,13 +86,9 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
     Boolean invert = false;
 
 
-
-    // fake image and description
-//    String[] des = {"the first step is to put the oil in the hot pot","the second step is to put the onion into oil and fryyyyyy" +
-//            "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy" +
-//            "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy" +
-//            "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy","hhhahahahahaahahah"};
-    int[] imageRes; //= {R.drawable.cut_egg,R.drawable.salad,R.drawable.hamburger};
+    ArrayList<String> imageURLs; //= {R.drawable.cut_egg,R.drawable.salad,R.drawable.hamburger};
+    int[] imageRes;
+    boolean isSpoon;
     int numOfImage;
 
     public void performLeft(){
@@ -106,7 +105,13 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
         }
         step_description.startAnimation(fadeIn);
         step_description.setMovementMethod(new ScrollingMovementMethod());
-        stepImage.setImageResource(imageRes[cur]);
+
+        if(isSpoon) {
+            stepImage.setImageResource(imageRes[cur]);
+        } else {
+            //TODO picasso
+            Picasso.get().load(imageURLs.get(cur)).into(stepImage);
+        }
 
         fadeIn.setInterpolator(new DecelerateInterpolator()); // add this
         fadeIn.setDuration(1500);
@@ -148,7 +153,12 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
         Animation fadeIn = new AlphaAnimation(0, 1);
         step_description.setMovementMethod(new ScrollingMovementMethod());
         step_description.startAnimation(fadeIn);
-        stepImage.setImageResource(imageRes[cur]);
+        if(isSpoon) {
+            stepImage.setImageResource(imageRes[cur]);
+        } else {
+            //TODO picasso
+            Picasso.get().load(imageURLs.get(cur)).into(stepImage);
+        }
         fadeIn.setInterpolator(new DecelerateInterpolator()); // add this
         fadeIn.setDuration(1500);
         AnimationSet animation = new AnimationSet(false); // change to false
@@ -182,21 +192,29 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
         leftCommand = "left";
         rightCommand = "right";
 
+        // get self made recipe images
+        Bundle bundle = getIntent().getExtras();
+        imageURLs = bundle.getStringArrayList("stepImageArray");
+
 
         // get the instructions
         try {
-            des = new JSONArray(getIntent().getStringExtra("stepBystepInstructions"));
+            des = new JSONArray(bundle.getString("stepBystepInstructions"));
             System.out.format("Got step by step instructions %s%n", des.toString());
         } catch (JSONException e) {
             System.err.format("Error getting step descriptions: %s%n",e);
         }
         numOfImage = des.length();
-        imageRes = new int[numOfImage];
 
-        for(int i=0; i<numOfImage; i++) {
-            imageRes[i] = R.drawable.defaultstep;
+        if(imageURLs.size() <=0) {
+            isSpoon = true;
+            imageRes = new int[des.length()];
+            for(int i=0; i<des.length(); i++) {
+                imageRes[i] = R.drawable.defaultstep;
+            }
+        } else {
+            isSpoon = false;
         }
-
         // register the broadcast to receive the message from voice control service
         mBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -244,7 +262,14 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
         } catch (JSONException e) {
             step_description.setText("Failure");
         }
-        stepImage.setImageResource(imageRes[cur]);
+
+        if(isSpoon) {
+            stepImage.setImageResource(imageRes[cur]);
+        } else {
+            //TODO picasso
+            Picasso.get().load(imageURLs.get(cur)).into(stepImage);
+        }
+
         stepCount.setText("Step " + (cur+1) + " Of " + des.length());
 
 
@@ -294,11 +319,30 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO start the voice control here
-                                Intent i = new Intent(StepByStepActivity.this, TimerActivity.class);
-                                i.putExtra("hour",((TextView)dialogView.findViewById(R.id.setHour)).getText().toString());
-                                i.putExtra("minute",((TextView)dialogView.findViewById(R.id.setMinute)).getText().toString());
-                                i.putExtra("second",((TextView)dialogView.findViewById(R.id.setSecond)).getText().toString());
-                                startActivity(i);
+
+                                try {
+                                    if (Settings.Global.getInt(getContentResolver(), "zen_mode") != 0) {
+
+                                        AlertDialog.Builder customizeDialog =
+                                                new AlertDialog.Builder(StepByStepActivity.this);
+                                        customizeDialog.setTitle("Please Turn Off Do-Not-Disturb Mode!");
+                                        customizeDialog.setPositiveButton("I Know",
+                                                new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                    }
+                                                });
+                                        customizeDialog.show();
+                                    } else {
+                                        Intent i = new Intent(StepByStepActivity.this, TimerActivity.class);
+                                        i.putExtra("hour", ((TextView) dialogView.findViewById(R.id.setHour)).getText().toString());
+                                        i.putExtra("minute", ((TextView) dialogView.findViewById(R.id.setMinute)).getText().toString());
+                                        i.putExtra("second", ((TextView) dialogView.findViewById(R.id.setSecond)).getText().toString());
+                                        startActivity(i);
+                                    }
+                                } catch(Exception e) {
+
+                                }
                             }
                         });
                 customizeDialog.show();
@@ -351,7 +395,6 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
                                             && !notificationManager.isNotificationPolicyAccessGranted()) {
                                         Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                                         StepByStepActivity.this.startActivity(intent);
-                                        return;
                                     }
                                     startService(new Intent(StepByStepActivity.this, VoiceControlService.class));
                                     Toast.makeText(getApplicationContext(), "Start Voice Control", Toast.LENGTH_SHORT).show();
@@ -407,19 +450,7 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
                                     // TODO start the voice control here
                                     gestureControlOn = true;
 
-//                                    inverter.setOnClickListener(new View.OnClickListener() {
-//                                        @Override
-//                                        public void onClick(View v) {
-//                                            invert = ((CheckBox)dialogView.findViewById(R.id.checkInvert)).isChecked();
-//                                            if (invert) {
-//                                                ((TextView)dialogView.findViewById(R.id.txtRight)).setText(R.string.swipe_right_prev);
-//                                                ((TextView)dialogView.findViewById(R.id.txtLeft)).setText(R.string.swipe_left_next);
-//                                            } else {
-//                                                ((TextView)dialogView.findViewById(R.id.txtRight)).setText(R.string.swipe_right_next);
-//                                                ((TextView)dialogView.findViewById(R.id.txtLeft)).setText(R.string.swipe_left_prev);
-//                                            }
-//                                        }
-//                                    });
+
 
                                     // add the mute permission here
                                     NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -427,7 +458,6 @@ public class StepByStepActivity extends AppCompatActivity implements CameraGestu
                                             && !notificationManager.isNotificationPolicyAccessGranted()) {
                                         Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                                         StepByStepActivity.this.startActivity(intent);
-                                        return;
                                     }
                                     if (PermissionUtility.checkCameraPermission(StepByStepActivity.this)) {
                                         //The third passing in represents a separate click sensor which is not required if you just want the hand motions

@@ -16,6 +16,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
+/***
+ * RegisterActivity
+ *
+ * Allows users to create an account with their email
+ ***/
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText mUsernameEditText;
     private EditText mPasswordEditText;

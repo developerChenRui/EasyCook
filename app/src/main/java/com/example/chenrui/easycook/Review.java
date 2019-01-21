@@ -8,7 +8,11 @@ import java.util.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-
+/***
+ * Review
+ *
+ * Stores all relevant information for a review
+ ***/
 public class Review {
     private String username;
     private String email;
@@ -17,6 +21,8 @@ public class Review {
     private float rating;
     private JSONArray userLikes = new JSONArray();
     private Timestamp timestamp;
+
+
 
     Review(String username, String email, String profileImgURL, String text, float rating, Timestamp timestamp) {
         this.username = username;
@@ -48,9 +54,6 @@ public class Review {
         this.rating = rating;
     }
 
-//    public void addUserLike(String username) {
-//        this.userLikes.put(username);
-//    }
 
     public void setTimestamp() {
         this.timestamp = new Timestamp(System.currentTimeMillis());
@@ -111,21 +114,34 @@ public class Review {
     public String getEmail() {return this.email; }
 
     public String getRelativeTime() {
-        long relative = System.currentTimeMillis() - this.timestamp.getTime();
-        if (relative >= (long)1000*60*60*24*365) {
-            return (int) (relative / 1000 * 60 * 60 * 24 * 30) + " years";
-        } else if (relative >= (long)1000*60*60*24*30) {
-            return (int) (relative / 1000 * 60 * 60 * 24 * 30) + " months";
-        } else if (relative >= (long)1000*60*60*24*7) {
-            return (int)(relative/1000*60*60*24*7) + " weeks";
-        } else if (relative >= (long)1000*60*60*24) {
-            return (int)(relative/1000*60*60*24) + " days";
-        } else if (relative >= (long)1000*60*60) {
-            return (int)(relative/1000*60*60) + " hours";
-        } else if (relative >= (long)1000*60) {
-            return (int)(relative/1000*60) + " minutes";
+        long relative = System.currentTimeMillis() - timestamp.getTime();
+        String unit;
+        int time;
+        if (relative >= (1000*60*60*24*365L)) {
+            time = (int) (relative / (1000 * 60 * 60 * 24 * 30L));
+            unit = " year";
+        } else if (relative >= (1000*60*60*24*30L)) {
+            time = (int) (relative / (1000 * 60 * 60 * 24 * 30L));
+            unit = " month";
+        } else if (relative >= (1000*60*60*24*7L)) {
+            time = (int)(relative/(1000*60*60*24*7L));
+            unit = " week";
+        } else if (relative >= (1000*60*60*24L)) {
+            time = (int)(relative/(1000*60*60*24L));
+            unit = " day";
+        } else if (relative >= (1000*60*60L)) {
+            time = (int)(relative/(1000*60*60L));
+            unit = " hour";
+        } else if (relative >= (1000*60L)) {
+            time = (int)(relative/(1000*60L));
+            unit = " minute";
         } else {
             return "Just now";
+        }
+        if (time == 1) {
+            return time + unit;
+        } else {
+            return time + unit + "s";
         }
     }
 

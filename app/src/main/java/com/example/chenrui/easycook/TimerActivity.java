@@ -13,6 +13,11 @@ import android.widget.TextView;
 
 import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
 
+/***
+ * TimerActivity
+ *
+ * Manages the timer
+ ***/
 public class TimerActivity extends AppCompatActivity {
 
     private TextView  hour,minute,second;
@@ -30,7 +35,7 @@ public class TimerActivity extends AppCompatActivity {
     Vibrator vibrator;
     MediaPlayer mp;
 
-    TimerActivity() {
+    public TimerActivity() {
 
     }
 
@@ -159,8 +164,12 @@ public class TimerActivity extends AppCompatActivity {
 
             }
             if(time <=0) {
-                vibrator.cancel();
-                mp.release();
+                if (vibrator != null) {
+                    vibrator.cancel();
+                }
+                if (mp != null) {
+                    mp.release();
+                }
                 finish();
                 TimerActivity.this.finish();
             }

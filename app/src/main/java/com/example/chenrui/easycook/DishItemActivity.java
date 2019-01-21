@@ -55,6 +55,8 @@ public class DishItemActivity extends AppCompatActivity {
     TextView cookTime;
     Recipe recipe;
 
+    int prev;
+
     TextView reviewNum;
     int NumOfreview = 0;
 
@@ -79,6 +81,8 @@ public class DishItemActivity extends AppCompatActivity {
      List<Boolean> likes = new ArrayList<>();
      List<String> emails = new ArrayList<>();
 
+    ArrayList<String> stepImgURL = new ArrayList<>();
+
     ReviewSaver reviewSaver;
 
     float returnRating;
@@ -95,9 +99,13 @@ public class DishItemActivity extends AppCompatActivity {
             // get the bundle from the DiscoveryFragment
         Bundle bundle = getIntent().getExtras();
 
+        prev = bundle.getInt("id");
+
            // covert bundle to recipe object
         recipe = Utils.Bundle2Recipe(bundle);
         Log.d("CHECKK2",recipe.getRecipeId());
+        System.out.format("DishItem Ingredients %s%n",recipe.getIngredients());
+        System.out.format("DishItem Instructions %s%n",recipe.getInstructions());
 
 
 
@@ -113,10 +121,14 @@ public class DishItemActivity extends AppCompatActivity {
 
         reviews = findViewById(R.id.recyclerReview);
         reviewNum = findViewById(R.id.reviewNum);
+        profile = findViewById(R.id.profile);
 
            // set the components
         // TODO !!!!!!!!!
-        Picasso.get().load(recipe.getRecipeImageURL()).into(dishImage);
+
+        if (!recipe.getRecipeImageURL().equals("")) {
+            Picasso.get().load(recipe.getRecipeImageURL()).into(dishImage);
+        }
         dishTitle.setText(recipe.getRecipeName());
         dishDescription.setText(recipe.getBriefDescription());
 
@@ -124,15 +136,29 @@ public class DishItemActivity extends AppCompatActivity {
         // if the recipe is provided by spoonacular, retrieve the rating and # from database
         reviewSaver = new ReviewSaver();
         reviewSaver.setRecipe(recipe);
+        reviewSaver.setReviewStats(recipe.getRecipeId(), new ReviewCallback() {
+            @Override
+            public void onCallBack() {
+                ratingStar.setRating(reviewSaver.getAverageReview());
+                numOfReviewers.setText("" + reviewSaver.getNumReviewers());
+            }
+        });
 
-       reviewSaver.setReviewStats(recipe.getRecipeId(), new ReviewCallback() {
-           @Override
-           public void onCallBack() {
-               ratingStar.setRating(reviewSaver.getAverageReview());
-               numOfReviewers.setText("" + reviewSaver.getNumReviewers());
-           }
-       });
-        makerName.setText(recipe.getMakerName());
+        if (!recipe.getMakerName().equals("")) {
+            makerName.setText(recipe.getMakerName());
+        }
+
+        if (isDigit(recipe.getRecipeImageURL())) {
+            makerName.setText("Spoonacular");
+        }
+        System.out.format("Setting image for recipe %s%n",recipe.toJSON());
+        System.out.format("Getting maker url: %s%n",recipe.getProfileURL());
+        if (!recipe.getProfileURL().equals("")) {
+            System.out.format("Getting user image: %s%n",recipe.getProfileURL());
+            Picasso.get().load(recipe.getProfileURL()).transform(new PicassoCircleTransformation()).into(profile);;
+        }
+
+//        makerName.setText(recipe.getMakerName());
         cookTime.setText(String.valueOf(recipe.getCookTime()) + " min");
           // dynamic add the ingredient checkbox
         int numOfIngredients = recipe.getIngredients().length();
@@ -174,6 +200,7 @@ public class DishItemActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if(ingredient.isChecked()){
                         //add to the shopping list
+
                         Toasty.success(getBaseContext(), "Successfully add it to the shopping list!", Toast.LENGTH_LONG, true).show();
                         shoppinglist.add(name);
                     }
@@ -192,6 +219,7 @@ public class DishItemActivity extends AppCompatActivity {
         }
           // dynamic add the instructions
         int numOfInstructions = recipe.getInstructions().length();
+        System.out.println("OPENITEMACTIVITY : " + numOfInstructions);
         LinearLayout instructionLayout = findViewById(R.id.instructions);
         LinearLayout.LayoutParams paramsTextView = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         paramsTextView.leftMargin = 30;
@@ -199,10 +227,20 @@ public class DishItemActivity extends AppCompatActivity {
             TextView instruction = new TextView(this);
             try {
                 instructions.add(recipe.getInstructions().getJSONObject(i).getString("step"));
-                instruction.setText((i+1) + "   " +recipe.getInstructions().getJSONObject(i).getString("step"));
+                if(recipe.getInstructions().getJSONObject(i).has("stepimg")){
+                    if(recipe.getInstructions().getJSONObject(i).getString("stepimg") != null &&
+                            !recipe.getInstructions().getJSONObject(i).getString("stepimg").isEmpty()) {
+                        stepImgURL.add(recipe.getInstructions().getJSONObject(i).getString("image"));
+                    }
+                }
+//                System.out.println(recipe.getInstructions().getJSONObject(i).getString("stepimg"));
+                instruction.setText((i+1) + "   " +instructions.get(i));
+                System.out.format("Instructions: %s%n", instructions);
             } catch (JSONException e) {
+                System.err.format("JSONEXCEPTION: %s%n",e);
 
             }
+
 
             instruction.setTextSize(16);
             instruction.setPadding(50, 20, 50, 20);
@@ -301,6 +339,7 @@ public class DishItemActivity extends AppCompatActivity {
                 // return the rating and # of reviewers
                 intent.putExtra("returnRating", returnRating);
                 intent.putExtra("returnNumOfReviewers",returnNumOfReviewers);
+                intent.putExtra("id",prev);
                 finish();
             }
         });
@@ -314,6 +353,7 @@ public class DishItemActivity extends AppCompatActivity {
                 Intent i = new Intent(DishItemActivity.this,StepByStepActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("stepBystepInstructions",recipe.getInstructions().toString());
+                bundle.putStringArrayList("stepImageArray",stepImgURL);
              //   bundle.putParcelableArray("stepImages");
                 i.putExtras(bundle);
                 startActivity(i);
@@ -335,6 +375,7 @@ public class DishItemActivity extends AppCompatActivity {
                     Utils.user.getProfileImgURL(), returnReview, rating, new Timestamp(System.currentTimeMillis()));
 
             Log.d("CHECKK3",recipe.getRecipeId());
+            System.out.format("Pushing review from %s with text %s which is an empty string %s%n",Utils.username,returnReview,reviewToDatabase.toJSON());
             reviewSaver.addReview(recipe.getRecipeId(),reviewToDatabase.toJSON(),getBaseContext().getFilesDir());
 
 
@@ -379,6 +420,40 @@ public class DishItemActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.dish_item_menu, menu);
+        //add the function to perform here
+        menu.getItem(1).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+           @Override
+           public boolean onMenuItemClick(MenuItem item) {
+               JSONArray favs = Utils.user.getFavoriteRecipes();
+               for (int i = 0; i < favs.length(); i++) {
+                   try {
+                       if (recipe.getRecipeId().equals(favs.getString(i))) {
+                           item.setIcon(R.drawable.heart_empty);
+                           Utils.user.removeFavorite(recipe.getRecipeId());
+                           return false;
+                       }
+
+                   } catch (JSONException e) {
+
+                   }
+               }
+               item.setIcon(R.drawable.heart_filled);
+               Utils.user.addFavorite(recipe.getRecipeId());
+               return true;
+           }
+        });
+        JSONArray favor = Utils.user.getFavoriteRecipes();
+        try{
+            for (int i =0; i < favor.length(); i++){
+                if (recipe.getRecipeId().equals(favor.getString(i))){
+                    menu.getItem(1).setIcon(R.drawable.heart_filled);
+                    return true;
+                }
+            }
+            menu.getItem(1).setIcon(R.drawable.heart_empty);
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
         return true;
     }
 
@@ -398,10 +473,22 @@ public class DishItemActivity extends AppCompatActivity {
             return(true);
 
         case R.id.heart:
-            //add the function to perform here
-            return(true);
+
+
+
+
+
 
     }
         return(super.onOptionsItemSelected(item));
+    }
+
+    private boolean isDigit(String id){
+        try{
+            Double.parseDouble(id);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 }
